@@ -1,0 +1,19 @@
+@import "./Portfolio/Homepage.scss";
+@import "./Utility/Carousel.scss";
+@import "./Utility/Consts.scss";
+@import "./Utility/Looper.scss";
+
+.utilCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.utilRoundedBorder {
+  border-radius: 10px;
+}
+
+.appBGColor {
+  background-color: #ff0000;
+  background-color: $bgMain;
+}

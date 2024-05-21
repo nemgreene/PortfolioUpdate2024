@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Danfo&display=swap");
+
+$carouselBorderLowContrast: #777777;
+$carouselBorderHighContrast: #ffffff;
+
+// <uniquifier>: Use a unique and descriptive class name
+
+/* SCSS HEX */
+$eerie-black: #1d1d1dff;
+$hudLowContrast: rgba(29, 29, 29, 0.5);
+
+$dim-gray: #776871ff;
+$light-coral: #ef6f6cff;
+$sage: #9fa786ff;
+$white: #fdfdfdff;
+$whiteLowContrast: #fdfdfd50;
+
+$frameLineOpacity: 0.75;
+
+.frameLineOpacity {
+  opacity: $frameLineOpacity;
+}
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(
+  0deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-right: linear-gradient(
+  90deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-bottom: linear-gradient(
+  180deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-left: linear-gradient(
+  270deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-top-right: linear-gradient(
+  45deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-bottom-right: linear-gradient(
+  135deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-top-left: linear-gradient(
+  225deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-bottom-left: linear-gradient(
+  315deg,
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+$gradient-radial: radial-gradient(
+  #1d1d1dff,
+  #776871ff,
+  #ef6f6cff,
+  #9fa786ff,
+  #fdfdfdff
+);
+
+$bgMain: $sage;
+
+:export {
+  bgMain: $bgMain;
+  eerieBlack: $eerie-black;
+  dimGray: $dim-gray;
+  lightCoral: $light-coral;
+  sage: $sage;
+  white: $white;
+  frameLineOpacity: $frameLineOpacity;
+  whiteLowContrast: $whiteLowContrast;
+  hudLowContrast: $hudLowContrast;
+}
+
+.danfo {
+  font-family: "Danfo", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "ELSH" 0;
+}
+.danfoOutlined {
+  font-family: "Danfo", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "ELSH" 0;
+  //   color: black;
+  //   -webkit-text-fill-color: $bgMain; /* Will override color (regardless of order) */
+  //   -webkit-text-stroke: 1px white;
+}

@@ -1,0 +1,32 @@
+.loopContainer {
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+
+  @for $i from 1 through 13 {
+    &:nth-child(#{$i}) {
+      transform: translateX($i * -20px);
+      background-color: "red";
+    }
+  }
+}
+
+.loop-text {
+  text-transform: uppercase;
+  padding: 0 0.25em;
+}
+
+.loopElem {
+  animation: loopText 5s infinite linear;
+  $var: 13;
+}
+
+@keyframes loopText {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}

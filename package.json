@@ -1,0 +1,34 @@
+{
+  "name": "renderDeployTemplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd ./server && node index.js",
+    "client": "cd client && npm start",
+    "server": "cd server && nodemon server.js",
+    "devInstall": "concurrently --kill-others-on-fail \"cd client && npm install\" \"cd server && npm install\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nemgreene/renderDeployTemplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nemgreene/renderDeployTemplate/issues"
+  },
+  "homepage": "https://github.com/nemgreene/renderDeployTemplate#readme",
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
+    "@react-spring/web": "^9.7.3",
+    "animated-scroll-to": "^2.3.0",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20"
+  }
+}

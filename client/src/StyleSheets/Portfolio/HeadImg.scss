@@ -1,0 +1,45 @@
+.headImg {
+  background-size: contain;
+  mix-blend-mode: multiply;
+}
+.UIContainer2 {
+  position: absolute;
+  height: 1vw;
+  width: 1vw;
+  margin: auto;
+  position: absolute;
+  top: 5vw;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+// .frameButtonArr {
+//   height: 50%;
+//   width: 50%;
+// }
+
+// .radialMenuTabs {
+//   position: absolute;
+//   width: 23vw;
+//   mix-blend-mode: multiply;
+// }
+.radialMenuImg {
+  z-index: 2;
+  position: absolute;
+
+  background-size: 4vw;
+  height: 1.5vw;
+  margin-left: 1vw;
+  //   background: url("../../Images/Portfolio/radialMenuTab.png") no-repeat right;
+  //   mix-blend-mode: multiply;
+  mix-blend-mode: multiply;
+  background-size: contain;
+  transition: transform 0.25s;
+}
+.radialMenuImg:hover {
+  transform: translateX(50%);
+}
+
+.framButtonHidden {
+  opacity: 0;
+}
