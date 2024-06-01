@@ -49,7 +49,11 @@ let portolioTheme = createTheme({
       dark: "#000000",
     },
   },
-  shape: { frameLineOpacity, hudLowContrast: whiteLowContrast },
+  shape: {
+    frameLineOpacity,
+    hudLowContrast: whiteLowContrast,
+    hudThickness: 3,
+  },
 });
 portolioTheme = responsiveFontSizes(portolioTheme);
 

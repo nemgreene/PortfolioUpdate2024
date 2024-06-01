@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 import React from "react";
 import { letters } from "./Utilities/Utilities";
 import { useTheme } from "@emotion/react";
+import { animated, to } from "react-spring";
 
 function FrameButtons(props) {
   const theme = useTheme();
@@ -11,11 +12,12 @@ function FrameButtons(props) {
     return (ret * 15 - 1) / 4 - 43;
   };
   const longer = Array.from("aflrx");
+  const x1 = longer.indexOf(props.name) !== -1 ? 0 : 10;
 
   return (
     <div
       style={{
-        transform: `rotate(${localRotate()}deg) `,
+        transform: `rotate(${localRotate()}deg) scale(-1, -1)`,
         transformOrigin: "0% 50%",
         // // position: "absolute",
         // height: "10px",
@@ -43,12 +45,12 @@ function FrameButtons(props) {
             position: "absolute",
             left: "-100%",
             top: "-20%",
-            height: "130%",
-            width: "300%",
+            height: "15`0%",
+            width: "400%",
           }}
         >
           <Box
-            // className="frameButtonHover"
+            className="frameButtonHover"
             onMouseEnter={props.onChange}
             onMouseLeave={props.onExit}
             sx={{
@@ -66,18 +68,19 @@ function FrameButtons(props) {
             pl="20%"
           >
             <svg
-              height="2"
+              height={theme.shape.hudThickness}
               width="25"
               xmlns="http://www.w3.org/2000/svg"
-              className="frameLineOpacity"
             >
-              <line
-                x1={`${longer.indexOf(props.name) !== -1 ? "0" : "10"}`}
-                x2="30"
+              {console.log(props.ticksSprings)}
+              <animated.line
+                // x2={30}
+                x1={x1}
+                x2={props.ticksSprings[props.index].x1.to((v) => v * 30 + x1)}
                 y1="0"
                 y2="0"
                 stroke={theme.shape.hudLowContrast}
-                strokeWidth="2"
+                strokeWidth={theme.shape.hudThickness}
               />
             </svg>
           </Grid>
@@ -89,7 +92,11 @@ function FrameButtons(props) {
               alignItems="center"
               className="hide"
             >
-              <svg height="4" width="10">
+              <animated.svg
+                style={{ opacity: props.ticksSprings[props.index].o }}
+                height="4"
+                width="10"
+              >
                 <circle
                   cx="2"
                   cy="2"
@@ -99,7 +106,7 @@ function FrameButtons(props) {
                   strokeWidth="2"
                   stroke={theme.shape.hudLowContrast}
                 />
-              </svg>
+              </animated.svg>
             </Grid>
             <Grid
               item
@@ -110,10 +117,18 @@ function FrameButtons(props) {
             >
               <Grid
                 item
-                sx={{ fontSize: ".75rem", color: theme.shape.hudLowContrast }}
+                sx={{
+                  fontSize: ".75rem",
+                  color: theme.shape.hudLowContrast,
+                  transform: "scale(-1, -1)",
+                }}
                 className="hide"
               >
-                {letters.indexOf(props.name) + 1}
+                <animated.span
+                  style={{ opacity: props.ticksSprings[props.index].o }}
+                >
+                  {letters.indexOf(props.name) + 1}
+                </animated.span>
               </Grid>
             </Grid>
           </Grid>

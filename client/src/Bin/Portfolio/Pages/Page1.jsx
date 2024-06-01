@@ -1,42 +1,57 @@
-import { Box, Container } from "@mui/material";
-import React from "react";
+import { Box, Container, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import HeadImg from "../../Portfolio/HeadImg";
 import { useTheme } from "@emotion/react";
+import HomepageNav from "../Components/HomepageNav";
+import head from "../../../Images/Portfolio/head.gif";
 
-export default function Page1({ image, handleExit, handleHover }) {
+import { letters } from "../Utilities/Utilities";
+
+export default function Page1({ scrollYProgress, gridSprings, ticksSprings }) {
+  const [image, cImage] = useState(head);
+
+  const handleHover = (e) => {
+    let name = e.target.getAttribute("name");
+    let index = letters.indexOf(name);
+    console.log(name, index);
+    if (!isNaN(index) && name) {
+      cImage(index);
+    }
+  };
+
+  const handleExit = (event) => {
+    cImage(head);
+  };
+
   const theme = useTheme();
   return (
-    <Container
-      className="utilCenter"
-      sx={{
-        height: "100%",
-        width: "100%",
-        margin: 0,
-        padding: 0,
+    <Box
+      sx={(theme) => ({
+        bgcolor: theme.palette.background.eerieBlack,
+        color: theme.palette.background.white,
         display: "flex",
-      }}
+        flexDirection: "column",
+        minHeight: "100vh",
+      })}
     >
-      <Box
-        className="utilCenter"
+      <HomepageNav gridSprings={gridSprings} />
+
+      <Grid
+        container
         sx={{
-          bgcolor: theme.palette.background.eerieGray,
-          padding: "15% 0",
-          width: "100%",
+          justifyContent: "flex-end",
+          height: "100%",
+          flex: 2,
         }}
       >
-        <Box
-          sx={{
-            height: "fitContent",
-            width: "fitContent",
-          }}
-        >
-          <HeadImg
-            imageSet={image}
-            handleExit={handleExit}
-            handleHover={handleHover}
-          />
-        </Box>
-      </Box>
-    </Container>
+        <HeadImg
+          imageSet={image}
+          handleHover={handleHover}
+          handleExit={handleExit}
+          gridSprings={gridSprings}
+          ticksSprings={ticksSprings}
+        />
+      </Grid>
+    </Box>
   );
 }

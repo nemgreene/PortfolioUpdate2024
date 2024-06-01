@@ -1,76 +1,84 @@
-import React, { useState } from "react";
-import head from "../../../Images/Portfolio/head.gif";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 
 // import FrameButtonArr from "./FrameButtonArr";
-import { useSpring, animated } from "react-spring";
+import { useChain, useSpringRef, useTrail, useScroll } from "react-spring";
 
-// import center from "../../Images/Portfolio/toast.jpg";
-// import thumb1 from "../../Images/Portfolio/thumb1.png";
-// import thumb2 from "../../Images/Portfolio/thumb2.png";
-// import thumb3 from "../../Images/Portfolio/thumb3.png";
-// import thumb4 from "../../Images/Portfolio/thumb4.png";
-// import hand from "../../Images/Portfolio/manito1.png";
-// import gmail from "../../Images/Portfolio/gm.png";
-// import art from "../../Images/Portfolio/as.png";
-// import git from "../../Images/Portfolio/gh.png";
-// import helloWorld from "../../Images/Portfolio/helloWorld.png";
-
-import HeadImg from "../HeadImg";
-import { Container } from "@mui/material";
-import { letters } from "../Utilities/Utilities";
 import Page1 from "./Page1";
 import Page2 from "./Page2";
-import { useTheme } from "@emotion/react";
+import HoverButton from "../Components/HoverButton";
+import Twinkler from "../Components/Twinkler";
+import HomepageNav from "../Components/HomepageNav";
 // import AboutUnderlay from "./About";
 // import ProjectsUnderlay from "./Projects";
 // import ContactUnderlay from "./Contact";
 // import Onload from "./onload";
-
 const Homepage = () => {
-  const theme = useTheme();
-  const [image, cImage] = useState(head);
+  const [loaded, setLoaded] = useState(false);
 
-  const handleHover = (e) => {
-    let name = e.target.getAttribute("name");
-    let index = letters.indexOf(name);
-    if (index && name) {
-      cImage(index);
-    }
-  };
+  // Nav bar grid animations, page 1
+  const [ticksSprings, ticksApi] = useTrail(
+    24,
+    (index) => ({
+      from: { x1: 0, o: 0 },
+      to: [
+        { x1: 1, o: 0 },
+        { x1: 1, o: 1 },
+      ],
+      delay: 1000 + index * 50,
+      config: { duration: 100 },
+    }),
+    []
+  );
 
-  const handleExit = (event) => {
-    cImage(head);
-  };
+  const gridApi = useSpringRef();
+  const gridSprings = useTrail(10, {
+    ref: gridApi,
+    from: {
+      x2: 0,
+      y2: 0,
+      c1: 1,
+      c2: 0,
+    },
+    to: {
+      x2: loaded ? 100 : 0,
+      y2: loaded ? 100 : 0,
+      c1: loaded ? 0 : 1,
+      c2: loaded ? 1 : 0,
+    },
+    config: { duration: 150 },
+  });
+
+  // const { scrollYProgress } = useScroll({
+  //   // container: containerRef,
+  //   onChange: ({ value: { scrollYProgress } }) => {
+  //     console.log(scrollYProgress);
+  //     if (scrollYProgress > 0.5) {
+  //       gridApi.start();
+  //     }
+  //   },
+  //   default: {
+  //     immediate: true,
+  //   },
+  // });
+  useChain([gridApi, ticksApi]);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
     <Box
-      className="App utilCenter"
+      className="App"
       sx={(theme) => ({
         bgcolor: theme.palette.background.eerieBlack,
+        color: theme.palette.background.white,
+        display: "flex",
+        flexDirection: "column",
+        height: "fitContent",
       })}
     >
-      <Box
-        sx={(theme) => ({
-          zIndex: "1",
-          flexDirection: "row-reverse",
-          display: "flex",
-          height: "85vh",
-          width: "85vw",
-          bgcolor: theme.palette.background.eerieBlack,
-        })}
-      >
-        <Box sx={{ width: "60%" }}>
-          <Page1
-            handleExit={handleExit}
-            handleHover={handleHover}
-            image={image}
-          />
-        </Box>
-        <Box sx={{ width: "40%" }}>
-          <Page2></Page2>
-        </Box>
-      </Box>
+      <Page1 gridSprings={gridSprings} ticksSprings={ticksSprings} />
     </Box>
   );
 };
