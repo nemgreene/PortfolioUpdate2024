@@ -30,29 +30,6 @@ const Homepage = ({ setInitialized, initialized }) => {
   const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
 
-  // Springs for animating in the ticks on the head image componenet
-  const ticksApi = useSpringRef();
-  const [ticksSprings] = useSprings(24, (i) => ({
-    ref: ticksApi,
-    from: {
-      x1: 0,
-      o: 0,
-    },
-    to: [
-      {
-        x1: 100,
-        o: 0,
-      },
-      {
-        x1: 100,
-        o: 1,
-      },
-    ],
-    delay: initialized ? 0 : i * 50,
-    config: { duration: initialized ? 0 : 150 },
-    immediate: initialized,
-  }));
-
   // Svg fade ins, Grid around the nv bar, and the circle around head image
   const gridApi = useSpringRef();
   const [gridSprings] = useSprings(10, (i) => ({
@@ -76,16 +53,27 @@ const Homepage = ({ setInitialized, initialized }) => {
     immediate: initialized,
   }));
 
-  //Load in content ready for interaction
-  const loadApi = useSpringRef();
-  const [loadSprings] = useSpring((i) => ({
-    ref: loadApi,
+  // Springs for animating in the ticks on the head image componenet
+  const ticksApi = useSpringRef();
+  const [ticksSprings] = useSprings(24, (i) => ({
+    ref: ticksApi,
     from: {
-      opacity: 0,
+      x1: 0,
+      o: 0,
     },
-    to: {
-      opacity: 1,
-    },
+    to: [
+      {
+        x1: 100,
+        o: 0,
+      },
+      {
+        x1: 100,
+        o: 1,
+      },
+    ],
+    delay: initialized ? 0 : i * 50,
+    config: { duration: initialized ? 0 : 150 },
+    immediate: initialized,
   }));
 
   const [projectsT, projectsTApi] = Typewriter(
@@ -107,6 +95,24 @@ const Homepage = ({ setInitialized, initialized }) => {
       ),
     initialized
   );
+  const loadRef = useSpringRef();
+  const [loadSprings] = useSprings(1, (i) => ({
+    ref: loadRef,
+
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    delay: 1,
+    immediate: initialized,
+    onStart: () => {
+      setInitialized(true);
+      console.log("loaded");
+    },
+  }));
+
   useChain(
     loaded
       ? [
@@ -117,17 +123,17 @@ const Homepage = ({ setInitialized, initialized }) => {
           nameTApi,
           gridApi,
           ticksApi,
-          loadApi,
+          loadRef,
         ]
       : []
   );
 
   useEffect(() => {
     setLoaded(true);
-    setTimeout(() => {
-      setInitialized(true);
-      console.log("initialized");
-    }, 80000);
+    // setTimeout(() => {
+    //   setInitialized(true);
+    //   console.log("initialized");
+    // }, 80000);
   }, []);
 
   const containerRef = useRef(null);
@@ -147,7 +153,7 @@ const Homepage = ({ setInitialized, initialized }) => {
       <Page1
         gridSprings={gridSprings}
         ticksSprings={ticksSprings}
-        loadSprings={loadSprings}
+        loadSprings={loadSprings[0]}
         typewriters={[projectsT, bioT, assetsT, initT, nameT]}
       />
       {/* <Twinkler number={5} /> */}
