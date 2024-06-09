@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSprings, animated, useSpring, config } from "@react-spring/web";
 import { ThemeContext, useTheme } from "@emotion/react";
 import HoverButton from "../Components/HoverButton";
-import Clock from "../Components/Clock";
+// import Clock from "../Components/Clock";
 import Rail from "../Components/Rail";
 import { useNavigate } from "react-router-dom";
 export default function Page2Content({

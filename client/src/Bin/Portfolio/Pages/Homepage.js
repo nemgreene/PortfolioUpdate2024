@@ -17,7 +17,7 @@ import HoverButton from "../Components/HoverButton";
 import Twinkler from "../Components/Twinkler";
 import HomepageNav from "../Components/HomepageNav";
 import Typewriter from "../Components/Typewriter";
-import Clock from "../Components/Clock";
+// import Clock from "../Components/Clock";
 import { useTheme } from "@emotion/react";
 // import AboutUnderlay from "./About";
 // import ProjectsUnderlay from "./Projects";
