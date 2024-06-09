@@ -23,7 +23,6 @@ export default function ProjectImageList({ images, setCarouselImages }) {
           rows={v.rows || 1}
           onClick={() => {
             if (setCarouselImages) {
-              console.log(images);
               setCarouselImages(images);
             }
           }}

@@ -1,95 +1,144 @@
 import { Box, Button, Hidden, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useGesture } from "@use-gesture/react";
+
+import { animated, useSpring } from "react-spring";
 export default function HoverButton({
   primary,
   secondary,
   label,
   sx = {},
-  onClick,
+  loadSprings = {},
+  onHover = () => {},
+  onClick = () => {},
+  reset = true,
 }) {
   const theme = useTheme();
+
+  const [hovered, setHovered] = useState(false);
   primary = primary ? primary : theme.palette.common.eerieBlack;
   secondary = secondary ? secondary : theme.palette.common.white;
 
-  const offset = 100;
-  const duration = 0.5;
+  const target = useRef(null);
+
+  const [hoverSpring, hoverApi] = useSpring(
+    () => ({
+      from: { y: 0, yOffset: 100 },
+      // from: { y: 50, yOffset: 50,  },
+      config: { clamp: true, duration: 200 },
+    }),
+    []
+  );
+
+  useGesture(
+    {
+      onHover: ({ hovering }) => {
+        onHover();
+        setHovered(hovering);
+      },
+    },
+    { target, eventOptions: { passive: false } }
+  );
+
+  const handleClick = (v, i) => {
+    if (hovered) {
+      hoverApi.start({ to: { y: 0, yOffset: 100 }, onRest: onClick });
+    } else {
+      hoverApi.start({
+        to: reset
+          ? [
+              { y: 100, yOffset: 0 },
+              { y: 0, yOffset: 100 },
+            ]
+          : [{ y: 0, yOffset: 100 }],
+        onRest: () => onClick(v, i),
+      });
+    }
+  };
+
+  useEffect(() => {
+    hoverApi.start(hovered ? { y: 100, yOffset: 0 } : { y: 0, yOffset: 100 });
+  }, [hovered]);
+
   return (
-    <Box
-      onClick={() => {
-        setTimeout(() => {
-          if (onClick) {
-            onClick();
-          }
-        }, duration);
-      }}
-      sx={{
+    <animated.div
+      className="hoverButtonContainer"
+      ref={target}
+      style={{
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         height: "100%",
         width: "100%",
+        zIndex: 100,
         position: "relative",
-        overflow: "hidden",
-        cursor: "pointer",
-        zIndex: 10,
-        "& .hoverButtonSX": { width: "100%", p: 1 },
-
-        "& .hoverButtonAperture": {
-          transition: `${duration}s`,
-          transform: `translateY(calc(${offset} * 1%))`,
-          "& .hoverButtonSecondary": {
-            transform: `translateY(calc(${offset} * -1%))`,
-            transition: `${duration}s`,
-          },
-        },
-
-        "&:hover": {
-          "& .hoverButtonAperture": {
-            transform: `translateY(0)`,
-            bgcolor: secondary,
-            transition: `${duration}s`,
-            "& .hoverButtonSecondary": {
-              transform: `translateY(0)`,
-              transition: `${duration}s`,
-            },
-          },
-        },
-        ...sx,
+        ...loadSprings,
       }}
     >
-      <Box>
-        <Box className="hoverButtonSX">
-          <Typography
-            variant="h5"
-            align="center"
-            sx={{ fontSize: "30px", color: secondary }}
-          >
-            {label}
-          </Typography>
-        </Box>
-      </Box>
-      <Box
-        className="hoverButtonAperture"
+      <Button
+        disableRipple
         sx={{
-          position: "absolute",
-          top: 0,
+          boxShadow: 0,
+          bgcolor: primary,
           overflow: "hidden",
-          width: "100%",
+          borderRadius: 0,
           height: "100%",
+          width: "100%",
+          p: 0,
+          ...sx,
         }}
+        onClick={(v, i) => handleClick(v, i)}
       >
-        <Box
-          className="hoverButtonSX hoverButtonSecondary"
-          sx={{
-            position: "absolute",
-          }}
+        <div
+          className="utilCenter hoverButtonPrimaryContainer"
+          style={{ height: "100%", backgroundColor: primary, width: "100%" }}
         >
           <Typography
-            variant="h5"
-            align="center"
-            sx={{ fontSize: "30px", color: primary }}
+            variant="h6"
+            sx={{ ...theme.type.mono, color: secondary }}
           >
             {label}
           </Typography>
-        </Box>
-      </Box>
-    </Box>
+        </div>
+        <animated.div
+          className="utilCenter"
+          style={{
+            height: "110%",
+            backgroundColor: secondary,
+            width: "100%",
+            position: "absolute",
+            overflow: "hidden",
+            transform: hoverSpring.yOffset.to((v) => `translateY(${v}%)`),
+          }}
+        >
+          <animated.span
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              left: 0,
+              color: primary,
+              transform: hoverSpring.yOffset.to(
+                (v) => `translateY(${-1 * v}%)`
+              ),
+            }}
+          >
+            <Typography
+              className="utilCenter"
+              variant="h6"
+              sx={{
+                ...theme.type.mono,
+                position: "relative",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {label}
+            </Typography>
+          </animated.span>
+        </animated.div>
+      </Button>
+    </animated.div>
   );
 }

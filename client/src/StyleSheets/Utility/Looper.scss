@@ -17,8 +17,10 @@
 }
 
 .loopElem {
-  animation: loopText 5s infinite linear;
-  $var: 13;
+  // animation: loopText 15s infinite linear;
+  animation-name: loopText;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes loopText {

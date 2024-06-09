@@ -19,6 +19,7 @@ import {
 } from "@mui/material/styles";
 
 import utility from "../src/StyleSheets/Utility/Consts.scss";
+import Contact from "./Bin/Portfolio/Pages/Contact";
 const {
   bgMain,
   eerieBlack,
@@ -54,30 +55,47 @@ let portolioTheme = createTheme({
     hudLowContrast: whiteLowContrast,
     hudThickness: 3,
   },
+  type: {
+    mono: {
+      fontFamily: '"Share Tech Mono", monospace',
+      fontWeight: 400,
+      fontStyle: "normal",
+    },
+  },
 });
 portolioTheme = responsiveFontSizes(portolioTheme);
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <ThemeProvider theme={portolioTheme}>
-        <Homepage />
-      </ThemeProvider>
-    ),
-  },
-  {
-    path: "projects/:projectTitle",
-    element: (
-      <ThemeProvider theme={portolioTheme}>
-        <ScrollToTop />
-        <ProjectDescription />
-      </ThemeProvider>
-    ),
-  },
-]);
-
 function App() {
+  const [initialized, setInitialized] = useState(false);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <Homepage initialized={initialized} setInitialized={setInitialized} />
+        </ThemeProvider>
+      ),
+    },
+    {
+      path: "/contact",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <Contact />
+        </ThemeProvider>
+      ),
+    },
+    {
+      path: "projects/:projectTitle",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <ScrollToTop />
+          <ProjectDescription />
+        </ThemeProvider>
+      ),
+    },
+  ]);
+
   return <RouterProvider router={router} />;
 }
 

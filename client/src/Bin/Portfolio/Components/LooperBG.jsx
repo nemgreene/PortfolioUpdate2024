@@ -1,35 +1,73 @@
 import { Box, Typography } from "@mui/material";
 import React, { memo, useEffect } from "react";
-
+import Scroller from "./Scroller";
+import { useTheme } from "@emotion/react";
 export default memo(function LooperBG({ index }) {
+  const text1 = `
+         8 888888888o   8 888888888o.      ,o888888o.                8 8888 8 8888888888       ,o888888o.8888888 8888888888 d888888o.
+         8 8888    '88. 8 8888    '88.  . 8888     '88.              8 8888 8 8888            8888     '88.    8 8888     .'8888:' '88.
+         8 8888     '88 8 8888     '88 ,8 8888       '8b             8 8888 8 8888         ,8 8888       '8.   8 8888     8.'8888.   Y8
+         8 8888     ,88 8 8888     ,88 88 8888        '8b            8 8888 8 8888         88 8888             8 8888     '8.'8888.
+         8 8888.   ,88' 8 8888.   ,88' 88 8888         88            8 8888 8 888888888888 88 8888             8 8888      '8.'8888.
+         8 888888888P'  8 888888888P'  88 8888         88            8 8888 8 8888         88 8888             8 8888       '8.'8888.
+         8 8888         8 8888'8b      88 8888        ,8P 88.        8 8888 8 8888         88 8888             8 8888        '8.'8888.
+         8 8888         8 8888 '8b.    '8 8888       ,8P  '88.       8 888' 8 8888         '8 8888       .8'   8 8888    8b   '8.'8888.
+         8 8888         8 8888   '8b.   ' 8888     ,88'     '88o.    8 88'  8 8888            8888     ,88'    8 8888    '8b.  ;8.'8888
+         8 8888         8 8888     '88.    '8888888P'         'Y888888 '    8 888888888888     '8888888P'      8 8888     'Y8888P ,88P' `;
+
+  const text2 = `                                                                                             
+     d888888o.   8 8888      88 8 888888888o              8 8888 8 8888888888       ,o888888o.8888888 8888888888
+   .'8888:' '88. 8 8888      88 8 8888    '88.            8 8888 8 8888            8888     '88.    8 8888      
+   8.'8888.   Y8 8 8888      88 8 8888     '88            8 8888 8 8888         ,8 8888       '8.   8 8888      
+   '8.'8888.     8 8888      88 8 8888     ,88            8 8888 8 8888         88 8888             8 8888      
+    '8.'8888.    8 8888      88 8 8888.   ,88'            8 8888 8 888888888888 88 8888             8 8888      
+     '8.'8888.   8 8888      88 8 8888888888              8 8888 8 8888         88 8888             8 8888      
+      '8.'8888.  8 8888      88 8 8888    '88. 88.        8 8888 8 8888         88 8888             8 8888      
+  8b   '8.'8888. ' 8888     ,8P 8 8888      88 '88.       8 888' 8 8888         '8 8888       .8'   8 8888      
+  '8b.  ;8.'8888   8888   ,d8P  8 8888    ,88'   '88o.    8 88'  8 8888            8888     ,88'    8 8888      
+   'Y8888P ,88P'    'Y88888P'   8 888888888P       'Y888888 '    8 888888888888     '8888888P'      8 8888      
+  `;
+
+  const theme = useTheme();
   return (
     <Box
+      className="looperBGContainer"
       sx={{
-        overflow: "hidden",
-        width: "100%",
-        height: "100%",
         position: "absolute",
+        height: "100%",
+        width: "fit-content",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
-      className="loopersContianer"
     >
-      {new Array(13).fill("").map((_, cIndex) => (
-        <section className="loopContainer" key={cIndex}>
-          {new Array(3).fill("").map((_, lIndex) => (
-            <span className="loopElem" key={lIndex}>
-              <Typography
-                sx={(theme) => ({
-                  lineHeight: 0.75,
-                  fontFamily: '"Danfo", ' + theme.typography.fontFamily,
-                  fontSize: `calc(${theme.typography.h1.fontSize} * 2.5)`,
-                  color: theme.palette.common.eerieBlack,
-                })}
-                className="danfoOutlined"
+      {new Array(15).fill("").map((v, i) => (
+        <Box
+          key={i}
+          sx={{
+            transform: `translateX(${-5 * i}%)`,
+            overflow: "visible",
+            width: "100%",
+          }}
+        >
+          <Scroller
+            duration={10}
+            loopers={4}
+            sx={{ zIndex: 100, opacity: 0.75 }}
+            labels={[
+              <pre
+                style={{
+                  fontSize: "8px",
+                  whiteSpace: "pre",
+                  margin: 0,
+                  color: theme.palette.common.sage,
+                }}
               >
-                <span>&nbsp;{index === 0 ? "Subject" : "Projects"}</span>
-              </Typography>
-            </span>
-          ))}
-        </section>
+                {index === 0 ? text2 : text1}
+              </pre>,
+            ]}
+          />
+        </Box>
       ))}
     </Box>
   );

@@ -49,17 +49,18 @@ function FrameButtons(props) {
             width: "400%",
           }}
         >
-          <Box
+          <animated.div
             className="frameButtonHover"
             onMouseEnter={props.onChange}
             onMouseLeave={props.onExit}
-            sx={{
+            style={{
+              opacity: props.ticksSprings[props.index].o,
               height: "100%",
               width: "100%",
               position: "absolute",
             }}
             name={props.name}
-          ></Box>
+          ></animated.div>
           <Grid
             item
             display="flex"
@@ -68,19 +69,18 @@ function FrameButtons(props) {
             pl="20%"
           >
             <svg
-              height={theme.shape.hudThickness}
+              height={theme.shape.hudThickness * 2}
               width="25"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {console.log(props.ticksSprings)}
               <animated.line
                 // x2={30}
                 x1={x1}
                 x2={props.ticksSprings[props.index].x1.to((v) => v * 30 + x1)}
-                y1="0"
-                y2="0"
+                y1={theme.shape.hudThickness}
+                y2={theme.shape.hudThickness}
                 stroke={theme.shape.hudLowContrast}
-                strokeWidth={theme.shape.hudThickness}
+                strokeWidth={theme.shape.hudThickness / 2}
               />
             </svg>
           </Grid>

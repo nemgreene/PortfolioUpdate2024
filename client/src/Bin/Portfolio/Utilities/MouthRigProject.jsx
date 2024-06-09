@@ -4,7 +4,6 @@ const images = require.context(
 );
 const imageList = images.keys().map((image) => images(image));
 
-console.log(imageList);
 const structuredImages = [
   {
     src: imageList[0],

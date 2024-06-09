@@ -11,6 +11,7 @@ import {
   Toolbar,
   Typography,
   styled,
+  useTheme,
 } from "@mui/material";
 import { useSprings, animated, useSpring } from "@react-spring/web";
 import ProjectBlock0 from "../Components/ProjectBlock0";
@@ -21,11 +22,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import ProjectImageCarousel from "../../Carousel/ProjectCarousel";
 import Overlay from "../../Utilities/Overlay";
+import Twinkler from "../Components/Twinkler";
 
 export default function ProjectDescription() {
   const [projectData, setProjectData] = useState({});
   const [carouselImages, setCarouselImages] = useState([]);
-
+  const theme = useTheme();
   let { projectTitle } = useParams();
 
   const navigate = useNavigate();
@@ -34,7 +36,6 @@ export default function ProjectDescription() {
     position: "relative",
     [theme.breakpoints.down("md")]: {
       padding: theme.spacing(0),
-      // backgroundColor: "red",
     },
     [theme.breakpoints.only("md")]: {
       padding: theme.spacing(2),
@@ -132,31 +133,39 @@ export default function ProjectDescription() {
   }, []);
 
   return (
-    <Box className="App" sx={{ pb: "15vh" }}>
+    <Box
+      className="App"
+      sx={{
+        bgcolor: theme.palette.common.eerieBlack,
+        color: theme.palette.common.white,
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
       <Overlay
         open={carouselImages.length > 0}
         handleClose={() => setCarouselImages([])}
       >
         <ProjectImageCarousel slides={carouselImages} />
       </Overlay>
-
-      <animated.div style={{ ...fade }} className="utilCenter">
-        <ProjectDescriptionBox>
-          {blockIn.map((props, item) => (
-            <animated.div style={props} key={item}>
-              {!projectData?.content?.blocks[item].priority
-                ? blockDictionary["default"](
-                    projectData?.content?.blocks[item],
-                    item
-                  )
-                : blockDictionary[projectData?.content?.blocks[item].priority](
-                    projectData?.content?.blocks[item],
-                    item
-                  )}
-            </animated.div>
-          ))}
-        </ProjectDescriptionBox>
-      </animated.div>
+      <Twinkler number={10} sx={{ pb: 15 }}>
+        <animated.div style={{ ...fade }} className="utilCenter">
+          <ProjectDescriptionBox>
+            {blockIn.map((props, item) => (
+              <animated.div style={props} key={item}>
+                {!projectData?.content?.blocks[item].priority
+                  ? blockDictionary["default"](
+                      projectData?.content?.blocks[item],
+                      item
+                    )
+                  : blockDictionary[
+                      projectData?.content?.blocks[item].priority
+                    ](projectData?.content?.blocks[item], item)}
+              </animated.div>
+            ))}
+          </ProjectDescriptionBox>
+        </animated.div>
+      </Twinkler>
       <AppBar
         position="fixed"
         sx={(t) => ({

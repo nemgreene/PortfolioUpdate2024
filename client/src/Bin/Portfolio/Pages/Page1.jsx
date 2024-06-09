@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import HeadImg from "../../Portfolio/HeadImg";
 import { useTheme } from "@emotion/react";
@@ -7,13 +7,18 @@ import head from "../../../Images/Portfolio/head.gif";
 
 import { letters } from "../Utilities/Utilities";
 
-export default function Page1({ scrollYProgress, gridSprings, ticksSprings }) {
+export default function Page1({
+  scrollYProgress,
+  gridSprings,
+  ticksSprings,
+  typewriters,
+  loadSprings,
+}) {
   const [image, cImage] = useState(head);
 
   const handleHover = (e) => {
     let name = e.target.getAttribute("name");
     let index = letters.indexOf(name);
-    console.log(name, index);
     if (!isNaN(index) && name) {
       cImage(index);
     }
@@ -34,23 +39,94 @@ export default function Page1({ scrollYProgress, gridSprings, ticksSprings }) {
         minHeight: "100vh",
       })}
     >
-      <HomepageNav gridSprings={gridSprings} />
+      <HomepageNav gridSprings={gridSprings} loadSprings={loadSprings} />
 
       <Grid
         container
         sx={{
           justifyContent: "flex-end",
           height: "100%",
-          flex: 2,
+          flex: "1 1 100%",
+          width: "100%",
+          overflow: "hidden",
         }}
       >
-        <HeadImg
-          imageSet={image}
-          handleHover={handleHover}
-          handleExit={handleExit}
-          gridSprings={gridSprings}
-          ticksSprings={ticksSprings}
-        />
+        <Grid item container flexDirection="column" xs={12} lg={6}>
+          <Grid
+            item
+            container
+            flex="1"
+            flexDirection="column"
+            className="utilCenter"
+          >
+            <Grid item flex="1" className="utilCenter">
+              <HeadImg
+                loadSprings={loadSprings}
+                imageSet={image}
+                handleHover={handleHover}
+                handleExit={handleExit}
+                gridSprings={gridSprings}
+                ticksSprings={ticksSprings}
+              />
+            </Grid>
+
+            <Grid
+              item
+              container
+              // variant="h1"
+              className="test"
+              sx={{
+                ...theme.type.mono,
+                whiteSpace: "noWrap",
+                display: "flex",
+                overflow: "visible",
+                bottom: { xs: 0, md: 3 },
+                color: theme.palette.common.sage,
+              }}
+            >
+              <Grid
+                xs={6}
+                item
+                container
+                flexDirection="column"
+                sx={{
+                  pl: { xs: 2 },
+                  pb: { xs: 2 },
+                  fontSize: `calc(${theme.typography.h6.fontSize} * 0.5`,
+                  width: "100%",
+                }}
+              >
+                {typewriters.slice(0, -1).map((v, i) => (
+                  <Grid item key={i}>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        color: theme.palette.common.dimGray,
+                        ...theme.type.mono,
+                        whiteSpace: "noWrap",
+                      }}
+                    >
+                      {v}
+                    </Typography>
+                  </Grid>
+                ))}
+                <Grid item>
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      ...theme.type.mono,
+                      whiteSpace: "noWrap",
+                      right: theme.spacing(5),
+                      height: "fit-content",
+                    }}
+                  >
+                    {typewriters[4]}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </Box>
   );

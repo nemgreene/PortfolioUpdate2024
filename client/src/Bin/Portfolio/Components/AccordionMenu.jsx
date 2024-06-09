@@ -1,15 +1,23 @@
-import { Box, Button, useTheme } from "@mui/material";
-import React from "react";
+import { Box } from "@mui/material";
+import React, { useRef } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { useSprings, animated, useSpring } from "@react-spring/web";
+import HoverButton from "./HoverButton";
+import { useGesture } from "@use-gesture/react";
 
 export default function AccordionMenu({
   index,
   children,
   data,
-  menuHoverSpring,
+  handleHover = () => {},
 }) {
-  const theme = useTheme();
+  const target = useRef(null);
+  useGesture(
+    {
+      onHover: ({ hovering }) => hovering && handleHover(index),
+    },
+    { target, eventOptions: { passive: false } }
+  );
+
   return (
     <Box
       sx={{
@@ -17,70 +25,43 @@ export default function AccordionMenu({
         display: "flex",
         justifyContent: "flex-end",
         flexDirection: "column",
-        width: "calc(100% -2px) ",
+        width: "100%",
         position: "relative",
       }}
+      ref={target}
     >
-      <Box sx={{ pb: 10 }}>
+      <Box>
         {data?.map((v, i) => (
           <Box key={i}>
-            <animated.div style={{ ...menuHoverSpring[index], opacity: 0.95 }}>
-              <Button
-                endIcon={
+            <HoverButton
+              onClick={() => {
+                if (children) children(v, i, index);
+              }}
+              sx={{
+                opacity: 0.8,
+                zIndex: 10,
+                p: 1.5,
+                "&:hover": { "& #promptIcon": { opacity: 1 } },
+              }}
+              label={
+                <span>
+                  {v.title}
                   <NavigateNextIcon
-                    className="promptIcon"
-                    sx={{ opacity: 0 }}
+                    id="promptIcon"
+                    sx={{
+                      transition: "0.3s",
+                      opacity: 0,
+                      position: "absolute",
+                      top: 0,
+                      bottom: 0,
+                      height: "100%",
+                    }}
                   />
-                }
-                fullWidth
-                onClick={() => {
-                  if (children) children(v, i, index);
-                }}
-                sx={(theme) => ({
-                  whiteSpace: "nowrap",
-                  borderRadius: 0,
-                  boxShadow: "none",
-                  bgcolor: "inherit",
-                  color: "inherit",
-
-                  "&:hover": {
-                    boxShadow: "none",
-                    bgcolor: theme.palette.common.lightCoral,
-                    "& .promptIcon": {
-                      opacity: 1,
-                    },
-                  },
-                })}
-                variant="contained"
-              >
-                {v.title}
-              </Button>
-            </animated.div>
+                </span>
+              }
+            />
           </Box>
         ))}
-        {!data ? (
-          <Box>
-            <Button
-              fullWidth
-              disabled
-              sx={(t) => ({
-                whiteSpace: "nowrap",
-                borderRadius: 0,
-                boxShadow: "none",
-                bgcolor: "unset",
-                color: "white",
-                opacity: t.shape.frameLineOpacity,
-                "&:disabled": {
-                  color: theme.shape.hudLowContrast,
-                  opacity: 0.5,
-                },
-              })}
-              variant="contained"
-            >
-              {"<< "}Choose A Subject
-            </Button>
-          </Box>
-        ) : null}
       </Box>
     </Box>
   );

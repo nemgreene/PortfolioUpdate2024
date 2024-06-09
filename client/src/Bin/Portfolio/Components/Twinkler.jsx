@@ -6,8 +6,13 @@ import { useSpring, animated, useSprings, to } from "react-spring";
 //
 const randomInRange = (max = 1) => Math.floor(Math.random() * max);
 
-export default function Twinkler({ layers = 3, number = 4 }) {
-  function Twinkle({ style, index, height = 10 }) {
+export default function Twinkler({
+  layers = 3,
+  number = 4,
+  children,
+  sx = {},
+}) {
+  function Twinkle({ style, height = 6 }) {
     const theme = useTheme();
 
     let doubleH = randomInRange(layers * number) > layers * number - 2;
@@ -106,7 +111,7 @@ export default function Twinkler({ layers = 3, number = 4 }) {
     return [...nums];
   };
 
-  const range = randomUnique(9, layers * number);
+  const range = randomUnique(11, layers * number);
 
   const [spring, api] = useSprings(layers * number, (index) => {
     return {
@@ -139,14 +144,23 @@ export default function Twinkler({ layers = 3, number = 4 }) {
         height: "100vh",
         width: "100vw",
         position: "absolute",
-        overflow: "hidden",
-        zIndex: 100,
+        zIndex: 1,
       }}
     >
-      {/* <Box sx={{ zIndex: 2 }}>{children}</Box> */}
       <Box
-        sx={{ zIndex: 1, height: "100%", width: "100%", position: "relative" }}
+        className="scrollOverflow"
+        sx={{
+          zIndex: 10,
+          position: "fixed",
+          overflow: "scroll",
+          color: "white",
+          height: "100%",
+          ...sx,
+        }}
       >
+        {children}
+      </Box>
+      <Box sx={{ zIndex: 1, height: "100%", width: "100%", position: "fixed" }}>
         {spring.map((v, i) => (
           <Twinkle style={v} key={i} index={i} />
         ))}

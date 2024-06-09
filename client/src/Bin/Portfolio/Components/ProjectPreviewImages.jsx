@@ -46,10 +46,8 @@ export default function ProjectPreviewImages({ images }) {
 
   useEffect(() => {
     // once all images are loaded, fade them in
-    console.log("All images laoded");
     if (orderedImages.length === loadedImagesTally) {
       setAllImagesLoaded(true);
-      console.log("All images laoded");
     }
     //   // setLoaded(true);
     //   fadeInApi.start((index) => ({

@@ -64,6 +64,7 @@ const HeadImg = ({
   handleExit,
   gridSprings,
   ticksSprings,
+  loadSprings,
 }) => {
   const theme = useTheme();
 
@@ -76,21 +77,23 @@ const HeadImg = ({
   const breakpointStyles = () => {
     const xsStyle = {
       container: {
-        height: "300px",
-        width: "300px",
+        margin: theme.spacing(5),
+        height: "220px",
+        width: "220px",
+        marginRight: "-5%",
       },
       circles: {
-        A: 150,
-        B: 145,
+        A: 120,
+        B: 120 - theme.shape.hudThickness * 3,
       },
     };
     const smStyle = {
       container: {
         ...xsStyle.container,
-        height: "500px",
-        width: "500px",
+        height: "300px",
+        width: "300px",
       },
-      circles: { A: 250, B: 240 },
+      circles: { A: 160, B: 160 - theme.shape.hudThickness * 3 },
     };
     const mdStyle = {
       container: {
@@ -98,53 +101,44 @@ const HeadImg = ({
         height: "400px",
         width: "400px",
       },
-      circles: { ...smStyle.circles, A: 200, B: 190 },
+      circles: {
+        ...smStyle.circles,
+        A: 200,
+        B: 200 - theme.shape.hudThickness * 3,
+      },
     };
     const lgStyle = {
       container: {
+        margin: theme.spacing(0),
         ...mdStyle.container,
         // backgroundColor: red[100],
-        height: "500px",
-        width: "500px",
+        height: "400px",
+        width: "400px",
       },
-      circles: { ...mdStyle.circles, A: 250, B: 240 },
+      circles: {
+        ...mdStyle.circles,
+        A: 200,
+        B: 200 - theme.shape.hudThickness * 3,
+      },
     };
     const xlStyle = {
       container: {
         ...lgStyle.container,
-        // backgroundColor: green[100],
-        width: "500px",
-        width: "500px",
       },
-      circles: { ...lgStyle.circles, A: 250, B: 240 },
+      circles: {
+        ...lgStyle.circles,
+      },
     };
 
     return xs ? xsStyle : sm ? smStyle : md ? mdStyle : lg ? lgStyle : xlStyle;
   };
 
   const HeadBounds = styled("div")(({ theme }) => ({
-    //   padding: theme.spacing(1),
     borderRadius: "50%",
-    // outline: `${theme.shape.hudThickness}px solid ${theme.shape.hudLowContrast}`,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     ...breakpointStyles().container,
-
-    // [theme.breakpoints.only("md")]: {
-    //   // backgroundColor: blue[500],
-    //   height: "60vh",
-    //   width: "60vh",
-    //   minHeight: "400px",
-    //   minWidth: "400px",
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //   // backgroundColor: green[500],
-    //   height: "45vh",
-    //   width: "45vh",
-    //   minHeight: "45vh",
-    //   minWidth: "45vh",
-    // },
     position: "relative",
   }));
 
@@ -182,11 +176,13 @@ const HeadImg = ({
 
   return (
     <HeadBounds>
-      <Box className="frameButtonArr" sx={{ zIndex: 15 }}>
+      <Box className="frameButtonArr" style={{ zIndex: 15 }}>
         <FrameButtonArr
           handleHover={handleHover}
           handleExit={handleExit}
           ticksSprings={ticksSprings}
+          loadSprings={loadSprings}
+          breakpointStyles={{ ...breakpointStyles() }}
         />
       </Box>
       <Box
@@ -216,8 +212,7 @@ const HeadImg = ({
           />
         </Box>
       </Box>
-
-      <img
+      <animated.img
         className="headImg"
         src={imageSet}
         alt="head"
@@ -228,11 +223,12 @@ const HeadImg = ({
           top: "10%",
           height: "80%",
           zIndex: 10,
+          ...loadSprings,
         }}
-      ></img>
+      ></animated.img>
       {GalleryArr.map((img) => {
         return (
-          <img
+          <animated.img
             className="headImg"
             src={img}
             alt="head"
@@ -241,11 +237,11 @@ const HeadImg = ({
               position: "absolute",
               top: "10%",
               height: "80%",
-              // left: "-30%",
               zIndex: 15,
               display: img === GalleryArr[imageSet] ? "inline-block" : "none",
+              ...loadSprings,
             }}
-          ></img>
+          ></animated.img>
         );
       })}
     </HeadBounds>

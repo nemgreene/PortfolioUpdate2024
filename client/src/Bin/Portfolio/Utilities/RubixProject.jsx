@@ -97,11 +97,21 @@ const structuredImages = [
 ];
 
 export const RubixContent = {
+  title: "Rubix Project",
   images: structuredImages,
   links: [
     { icon: "Github", src: "https://github.com/nemgreene/RubixSolver.git" },
     { icon: "Youtube", src: "https://youtu.be/cpJc0scX97w" },
   ],
+  description: {
+    priority: 2,
+    image: structuredImages[0],
+    p: `All of the algorithms require a world-vector nostalgic understanding of the cube. 
+    
+    Algorithms need to be run facing one of the 4 lateral faces of the cube, and has to understand how to rotate a section relative to its understanding. 
+    
+    One algorithm might require the “Machine” to be viewing the cube from [-1, 0,0] world space, and rotate the left side clockwise, or to view the cube from [0,0,1] and rotate the top counter clockwise. `,
+  },
   blocks: [
     {
       title: "Rubix Cube Solver",

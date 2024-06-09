@@ -7,6 +7,7 @@ export default function FrameButtonArr({
   ticksSprings,
   handleHover,
   handleExit,
+  loadSprings,
 }) {
   return (
     <div style={{ position: "absolute", width: "120%", left: "50%" }}>
@@ -19,6 +20,7 @@ export default function FrameButtonArr({
             ticksSprings={ticksSprings}
             onChange={handleHover}
             onExit={handleExit}
+            loadSprings={loadSprings}
           />
         );
       })}
