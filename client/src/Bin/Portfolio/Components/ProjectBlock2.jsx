@@ -1,8 +1,6 @@
-import { Box, ImageListItemBar, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import ProjectVideo from "./ProjectVideo";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import ProjectBlockContainer from "./ProjectBlockContainer";
 import ProjectImageList from "./ProjectImageList";
 

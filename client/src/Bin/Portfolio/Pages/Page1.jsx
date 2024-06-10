@@ -1,5 +1,5 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
 import HeadImg from "../../Portfolio/HeadImg";
 import { useTheme } from "@emotion/react";
 import HomepageNav from "../Components/HomepageNav";

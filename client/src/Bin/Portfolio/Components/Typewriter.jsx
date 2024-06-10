@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  useChain,
-  useSpringRef,
-  useTrail,
-  animated,
-  useSprings,
-} from "react-spring";
+import { useSpringRef, animated, useSprings } from "react-spring";
 
 export default function Typewriter(message, immediate = false) {
   const typingApi = useSpringRef();

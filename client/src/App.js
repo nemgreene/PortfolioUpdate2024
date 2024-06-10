@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { ApiClient } from "./apiClient";
+import React, { useState } from "react";
+// import { ApiClient } from "./apiClient";
 import Homepage from "./Bin/Portfolio/Pages/Homepage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Form, useLoaderData } from "react-router-dom";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import ScrollToTop from "./Bin/Utilities/ScrollToTop";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import ProjectDescription from "./Bin/Portfolio/Pages/ProjectDescription";
 
@@ -30,7 +28,6 @@ const {
   white,
   frameLineOpacity,
   whiteLowContrast,
-  hudLowContrast,
 } = utility;
 
 let portolioTheme = createTheme({

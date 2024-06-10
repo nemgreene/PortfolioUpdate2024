@@ -1,4 +1,4 @@
-import { Box, Button, Hidden, Typography, useTheme } from "@mui/material";
+import { Button, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 
@@ -58,7 +58,7 @@ export default function HoverButton({
 
   useEffect(() => {
     hoverApi.start(hovered ? { y: 100, yOffset: 0 } : { y: 0, yOffset: 100 });
-  }, [hovered]);
+  }, [hovered, hoverApi]);
 
   return (
     <animated.div

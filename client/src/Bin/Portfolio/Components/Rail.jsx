@@ -1,6 +1,6 @@
 import React from "react";
-import { useSprings, animated, useSpring } from "@react-spring/web";
-import { ThemeContext, useTheme } from "@emotion/react";
+import { animated } from "@react-spring/web";
+import { useTheme } from "@emotion/react";
 
 function RailElem({
   x1,

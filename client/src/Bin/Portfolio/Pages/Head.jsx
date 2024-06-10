@@ -1,12 +1,7 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Grid, Typography } from "@mui/material";
-import {
-  useSprings,
-  animated,
-  Globals,
-  useSpringValue,
-} from "@react-spring/web";
-import React, { useEffect, useState, useRef } from "react";
+import { Box } from "@mui/material";
+import { animated, useSpringValue } from "@react-spring/web";
+import React, { useEffect, useRef } from "react";
 
 import FrameA from "../../../Images/Portfolio/1.png";
 import FrameB from "../../../Images/Portfolio/2.png";
@@ -79,8 +74,15 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
     new Array(number).fill("").map((v, i) => (i === index ? 100 : 0));
 
   const frameDuration = 100;
+
+  let startPlaying;
+
+  useEffect(() => {
+    startPlaying(0);
+  }, [startPlaying]);
+
   //Called to resume animation
-  const startPlaying = (index = 0) => {
+  startPlaying = (index = 0) => {
     // if index == 0, reversed = false
     // if index == max, reversed = true
     // else reversed = !reversed
@@ -116,10 +118,6 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
       config: { duration: 0 },
     });
   };
-
-  useEffect(() => {
-    startPlaying(0);
-  }, []);
 
   //   -----------------------------------------------------------------
 
@@ -185,6 +183,7 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
                     width: "100%",
                     objectFit: "contain",
                   }}
+                  alt={`headImage${i}`}
                   src={v}
                 ></img>
               </Box>

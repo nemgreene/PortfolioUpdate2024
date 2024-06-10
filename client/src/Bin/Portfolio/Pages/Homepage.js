@@ -1,30 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
-import moment from "moment-timezone";
 
 // import FrameButtonArr from "./FrameButtonArr";
-import {
-  useChain,
-  useSpringRef,
-  useScroll,
-  useSprings,
-  useSpring,
-} from "react-spring";
+import { useChain, useSpringRef, useSprings } from "react-spring";
 
 import Page1 from "./Page1";
 import Page2 from "./Page2";
-import HoverButton from "../Components/HoverButton";
-import Twinkler from "../Components/Twinkler";
-import HomepageNav from "../Components/HomepageNav";
 import Typewriter from "../Components/Typewriter";
-// import Clock from "../Components/Clock";
 import { useTheme } from "@emotion/react";
-// import AboutUnderlay from "./About";
-// import ProjectsUnderlay from "./Projects";
-// import ContactUnderlay from "./Contact";
-// import Onload from "./onload";
-
-// const [clockT, clockTApi] = Clock();
 
 const Homepage = ({ setInitialized, initialized }) => {
   const [loaded, setLoaded] = useState(false);

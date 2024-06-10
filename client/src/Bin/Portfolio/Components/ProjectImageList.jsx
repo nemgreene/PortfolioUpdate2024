@@ -1,7 +1,7 @@
 import React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { ImageListItemBar, Skeleton } from "@mui/material";
+import { ImageListItemBar } from "@mui/material";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {

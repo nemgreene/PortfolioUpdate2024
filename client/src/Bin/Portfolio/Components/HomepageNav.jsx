@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useRef } from "react";
 import HoverButton from "./HoverButton";
 import { animated } from "react-spring";
