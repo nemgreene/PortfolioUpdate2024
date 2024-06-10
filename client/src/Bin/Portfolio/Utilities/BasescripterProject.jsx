@@ -47,6 +47,18 @@ const structuredImages = [
 
 export const BaseScripter = {
   images: structuredImages,
+  description: {
+    priority: 2,
+    image: structuredImages[0],
+    p: `Tool was developed to offer an development environment for Python scripting in Maya.
+    
+    Offering a lifecycle to support development without artifacts and a series of methods commonly used for scripting jobs. 
+    
+    This represents an ongoing body of development that supports my progress as a techincal artist
+
+    PYTHON, MAYA
+    `,
+  },
   links: [
     { icon: "Github", src: "https://github.com/nemgreene/Pathfinder-Pymel" },
   ],

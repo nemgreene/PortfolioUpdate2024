@@ -12,7 +12,14 @@ const structuredImages = [
 ];
 export const IKFKProject = {
   images: structuredImages,
+  description: {
+    priority: 2,
+    image: structuredImages[0],
+    p: `A simple tool for creating an IK/FK joint chain to automate a common aspect of rigging.
 
+    PYTHON, MAYA
+    `,
+  },
   blocks: [
     {
       videos: [

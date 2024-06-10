@@ -130,10 +130,6 @@ const Homepage = ({ setInitialized, initialized }) => {
 
   useEffect(() => {
     setLoaded(true);
-    // setTimeout(() => {
-    //   setInitialized(true);
-    //   console.log("initialized");
-    // }, 80000);
   }, []);
 
   const containerRef = useRef(null);

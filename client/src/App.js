@@ -20,6 +20,7 @@ import {
 
 import utility from "../src/StyleSheets/Utility/Consts.scss";
 import Contact from "./Bin/Portfolio/Pages/Contact";
+import Head from "./Bin/Portfolio/Pages/Head";
 const {
   bgMain,
   eerieBlack,
@@ -82,6 +83,14 @@ function App() {
       element: (
         <ThemeProvider theme={portolioTheme}>
           <Contact />
+        </ThemeProvider>
+      ),
+    },
+    {
+      path: "/head",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <Head />
         </ThemeProvider>
       ),
     },

@@ -47,6 +47,14 @@ export const PathfidnerProject = {
   links: [
     { icon: "github", src: "https://github.com/nemgreene/Pathfinder-Pymel" },
   ],
+  description: {
+    priority: 2,
+    image: structuredImages[0],
+    p: `An implementaion and visualization of the A* Pathfinder Algorithm in 2 dimensions.
+
+    PYTHON, MAYA
+    `,
+  },
 
   blocks: [
     {

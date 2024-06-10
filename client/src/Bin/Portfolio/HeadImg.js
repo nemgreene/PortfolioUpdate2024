@@ -30,6 +30,7 @@ import styles from "../../StyleSheets/Portfolio/Homepage.scss";
 import { useTheme } from "@emotion/react";
 import { animated, to } from "react-spring";
 import zIndex from "@mui/material/styles/zIndex";
+import Head from "./Pages/Head";
 const { frameLineOpacity } = styles;
 let GalleryArr = [
   FrameA,
@@ -58,14 +59,7 @@ let GalleryArr = [
   FrameX,
 ];
 
-const HeadImg = ({
-  imageSet,
-  handleHover,
-  handleExit,
-  gridSprings,
-  ticksSprings,
-  loadSprings,
-}) => {
+const HeadImg = ({ gridSprings, ticksSprings, loadSprings }) => {
   const theme = useTheme();
 
   const xs = useMediaQuery(theme.breakpoints.only("xs"));
@@ -78,9 +72,8 @@ const HeadImg = ({
     const xsStyle = {
       container: {
         margin: theme.spacing(5),
-        height: "220px",
-        width: "220px",
-        marginRight: "-5%",
+        height: "200px",
+        width: "200px",
       },
       circles: {
         A: 120,
@@ -112,8 +105,8 @@ const HeadImg = ({
         margin: theme.spacing(0),
         ...mdStyle.container,
         // backgroundColor: red[100],
-        height: "400px",
-        width: "400px",
+        height: "300px",
+        width: "300px",
       },
       circles: {
         ...mdStyle.circles,
@@ -176,15 +169,12 @@ const HeadImg = ({
 
   return (
     <HeadBounds>
-      <Box className="frameButtonArr" style={{ zIndex: 15 }}>
-        <FrameButtonArr
-          handleHover={handleHover}
-          handleExit={handleExit}
-          ticksSprings={ticksSprings}
-          loadSprings={loadSprings}
-          breakpointStyles={{ ...breakpointStyles() }}
-        />
-      </Box>
+      <Head
+        sx={{ ...breakpointStyles().container }}
+        ticksSprings={ticksSprings}
+        loadSprings={loadSprings}
+      />
+
       <Box
         sx={{
           height: "100%",
@@ -212,38 +202,6 @@ const HeadImg = ({
           />
         </Box>
       </Box>
-      <animated.img
-        className="headImg"
-        src={imageSet}
-        alt="head"
-        key="gif"
-        style={{
-          display: `${isNaN(imageSet) ? "inline" : "none"}`,
-          position: "absolute",
-          top: "10%",
-          height: "80%",
-          zIndex: 10,
-          ...loadSprings,
-        }}
-      ></animated.img>
-      {GalleryArr.map((img) => {
-        return (
-          <animated.img
-            className="headImg"
-            src={img}
-            alt="head"
-            key={img}
-            style={{
-              position: "absolute",
-              top: "10%",
-              height: "80%",
-              zIndex: 15,
-              display: img === GalleryArr[imageSet] ? "inline-block" : "none",
-              ...loadSprings,
-            }}
-          ></animated.img>
-        );
-      })}
     </HeadBounds>
   );
 };

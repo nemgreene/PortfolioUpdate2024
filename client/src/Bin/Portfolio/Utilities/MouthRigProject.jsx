@@ -92,6 +92,16 @@ const structuredImages = [
 ];
 export const MouthRig = {
   images: structuredImages.slice(7),
+  description: {
+    priority: 2,
+    image: structuredImages[0],
+    p: `Alpha stage of a rigging experiment in ongoing development.
+
+    This rig focuses on maximizing user control of derformation when required while offering maximum abstraction to support simpler animation.
+
+    PYTHON, MAYA
+    `,
+  },
   links: [
     { icon: "github", src: "https://github.com/nemgreene/Pathfinder-Pymel" },
   ],

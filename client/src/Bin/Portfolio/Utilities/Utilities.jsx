@@ -27,9 +27,9 @@ export const categories = [
     title: "Modeling/Rigging",
     projects: [{ title: "Universal Topology", content: UniversalProject }],
   },
-  { title: "WebDev" },
-  { title: "VisDev" },
-  { title: "GamesDev" },
+  // { title: "WebDev" },
+  // { title: "VisDev" },
+  // { title: "GamesDev" },
 ];
 
 export const iconDictionary = {

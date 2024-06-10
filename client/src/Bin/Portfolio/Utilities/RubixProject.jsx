@@ -106,6 +106,14 @@ export const RubixContent = {
   description: {
     priority: 2,
     image: structuredImages[0],
+    p: `Implementation of a Rubix Cube solver, with visualization in Maya.
+    
+    
+    `,
+  },
+  description: {
+    priority: 2,
+    image: structuredImages[0],
     p: `All of the algorithms require a world-vector nostalgic understanding of the cube. 
     
     Algorithms need to be run facing one of the 4 lateral faces of the cube, and has to understand how to rotate a section relative to its understanding. 
