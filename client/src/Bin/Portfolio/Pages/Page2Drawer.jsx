@@ -97,11 +97,20 @@ export default function Page2Drawer({
                   setDrawerOpen((p) => !p);
                 }}
                 label={
-                  <animated.span>
+                  <animated.span
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
                     {drawerOpen ? `Close ` : `Projects `}
                     <animated.span
                       style={{
-                        display: "inline-block",
+                        display: "flex",
+                        height: "fit-content",
+                        width: "fit-content",
                         transform: drawerSpring.r.to((v) => `rotate(${v}deg)`),
                       }}
                     >

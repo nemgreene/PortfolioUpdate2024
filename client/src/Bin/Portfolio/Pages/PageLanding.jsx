@@ -1,13 +1,13 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import HeadImg from "../../Portfolio/HeadImg";
+import HeadImg from "../HeadImg";
 import { useTheme } from "@emotion/react";
 import HomepageNav from "../Components/HomepageNav";
 import head from "../../../Images/Portfolio/head.gif";
 
 import { letters } from "../Utilities/Utilities";
 
-export default function Page1({
+export default function PageLanding({
   scrollYProgress,
   gridSprings,
   ticksSprings,
@@ -59,7 +59,15 @@ export default function Page1({
             flexDirection="column"
             className="utilCenter"
           >
-            <Grid item flex="1" className="utilCenter">
+            <Grid
+              item
+              flex="1"
+              className="utilCenter headWrapper"
+              sx={{
+                minHeight: { xs: "275px" },
+                m: { xs: theme.spacing(3) },
+              }}
+            >
               <HeadImg
                 loadSprings={loadSprings}
                 imageSet={image}

@@ -17,12 +17,14 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
   const flex = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
   const projectLinkRef = useRef(null);
+  const aboutLinkRef = useRef(null);
   const navigate = useNavigate();
 
   return (
     <Grid
       container
       sx={{
+        minHeight: { xs: "150px", md: "0" },
         height: "fit-content",
         flexDirection: "row-reverse",
         position: "relative",
@@ -114,6 +116,15 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
             secondary={theme.shape.hudLowContrast}
             loadSprings={loadSprings}
             label={"About"}
+            onClick={() => {
+              aboutLinkRef.current.click();
+            }}
+          />
+          <HashLink
+            style={{ display: "none" }}
+            ref={aboutLinkRef}
+            to="#portfolio-about"
+            scroll={(el) => el.scrollIntoView({ behavior: "smooth" })}
           />
         </Grid>
         <Grid
@@ -161,7 +172,6 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
         sx={{
           p: 1,
           ...navButtonStyles,
-          height: "10vh",
         }}
         justifyContent="center"
         alignItems="center"

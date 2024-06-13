@@ -19,6 +19,9 @@ import {
 import utility from "../src/StyleSheets/Utility/Consts.scss";
 import Contact from "./Bin/Portfolio/Pages/Contact";
 import Head from "./Bin/Portfolio/Pages/Head";
+import Concepting from "./Bin/Portfolio/Pages/Concepting";
+import { useTheme } from "@emotion/react";
+import { useMediaQuery } from "@mui/material";
 const {
   bgMain,
   eerieBlack,
@@ -30,41 +33,57 @@ const {
   whiteLowContrast,
 } = utility;
 
-let portolioTheme = createTheme({
-  typography: { fontSize: 10 },
-  palette: {
-    common: { eerieBlack, dimGray, lightCoral, sage, white, whiteLowContrast },
-    background: {
-      main: bgMain,
-      eerieBlack,
-      dimGray,
-      lightCoral,
-      sage,
-      white,
-    },
-    primary: {
-      main: "#000000",
-      light: "#000000",
-      dark: "#000000",
-    },
-  },
-  shape: {
-    frameLineOpacity,
-    hudLowContrast: whiteLowContrast,
-    hudThickness: 3,
-  },
-  type: {
-    mono: {
-      fontFamily: '"Share Tech Mono", monospace',
-      fontWeight: 400,
-      fontStyle: "normal",
-    },
-  },
-});
-portolioTheme = responsiveFontSizes(portolioTheme);
-
 function App() {
-  const [initialized, setInitialized] = useState(false);
+  let portolioTheme = createTheme({
+    typography: { fontSize: 10 },
+    palette: {
+      common: {
+        eerieBlack,
+        dimGray,
+        lightCoral,
+        sage,
+        white,
+        whiteLowContrast,
+      },
+      background: {
+        main: bgMain,
+        eerieBlack,
+        dimGray,
+        lightCoral,
+        sage,
+        white,
+      },
+      primary: {
+        main: "#000000",
+        light: "#000000",
+        dark: "#000000",
+      },
+    },
+    shape: {
+      frameLineOpacity,
+      hudLowContrast: whiteLowContrast,
+      hudThickness: 3,
+    },
+    type: {
+      mono: {
+        fontFamily: '"Share Tech Mono", monospace',
+        fontWeight: 400,
+        fontStyle: "normal",
+      },
+    },
+  });
+
+  const xs = useMediaQuery(portolioTheme.breakpoints.only("xs"));
+  const sm = useMediaQuery(portolioTheme.breakpoints.only("sm"));
+  const md = useMediaQuery(portolioTheme.breakpoints.only("md"));
+  const lg = useMediaQuery(portolioTheme.breakpoints.only("lg"));
+  const xl = useMediaQuery(portolioTheme.breakpoints.only("xl"));
+
+  portolioTheme.shape.hudThickness = xs ? 1 : sm ? 2 : 3;
+
+  portolioTheme = responsiveFontSizes(portolioTheme);
+
+  const [initialized, setInitialized] = useState(true);
 
   const router = createBrowserRouter([
     {
@@ -84,10 +103,10 @@ function App() {
       ),
     },
     {
-      path: "/head",
+      path: "/concepting",
       element: (
         <ThemeProvider theme={portolioTheme}>
-          <Head />
+          <Concepting />
         </ThemeProvider>
       ),
     },

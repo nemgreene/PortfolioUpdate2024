@@ -36,7 +36,11 @@ import Page2Content from "./Page2Content";
 import Page2Drawer from "./Page2Drawer";
 import { HashLink } from "react-router-hash-link";
 
-export default function Page2({ containerRef, setInitialized, initialized }) {
+export default function PageProjects({
+  containerRef,
+  setInitialized,
+  initialized,
+}) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerIndex, setDrawerIndex] = useState(0);
   const [drawerHovered, setDrawerHovered] = useState(false);
@@ -96,7 +100,7 @@ export default function Page2({ containerRef, setInitialized, initialized }) {
   useScroll({
     container: containerRef,
     onChange: ({ value: { scrollYProgress } }) => {
-      if (scrollYProgress < 0.5) {
+      if (scrollYProgress < 0.66) {
         setDrawerOpen(false);
         previewApi.start({
           to: [
@@ -170,7 +174,7 @@ export default function Page2({ containerRef, setInitialized, initialized }) {
       background: "#00000000",
       lineColor: theme.palette.common.dimGray + "50",
       height: xs ? "20px" : md ? "40px" : "30px",
-      width: xs ? "1px" : "2px",
+      width: xs ? "1px" : sm ? "1px" : "2px",
     },
   });
 

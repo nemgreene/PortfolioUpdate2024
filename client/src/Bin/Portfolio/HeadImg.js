@@ -71,40 +71,36 @@ const HeadImg = ({ gridSprings, ticksSprings, loadSprings }) => {
   const breakpointStyles = () => {
     const xsStyle = {
       container: {
-        margin: theme.spacing(5),
-        height: "200px",
-        width: "200px",
+        height: "150px",
+        width: "150px",
       },
       circles: {
-        A: 120,
-        B: 120 - theme.shape.hudThickness * 3,
+        A: 115,
+        B: 115 - 5,
       },
     };
     const smStyle = {
       container: {
         ...xsStyle.container,
-        height: "300px",
-        width: "300px",
       },
-      circles: { A: 160, B: 160 - theme.shape.hudThickness * 3 },
+      // circles: { A: 160, B: 160 - theme.shape.hudThickness * 3 },
+      circles: { ...xsStyle.circles },
     };
     const mdStyle = {
       container: {
         ...smStyle.container,
-        height: "400px",
-        width: "400px",
+        height: "200px",
+        width: "200px",
       },
       circles: {
         ...smStyle.circles,
-        A: 200,
-        B: 200 - theme.shape.hudThickness * 3,
+        A: 150,
+        B: 150 - theme.shape.hudThickness * 3,
       },
     };
     const lgStyle = {
       container: {
-        margin: theme.spacing(0),
         ...mdStyle.container,
-        // backgroundColor: red[100],
         height: "300px",
         width: "300px",
       },

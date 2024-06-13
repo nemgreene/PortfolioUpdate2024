@@ -12,7 +12,7 @@ const HoverButton = ({ hoverIn, hoverOut, index, sx = {}, children }) => {
         if (hovering) {
           hoverIn(index);
         } else {
-          hoverOut(index);
+          // hoverOut(index);
         }
       },
     },
@@ -23,9 +23,10 @@ const HoverButton = ({ hoverIn, hoverOut, index, sx = {}, children }) => {
       ref={target}
       disableRipple
       sx={{
+        transform: { xs: "translateX(-50%)", lg: "translateX(10%)" },
         transition: ".3s",
         "&:hover": {
-          transform: "translateX(-15%)",
+          transform: { xs: "translateX(-70%)", lg: "translateX(-20%)" },
         },
         ...sx,
       }}
@@ -35,6 +36,8 @@ const HoverButton = ({ hoverIn, hoverOut, index, sx = {}, children }) => {
     </Button>
   );
 };
+
+// transform: { xs: "translateX(-50%)", md: "translateX(0%)" },
 
 export default function FrameButtonArr({
   number,
@@ -70,7 +73,7 @@ export default function FrameButtonArr({
                 width: "100%",
                 transform: `translate(0%,-50%) rotate(${
                   i * (360 / 90) - 45
-                }deg)`,
+                }deg )`,
                 transformOrigin: "100% center",
               }}
             >
@@ -82,9 +85,10 @@ export default function FrameButtonArr({
                   startPlaying(i);
                 }}
                 sx={{
+                  p: { xs: 0 },
                   color: "white",
                   bgcolor: theme.palette.common.eerieBlack,
-                  width: "100px",
+                  width: { xs: "50px" },
                 }}
               >
                 <Grid
@@ -104,7 +108,7 @@ export default function FrameButtonArr({
                     <animated.span
                       style={{ opacity: ticksSprings[i].o, ...theme.type.mono }}
                     >
-                      {`${i + 1}`}
+                      {`${i + 1 > 9 ? i + 1 : "0" + (i + 1)}`}
                     </animated.span>
                     <animated.svg
                       style={{ opacity: ticksSprings[i].o }}
@@ -134,7 +138,6 @@ export default function FrameButtonArr({
                     width="25"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    {console.log(x1(i))}
                     <animated.line
                       // x2={30}
                       x1={0}

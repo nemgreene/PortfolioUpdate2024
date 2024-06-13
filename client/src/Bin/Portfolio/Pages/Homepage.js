@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
+import useMeasure from "react-use-measure";
 
 // import FrameButtonArr from "./FrameButtonArr";
-import { useChain, useSpringRef, useSprings } from "react-spring";
+import { useChain, useSpringRef, useSprings, useSpring } from "react-spring";
 
-import Page1 from "./Page1";
-import Page2 from "./Page2";
+import PageLanding from "./PageLanding";
+import PageProjects from "./PageProjects";
 import Typewriter from "../Components/Typewriter";
 import { useTheme } from "@emotion/react";
+import PageBio from "./PageBio";
 
 const Homepage = ({ setInitialized, initialized }) => {
   const [loaded, setLoaded] = useState(false);
@@ -92,7 +94,6 @@ const Homepage = ({ setInitialized, initialized }) => {
     immediate: initialized,
     onStart: () => {
       setInitialized(true);
-      console.log("loaded");
     },
   }));
 
@@ -129,18 +130,19 @@ const Homepage = ({ setInitialized, initialized }) => {
         zIndex: 200,
       })}
     >
-      <Page1
+      <PageLanding
         gridSprings={gridSprings}
         ticksSprings={ticksSprings}
         loadSprings={loadSprings[0]}
         typewriters={[projectsT, bioT, assetsT, initT, nameT]}
       />
       {/* <Twinkler number={5} /> */}
-      <Page2
+      <PageBio />
+      <PageProjects
         containerRef={containerRef}
         setInitialized={setInitialized}
         initialized={initialized}
-      ></Page2>
+      />
     </Box>
   );
 };

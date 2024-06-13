@@ -79,6 +79,7 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
 
   useEffect(() => {
     startPlaying(0);
+    // setIndex(7);
   }, [startPlaying]);
 
   //Called to resume animation
@@ -164,7 +165,7 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
                 width: "100%",
                 left: 0,
                 backgroundColor: theme.palette.common.eerieBlack,
-                borderRadius: "25%",
+                borderRadius: "33%",
                 overflow: "hidden",
                 x: y.to(rangeA, rangeB(i)).to((v) => {
                   return v > 50 ? "0%" : "-100%";
@@ -175,6 +176,8 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
                 sx={{
                   height: "100%",
                   width: "100%",
+                  borderRadius: "25%",
+                  overflow: "hidden",
                 }}
               >
                 <img
