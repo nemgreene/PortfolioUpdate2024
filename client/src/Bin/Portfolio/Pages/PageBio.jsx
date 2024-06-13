@@ -1,13 +1,14 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useSprings, animated, useSpring } from "@react-spring/web";
+import { useSprings, animated, useSpring, useScroll } from "@react-spring/web";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Rail from "../Components/Rail";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 
 export default function PageBio() {
   const theme = useTheme();
   const [initialized, setInitialized] = useState(false);
+  const [started, setStarted] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const lists = [
     {
@@ -37,9 +38,11 @@ Experienced with tools for development throughout the entire product pipeline fr
       list: [
         "Animation",
         "Illustration",
+        "Character Design",
+        "Asset Design",
         "Oil Painting",
         "Matte painting",
-        "Digital Sculpting",
+        "Sculpting",
         "Storyboarding",
         "Vis Dev",
         "UI/UX",
@@ -154,30 +157,41 @@ Experience as project lead resposible for team management, development, technica
   }, [hoveredIndex]);
 
   useEffect(() => {
-    railApi.start((index) => ({
-      to: [
-        { x2: 100, opacity: 0, immediate: initialized },
-        { x2: 100, opacity: 1, immediate: initialized },
-      ],
-      delay: initialized ? 0 : 100 * index,
-      config: { duration: 500 },
-      onRest: () => {
-        if (index === 23) {
-          setInitialized(true);
-        }
-      },
-    }));
-  }, [railApi]);
+    if (started) {
+      railApi.start((index) => ({
+        to: [
+          { x2: 100, opacity: 0, immediate: initialized },
+          { x2: 100, opacity: 1, immediate: initialized },
+        ],
+        delay: initialized ? 0 : 100 * index,
+        config: { duration: 500 },
+        onRest: () => {
+          if (index > 7 && !initialized) {
+            setInitialized(true);
+          }
+        },
+      }));
+    }
+  }, [railApi, started]);
+
+  useScroll({
+    onChange: ({ value: { scrollYProgress } }) => {
+      if (scrollYProgress > 0.33 && !started) {
+        setStarted(true);
+      }
+    },
+  });
 
   const SliderMenu = ({ v, i }) => {
     return (
       <animated.div
         key={i}
         onClick={() => {
-          setHoveredIndex((p) => (p === i ? null : i));
+          if (initialized) {
+            setHoveredIndex((p) => (p === i ? null : i));
+          }
         }}
         style={{
-          // height: widthSprings[i].height.to((v) => `${v}%`),
           height: "25%",
           position: "relative",
           cursor: "pointer",

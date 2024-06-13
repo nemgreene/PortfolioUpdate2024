@@ -83,7 +83,7 @@ function App() {
 
   portolioTheme = responsiveFontSizes(portolioTheme);
 
-  const [initialized, setInitialized] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
   const router = createBrowserRouter([
     {

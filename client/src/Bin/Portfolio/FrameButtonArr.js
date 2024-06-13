@@ -12,7 +12,7 @@ const HoverButton = ({ hoverIn, hoverOut, index, sx = {}, children }) => {
         if (hovering) {
           hoverIn(index);
         } else {
-          // hoverOut(index);
+          hoverOut(index);
         }
       },
     },
@@ -36,8 +36,6 @@ const HoverButton = ({ hoverIn, hoverOut, index, sx = {}, children }) => {
     </Button>
   );
 };
-
-// transform: { xs: "translateX(-50%)", md: "translateX(0%)" },
 
 export default function FrameButtonArr({
   number,
