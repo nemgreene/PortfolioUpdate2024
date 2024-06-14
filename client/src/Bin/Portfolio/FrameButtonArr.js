@@ -108,16 +108,16 @@ export default function FrameButtonArr({
                     </animated.span>
                     <animated.svg
                       style={{ opacity: ticksSprings[i].o }}
-                      height="4"
-                      width="10"
+                      height={theme.shape.hudThickness * 4}
+                      width={theme.shape.hudThickness * 4}
                     >
                       <circle
-                        cx="2"
-                        cy="2"
-                        r="2"
+                        cx={theme.shape.hudThickness * 2}
+                        cy={theme.shape.hudThickness * 2}
+                        r={theme.shape.hudThickness}
                         className="frameLineOpacity"
                         fill="none"
-                        strokeWidth="2"
+                        strokeWidth={theme.shape.hudThickness / 2}
                         stroke={theme.palette.common.white}
                       />
                     </animated.svg>
@@ -141,7 +141,7 @@ export default function FrameButtonArr({
                       y1={theme.shape.hudThickness}
                       y2={theme.shape.hudThickness}
                       stroke={theme.palette.common.white}
-                      strokeWidth={theme.shape.hudThickness / 2}
+                      strokeWidth={theme.shape.hudThickness}
                     />
                   </svg>
                 </Grid>
