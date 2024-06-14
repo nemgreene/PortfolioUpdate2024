@@ -73,7 +73,10 @@ const structuredImages = [
 
 export const UniversalProject = {
   images: structuredImages,
-
+  description: {
+    image: structuredImages[0],
+    p: `Universal Topology for a base humanoid character that offers a flexible start to the rigging pipeline`,
+  },
   blocks: [
     {
       title: "Universal Topology",

@@ -108,7 +108,7 @@ export default function Page2Content({
           />
           <HoverButton
             label={"Prev"}
-            secondary={theme.shape.hudLowContrast}
+            secondary={theme.palette.common.white}
             onClick={() => handleProjectChange(false)}
           />
         </Grid>
@@ -124,7 +124,6 @@ export default function Page2Content({
           <Typography
             className="utilCenter"
             sx={{
-              ...theme.type.mono,
               whiteSpace: "nowrap",
               p: 2,
               fontSize: {
@@ -170,7 +169,7 @@ export default function Page2Content({
           <HoverButton
             label={"Next"}
             onClick={() => handleProjectChange(true)}
-            secondary={theme.shape.hudLowContrast}
+            secondary={theme.palette.common.white}
             sx={{
               position: "relative",
               zIndex: 9,
@@ -214,30 +213,29 @@ export default function Page2Content({
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
+        sx={{
+          pl: { xs: 2, sm: 3, md: 4, lg: 5 },
+          pr: { xs: 2, sm: 3, md: 4, lg: 5 },
+          pb: { xs: 2, sm: 3, md: 4, lg: 5 },
+        }}
       >
         <Typography
           variant="h5"
           sx={{
-            ...theme.type.mono,
             color: theme.palette.common.lightCoral,
-            pl: 5,
-            pr: 5,
             pb: 2,
             width: "100%",
             textAlign: "justify",
           }}
           whiteSpace="pre-line"
         >
-          {activeProject.content?.title}
+          {activeProject.title}
         </Typography>
         <Typography
           variant="subtitle1"
           sx={{
-            ...theme.type.mono,
             color: theme.palette.common.white,
-            pl: { xs: 2, sm: 3, md: 4, lg: 5 },
-            pr: { xs: 2, sm: 3, md: 4, lg: 5 },
-            pb: { xs: 2, sm: 3, md: 4, lg: 5 },
+
             pt: 0,
             width: "100%",
             textAlign: "justify",
@@ -325,7 +323,7 @@ export default function Page2Content({
 <Grid item sx={{ zIndex: 2, flex: 1, width: "fit-content" }}>
 item
 {/* <Typography
-  sx={{ ...theme.type.mono, width: "fit-content" }}
+  sx={{   width: "fit-content" }}
   variant="h2"
 >
   <span

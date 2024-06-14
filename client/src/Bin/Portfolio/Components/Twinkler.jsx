@@ -1,6 +1,6 @@
 import { Box, Button, useTheme } from "@mui/material";
-import React, { useState } from "react";
-import { useSpring, animated, useSprings, to } from "react-spring";
+import React, { useRef, useState } from "react";
+import { useSpring, animated, useSprings, to, useScroll } from "react-spring";
 
 // const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 //
@@ -11,6 +11,7 @@ export default function Twinkler({
   number = 4,
   children,
   sx = {},
+  target,
 }) {
   function Twinkle({ style, height = 6 }) {
     const theme = useTheme();
@@ -114,12 +115,21 @@ export default function Twinkler({
   const range = randomUnique(11, layers * number);
 
   const [spring, api] = useSprings(layers * number, (index) => {
+    let sx =
+      index % layers === 0
+        ? { dampener: 300, opacity: 0.5 }
+        : index % 3 === 1
+        ? { dampener: 600, opacity: 0.3 }
+        : { dampener: 900, opacity: 0.1 };
+    let offsetX = range[index][0];
+    let offsetY = range[index][1];
     return {
-      x: range[index][0],
-      y: range[index][1],
-      opacity: 0,
+      opacity: sx.opacity,
+      x: offsetX - window.innerWidth / sx.dampener,
+      y: offsetY - window.innerHeight / sx.dampener,
     };
   });
+
   return (
     <Box
       onMouseMove={({ clientX: x, clientY: y }) => {
@@ -141,13 +151,14 @@ export default function Twinkler({
       }}
       sx={{
         color: "white",
-        height: "100vh",
+        // minHeight: "100vh",
         width: "100vw",
         position: "absolute",
         zIndex: 1,
       }}
     >
       <Box
+        ref={target}
         className="scrollOverflow"
         sx={{
           zIndex: 10,

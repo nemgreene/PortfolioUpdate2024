@@ -1,10 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
 import ProjectVideo from "./ProjectVideo";
 import ProjectImageList from "./ProjectImageList";
 import ProjectBlockContainer from "./ProjectBlockContainer";
 
 export default function ProjectBlock1({ blockData, setCarouselImages }) {
+  const theme = useTheme();
   return (
     <Box
       sx={(theme) => ({
@@ -14,13 +15,15 @@ export default function ProjectBlock1({ blockData, setCarouselImages }) {
         flexDirection: "column",
         position: "relative",
         overflowX: "hidden",
-        // padding: ` ${theme.spacing(5)} `,
       })}
-      className="test"
+      className="projectBlock1"
     >
-      <ProjectBlockContainer sx={{ width: "100%" }}>
+      <ProjectBlockContainer
+        sx={{ flexDirection: "column", flexWrap: "no-wrap" }}
+      >
         <Box
           className="utilCenter"
+          sx={{ flexGrow: 1, width: "100%" }}
           // sx={(theme) => ({
           //   // padding: ` ${theme.spacing(5)} `,
           // })}
@@ -40,22 +43,22 @@ export default function ProjectBlock1({ blockData, setCarouselImages }) {
             />
           ) : null}
         </Box>
-      </ProjectBlockContainer>
-      <ProjectBlockContainer sx={{ width: "100%" }}>
-        <Box sx={{ width: "100%" }}>
-          {blockData.header ? (
-            <Box>
-              <Typography variant="h3">{blockData.header}</Typography>
-            </Box>
-          ) : null}
-          {blockData.p ? (
-            <Box>
-              <Typography whiteSpace="pre-line" variant="p">
-                {blockData.p}
-              </Typography>
-            </Box>
-          ) : null}
-        </Box>
+        {blockData.header || blockData.p ? (
+          <Box className="utilCenter" sx={{ p: { xs: 2, md: 5 } }}>
+            {blockData.header ? (
+              <Box width="100%">
+                <Typography variant="h3">{blockData.header}</Typography>
+              </Box>
+            ) : null}
+            {blockData.p ? (
+              <Box width="100%">
+                <Typography whiteSpace="pre-line" variant="p">
+                  {blockData.p}
+                </Typography>
+              </Box>
+            ) : null}
+          </Box>
+        ) : null}
       </ProjectBlockContainer>
     </Box>
   );

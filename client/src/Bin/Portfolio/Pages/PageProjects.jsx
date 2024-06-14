@@ -324,7 +324,7 @@ export default function PageProjects({
           <Grid sx={{ height: xs ? "30px" : sm ? "40px" : "60px" }} item>
             <Typography
               variant="h6"
-              style={{ ...theme.type.mono, color: theme.palette.common.white }}
+              style={{ color: theme.palette.common.white }}
             >
               VG
             </Typography>

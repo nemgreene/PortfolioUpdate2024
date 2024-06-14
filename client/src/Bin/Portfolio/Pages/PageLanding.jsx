@@ -84,7 +84,6 @@ export default function PageLanding({
               // variant="h1"
               className="test"
               sx={{
-                ...theme.type.mono,
                 whiteSpace: "noWrap",
                 display: "flex",
                 overflow: "visible",
@@ -110,7 +109,7 @@ export default function PageLanding({
                       variant="subtitle1"
                       sx={{
                         color: theme.palette.common.dimGray,
-                        ...theme.type.mono,
+
                         whiteSpace: "noWrap",
                       }}
                     >
@@ -122,7 +121,6 @@ export default function PageLanding({
                   <Typography
                     variant="h2"
                     sx={{
-                      ...theme.type.mono,
                       whiteSpace: "noWrap",
                       right: theme.spacing(5),
                       height: "fit-content",

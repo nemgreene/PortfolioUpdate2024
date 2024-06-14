@@ -87,7 +87,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
           />
           <HoverButton
             sx={{ p: 1 }}
-            secondary={theme.shape.hudLowContrast}
+            secondary={theme.palette.common.white}
             loadSprings={loadSprings}
             label={"Projects"}
             onClick={() => {
@@ -113,7 +113,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
           />
           <HoverButton
             sx={{ p: 1 }}
-            secondary={theme.shape.hudLowContrast}
+            secondary={theme.palette.common.white}
             loadSprings={loadSprings}
             label={"About"}
             onClick={() => {
@@ -161,7 +161,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
 
           <HoverButton
             sx={{ p: 1 }}
-            secondary={theme.shape.hudLowContrast}
+            secondary={theme.palette.common.white}
             loadSprings={loadSprings}
             label={"Contact"}
             onClick={() => navigate("/contact")}
@@ -190,7 +190,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
         >
           <Grid
             sx={{
-              border: `${theme.shape.hudThickness}px solid ${theme.shape.hudLowContrast} `,
+              border: `${theme.shape.hudThickness}px solid ${theme.palette.common.white} `,
               width: "90%",
               borderRadius: "200px",
             }}
@@ -215,7 +215,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
                     marginLeft: "20px",
                   }}
                 >
-                  <Typography variant="h4" sx={{ ...theme.type.mono, p: 1 }}>
+                  <Typography variant="h4" sx={{ p: 1 }}>
                     {v}
                   </Typography>
                 </li>

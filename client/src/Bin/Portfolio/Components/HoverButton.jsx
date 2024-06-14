@@ -94,10 +94,7 @@ export default function HoverButton({
           className="utilCenter hoverButtonPrimaryContainer"
           style={{ height: "100%", backgroundColor: primary, width: "100%" }}
         >
-          <Typography
-            variant="h6"
-            sx={{ ...theme.type.mono, color: secondary }}
-          >
+          <Typography variant="h6" sx={{ color: secondary }}>
             {label}
           </Typography>
         </div>
@@ -128,7 +125,6 @@ export default function HoverButton({
               className="utilCenter"
               variant="h6"
               sx={{
-                ...theme.type.mono,
                 position: "relative",
                 width: "100%",
                 height: "100%",

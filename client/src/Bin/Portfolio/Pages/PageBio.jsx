@@ -120,7 +120,6 @@ Experience as project lead resposible for team management, development, technica
         <Typography
           variant="subtitle1"
           sx={{
-            ...theme.type.mono,
             textTransform: "uppercase",
             whiteSpace: "nowrap",
           }}
@@ -176,7 +175,7 @@ Experience as project lead resposible for team management, development, technica
 
   useScroll({
     onChange: ({ value: { scrollYProgress } }) => {
-      if (scrollYProgress > 0.33 && !started) {
+      if (scrollYProgress > 0.1 && !started) {
         setStarted(true);
       }
     },
@@ -219,7 +218,6 @@ Experience as project lead resposible for team management, development, technica
         >
           <Typography
             sx={{
-              ...theme.type.mono,
               textTransform: "uppercase",
               fontSize: { xs: "15vw", md: "12vw", lg: "10vw" },
               color: theme.palette.common.dimGray,
@@ -308,9 +306,8 @@ Experience as project lead resposible for team management, development, technica
             >
               <Grid item>
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   sx={{
-                    ...theme.type.mono,
                     p: 2,
                     pl: 0,
                     display: { xs: "none", md: "block" },
@@ -322,9 +319,8 @@ Experience as project lead resposible for team management, development, technica
               </Grid>
               <Grid item sx={{ width: "100%" }}>
                 <Typography
-                  variant="subtitle1"
+                  variant="p"
                   sx={{
-                    ...theme.type.mono,
                     whiteSpace: "pre-wrap",
                     width: "100%",
                     fontSize: {

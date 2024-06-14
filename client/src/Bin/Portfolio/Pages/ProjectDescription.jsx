@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { categories, iconDictionary, path404 } from "../Utilities/Utilities";
+import useMeasure from "react-use-measure";
 import {
   AppBar,
   Box,
@@ -13,7 +14,7 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import { useSprings, animated, useSpring } from "@react-spring/web";
+import { useSprings, animated, useSpring, useScroll } from "@react-spring/web";
 import ProjectBlock0 from "../Components/ProjectBlock0";
 import ProjectBlock1 from "../Components/ProjectBlock1";
 import ProjectBlock3 from "../Components/ProjectBlock3";
@@ -23,28 +24,19 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ProjectImageCarousel from "../../Carousel/ProjectCarousel";
 import Overlay from "../../Utilities/Overlay";
 import Twinkler from "../Components/Twinkler";
+import { useGesture } from "@use-gesture/react";
 
 export default function ProjectDescription() {
   const [projectData, setProjectData] = useState({});
   const [carouselImages, setCarouselImages] = useState([]);
   const theme = useTheme();
+  let dataRef = useRef(null);
   let { projectTitle } = useParams();
 
   const navigate = useNavigate();
 
   const ProjectDescriptionBox = styled("div")(({ theme }) => ({
     position: "relative",
-    [theme.breakpoints.down("md")]: {
-      padding: theme.spacing(0),
-    },
-    [theme.breakpoints.only("md")]: {
-      padding: theme.spacing(2),
-      // backgroundColor: "green",
-    },
-    [theme.breakpoints.up("lg")]: {
-      padding: theme.spacing(3),
-      // backgroundColor: "yellow",
-    },
   }));
 
   const blockDictionary = {
@@ -98,13 +90,13 @@ export default function ProjectDescription() {
     ),
   };
 
-  const [fade, fadeApi] = useSpring(() => ({ from: { opacity: 0 } }));
+  const [fade, fadeApi] = useSpring(() => ({ from: { opacity: 1 } }));
 
   const [blockIn, blockInApi] = useSprings(
     projectData?.content?.blocks.length || 0,
     () => ({
       from: { opacity: 0, scale: 0 },
-      trail: 400 / projectData?.content?.blocks.length,
+      // trail: 400 / projectData?.content?.blocks.length,
     })
   );
 
@@ -120,17 +112,14 @@ export default function ProjectDescription() {
       navigate(path404);
     }
     setProjectData(data[0]);
-
-    fadeApi.start({
-      to: { opacity: 1 },
-      onRest: () => {
-        blockInApi.start((index) => ({
-          to: { opacity: 1, scale: 1 },
-          delay: index * 100,
-        }));
-      },
-    });
   }, []);
+
+  useEffect(() => {
+    blockInApi.start((index) => ({
+      to: { opacity: 1, scale: 1 },
+      delay: index * 100,
+    }));
+  }, [projectData]);
 
   return (
     <Box
@@ -138,9 +127,11 @@ export default function ProjectDescription() {
       sx={{
         bgcolor: theme.palette.common.eerieBlack,
         color: theme.palette.common.white,
-        height: "100vh",
         width: "100vw",
+        heihgt: "fit-content",
+        p: 0,
       }}
+      // ref={ref}
     >
       <Overlay
         open={carouselImages.length > 0}
@@ -148,11 +139,11 @@ export default function ProjectDescription() {
       >
         <ProjectImageCarousel slides={carouselImages} />
       </Overlay>
-      <Twinkler number={10} sx={{ pb: 15 }}>
-        <animated.div style={{ ...fade }} className="utilCenter">
+      <Twinkler number={10}>
+        <animated.div style={{ opacity: 1 }} className="utilCenter fadeIn">
           <ProjectDescriptionBox>
             {blockIn.map((props, item) => (
-              <animated.div style={props} key={item}>
+              <animated.div style={{ ...props }} key={item}>
                 {!projectData?.content?.blocks[item].priority
                   ? blockDictionary["default"](
                       projectData?.content?.blocks[item],
@@ -170,13 +161,14 @@ export default function ProjectDescription() {
         position="fixed"
         sx={(t) => ({
           top: "auto",
-          color: t.palette.primary.main,
+          color: t.palette.common.white,
           bottom: 0,
-          bgcolor: t.palette.background.main,
+          bgcolor: t.palette.common.eerieBlack,
         })}
       >
-        <Toolbar sx={{ height: "10vh" }}>
+        <Toolbar sx={{ height: theme.spacing(10) }}>
           <Button
+            sx={{ color: "inherit" }}
             onClick={() => {
               navigate("/");
             }}
@@ -187,12 +179,18 @@ export default function ProjectDescription() {
           {projectData?.content?.links ? (
             <Box sx={{ marginLeft: "auto" }} className="utilCenter">
               <Box sx={{ mr: "10px" }}>
-                <Typography variant="h6">Project Links:</Typography>
+                <Typography sx={{ color: "inherit" }} variant="h6">
+                  Project Links:
+                </Typography>
               </Box>
               <Box>
                 {projectData.content.links.map((link, index) =>
                   link.icon && iconDictionary[link.icon] ? (
-                    <Button key={index} endIcon={iconDictionary[link.icon]()}>
+                    <Button
+                      sx={{ color: "inherit" }}
+                      key={index}
+                      endIcon={iconDictionary[link.icon]()}
+                    >
                       {link.icon}
                     </Button>
                   ) : null

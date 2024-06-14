@@ -1,10 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import ProjectVideo from "./ProjectVideo";
+import ProjectBlockContainer from "./ProjectBlockContainer";
 
 export default function ProjectBlock0({ blockData }) {
   return (
     <Box
+      className="projectBlock0"
       sx={{
         width: "100%",
         height: "100%",

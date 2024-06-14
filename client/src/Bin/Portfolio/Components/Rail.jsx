@@ -76,7 +76,7 @@ export default function Rail({
       y2={y2}
       style={style}
       strokeWidth={strokeWidth ? strokeWidth : theme.shape.hudThickness}
-      stroke={stroke ? stroke : theme.shape.hudLowContrast}
+      stroke={stroke ? stroke : theme.palette.common.white}
       variant={variant}
       flex={flex}
     />

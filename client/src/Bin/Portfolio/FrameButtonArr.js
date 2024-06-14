@@ -103,9 +103,7 @@ export default function FrameButtonArr({
                     className="hide"
                     gap={"5px"}
                   >
-                    <animated.span
-                      style={{ opacity: ticksSprings[i].o, ...theme.type.mono }}
-                    >
+                    <animated.span style={{ opacity: ticksSprings[i].o }}>
                       {`${i + 1 > 9 ? i + 1 : "0" + (i + 1)}`}
                     </animated.span>
                     <animated.svg
@@ -120,13 +118,13 @@ export default function FrameButtonArr({
                         className="frameLineOpacity"
                         fill="none"
                         strokeWidth="2"
-                        stroke={theme.shape.hudLowContrast}
+                        stroke={theme.palette.common.white}
                       />
                     </animated.svg>
                     <Grid
                       item
                       sx={{
-                        color: theme.shape.hudLowContrast,
+                        color: theme.palette.common.white,
                       }}
                       className="hide"
                     ></Grid>
@@ -142,7 +140,7 @@ export default function FrameButtonArr({
                       x2={ticksSprings[i].x1.to((v) => `${v - x1(i)}%`)}
                       y1={theme.shape.hudThickness}
                       y2={theme.shape.hudThickness}
-                      stroke={theme.shape.hudLowContrast}
+                      stroke={theme.palette.common.white}
                       strokeWidth={theme.shape.hudThickness / 2}
                     />
                   </svg>

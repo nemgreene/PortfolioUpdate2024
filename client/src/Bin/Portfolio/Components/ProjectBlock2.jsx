@@ -1,10 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid, useTheme } from "@mui/material";
 import React from "react";
 import ProjectVideo from "./ProjectVideo";
 import ProjectBlockContainer from "./ProjectBlockContainer";
 import ProjectImageList from "./ProjectImageList";
 
 export default function ProjectBlock3({ blockData, index, setCarouselImages }) {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -16,6 +17,7 @@ export default function ProjectBlock3({ blockData, index, setCarouselImages }) {
         overflowX: "hidden",
         // padding: (theme) => `${theme.spacing(5)} ${theme.spacing(0)}`,
       }}
+      className="projectBlock2"
     >
       <Box
         className="utilCenter"
@@ -26,39 +28,57 @@ export default function ProjectBlock3({ blockData, index, setCarouselImages }) {
           },
         })}
       >
-        <ProjectBlockContainer sx={{ width: "66%" }}>
-          {blockData?.videos?.map((v, i) => (
-            <ProjectVideo
-              key={i}
-              src={v.src}
-              alt={v.alt}
-              priority={v.priority}
-            ></ProjectVideo>
-          ))}
-          {blockData?.images ? (
-            <ProjectImageList
-              images={blockData?.images}
-              setCarouselImages={setCarouselImages}
-            />
-          ) : null}
-        </ProjectBlockContainer>
-        <ProjectBlockContainer sx={{ width: "33%" }}>
-          <Box>
-            {blockData.header ? (
-              <Box display="flex" justifyContent="center">
-                <Typography p={(t) => `${t.spacing(5)}`} variant="h3">
-                  {blockData.header}
-                </Typography>
-              </Box>
-            ) : null}
-            {blockData.p ? (
-              <Box>
-                <Typography whiteSpace="pre-line" variant="p">
-                  {blockData.p}
-                </Typography>
-              </Box>
-            ) : null}
-          </Box>
+        <ProjectBlockContainer>
+          <Grid container>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              item
+              xs={12}
+              lg={9}
+            >
+              {blockData?.videos?.map((v, i) => (
+                <ProjectVideo
+                  key={i}
+                  src={v.src}
+                  alt={v.alt}
+                  priority={v.priority}
+                ></ProjectVideo>
+              ))}
+              {blockData?.images ? (
+                <ProjectImageList
+                  images={blockData?.images}
+                  setCarouselImages={setCarouselImages}
+                />
+              ) : null}
+            </Grid>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              item
+              xs={12}
+              lg={3}
+              sx={{ p: { xs: 2, md: 5 } }}
+            >
+              {blockData.header ? (
+                <Box display="flex" justifyContent="center">
+                  <Typography p={(t) => `${t.spacing(5)}`} variant="h3">
+                    {blockData.header}
+                  </Typography>
+                </Box>
+              ) : null}
+              {blockData.p ? (
+                <Box>
+                  <Typography whiteSpace="pre-line" variant="p">
+                    {blockData.p}
+                  </Typography>
+                </Box>
+              ) : null}
+            </Grid>
+          </Grid>
+          <Box></Box>
         </ProjectBlockContainer>
       </Box>
     </Box>

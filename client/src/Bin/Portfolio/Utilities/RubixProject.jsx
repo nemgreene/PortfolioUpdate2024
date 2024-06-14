@@ -104,22 +104,11 @@ export const RubixContent = {
     { icon: "Youtube", src: "https://youtu.be/cpJc0scX97w" },
   ],
   description: {
-    priority: 2,
     image: structuredImages[0],
     p: `Implementation of a Rubix Cube solver, with visualization in Maya.
-    
-    
     `,
   },
-  description: {
-    priority: 2,
-    image: structuredImages[0],
-    p: `All of the algorithms require a world-vector nostalgic understanding of the cube. 
-    
-    Algorithms need to be run facing one of the 4 lateral faces of the cube, and has to understand how to rotate a section relative to its understanding. 
-    
-    One algorithm might require the “Machine” to be viewing the cube from [-1, 0,0] world space, and rotate the left side clockwise, or to view the cube from [0,0,1] and rotate the top counter clockwise. `,
-  },
+
   blocks: [
     {
       title: "Rubix Cube Solver",
@@ -127,6 +116,7 @@ export const RubixContent = {
       priority: 0,
     },
     {
+      priority: 1,
       videos: [
         {
           alt: "Rubix Project Video",
@@ -136,7 +126,7 @@ export const RubixContent = {
       ],
     },
     {
-      priority: 2,
+      priority: 3,
       images: [structuredImages[1]],
       p: `All of the algorithms require a world-vector nostalgic understanding of the cube. 
       
@@ -145,7 +135,7 @@ export const RubixContent = {
       One algorithm might require the “Machine” to be viewing the cube from [-1, 0,0] world space, and rotate the left side clockwise, or to view the cube from [0,0,1] and rotate the top counter clockwise. `,
     },
     {
-      priority: 3,
+      priority: 2,
       images: structuredImages.slice(3, 10),
       p: `The algorithm takes 8 steps to solve a scrambled cube (Step 1 not showed). `,
     },

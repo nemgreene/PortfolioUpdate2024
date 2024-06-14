@@ -33,9 +33,43 @@ const {
   whiteLowContrast,
 } = utility;
 
+const monoFont = {
+  fontFamily: [
+    '"Share Tech Mono", monospace',
+    "-apple-system",
+    "BlinkMacSystemFont",
+    '"Segoe UI"',
+    "Roboto",
+    '"Helvetica Neue"',
+    "Arial",
+    "sans-serif",
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(","),
+  fontWeight: 400,
+  fontStyle: "normal",
+};
 function App() {
   let portolioTheme = createTheme({
-    typography: { fontSize: 10 },
+    typography: {
+      fontSize: 10,
+      ...monoFont,
+      p: { ...monoFont },
+      h1: { ...monoFont },
+      h2: { ...monoFont },
+      h3: { ...monoFont },
+      h4: { ...monoFont },
+      h5: { ...monoFont },
+      h6: { ...monoFont },
+      subtitle1: { ...monoFont },
+      subtitle2: { ...monoFont },
+      body1: { ...monoFont },
+      body2: { ...monoFont },
+      button: { ...monoFont },
+      caption: { ...monoFont },
+      overline: { ...monoFont },
+    },
     palette: {
       common: {
         eerieBlack,
@@ -63,13 +97,6 @@ function App() {
       frameLineOpacity,
       hudLowContrast: whiteLowContrast,
       hudThickness: 3,
-    },
-    type: {
-      mono: {
-        fontFamily: '"Share Tech Mono", monospace',
-        fontWeight: 400,
-        fontStyle: "normal",
-      },
     },
   });
 

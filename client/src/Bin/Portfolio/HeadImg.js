@@ -150,7 +150,7 @@ const HeadImg = ({ gridSprings, ticksSprings, loadSprings }) => {
             r={radius}
             fill="none"
             vectorEffect="non-scaling-stroke"
-            stroke={theme.shape.hudLowContrast}
+            stroke={theme.palette.common.white}
             strokeWidth={theme.shape.hudThickness}
             strokeDasharray={3.14159 * 2 * radius}
             strokeDashoffset={to(
