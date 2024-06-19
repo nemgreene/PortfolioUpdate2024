@@ -125,8 +125,8 @@ const Homepage = ({ setInitialized, initialized }) => {
 
   useEffect(() => {
     navigate("/");
+    window.scrollTo(0, 0);
     if (initialized) {
-      window.scrollTo(0, 0);
       enableBodyScroll(portfolioContainerRef.current);
     } else {
       disableBodyScroll(portfolioContainerRef.current);
