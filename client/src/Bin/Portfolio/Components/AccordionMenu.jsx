@@ -48,14 +48,15 @@ export default function AccordionMenu({
                   {v.title}
                   <NavigateNextIcon
                     id="promptIcon"
-                    sx={{
+                    sx={(theme) => ({
+                      color: theme.palette.common.dimGray,
                       transition: "0.3s",
                       opacity: 0,
                       position: "absolute",
                       top: 0,
                       bottom: 0,
                       height: "100%",
-                    }}
+                    })}
                   />
                 </span>
               }

@@ -1,11 +1,12 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { useSprings, animated, useSpring, config } from "@react-spring/web";
 import { ThemeContext, useTheme } from "@emotion/react";
 import HoverButton from "../Components/HoverButton";
 // import Clock from "../Components/Clock";
 import Rail from "../Components/Rail";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function Page2Content({
   activeProject = {},
   previewSpring,
@@ -96,7 +97,10 @@ export default function Page2Content({
             flex: 1,
             height: "100%",
             position: "relative",
-            display: { xs: "none", md: "block" },
+            display:
+              activeField?.projects?.length > 1
+                ? { xs: "none", md: "block" }
+                : "none",
           }}
         >
           <Rail
@@ -155,7 +159,10 @@ export default function Page2Content({
             flex: 1,
             height: "100%",
             position: "relative",
-            display: { xs: "none", md: "block" },
+            display:
+              activeField?.projects?.length > 1
+                ? { xs: "none", md: "block" }
+                : "none",
           }}
         >
           <Rail
@@ -179,6 +186,7 @@ export default function Page2Content({
       </Grid>
     </Box>
   );
+  const linkRef = useRef(null);
 
   const DescriptionPanel = ({ attrs }) => (
     <Grid
@@ -255,8 +263,24 @@ export default function Page2Content({
           position: "relative",
         }}
       >
+        {console.log(activeProject.title.split(" ").join("_"))}
+        <Link
+          ref={linkRef}
+          to={
+            activeProject?.content?.description?.url ||
+            `projects/${activeProject.title}`
+          }
+          target="_blank"
+          sx={{ display: "none" }}
+        ></Link>
         <HoverButton
-          onClick={() => navigate(`projects/${activeProject.title}`)}
+          onClick={() => {
+            if (activeProject?.content?.description?.url) {
+              linkRef.current.click();
+            } else {
+              navigate(`projects/${activeProject.title.split(" ").join("_")}`);
+            }
+          }}
           label={"VIEW_PROJECT:[ok]"}
           primary={theme.palette.common.sage}
           secondary={theme.palette.common.eerieBlack}
@@ -301,13 +325,15 @@ export default function Page2Content({
       {/* COntent */}
       <Grid container sx={{ height: "100%" }}>
         <Grid item xs={1}></Grid>
-        <DescriptionPanel
-          attrs={{
-            xs: 5,
-            md: 4,
-            lg: 3,
-          }}
-        />
+        {activeProject.title ? (
+          <DescriptionPanel
+            attrs={{
+              xs: 5,
+              md: 4,
+              lg: 3,
+            }}
+          />
+        ) : null}
         <ImagePanel attrs={{ xs: 6, md: 7, lg: 4 }} />
       </Grid>
       {/* Banner */}
@@ -315,34 +341,3 @@ export default function Page2Content({
     </animated.div>
   );
 }
-
-{
-  /* <Grid item sx={{ zIndex: 2, flex: 1 }} xs={1}>
-<HoverButton label={"Prev"} />
-</Grid>
-<Grid item sx={{ zIndex: 2, flex: 1, width: "fit-content" }}>
-item
-{/* <Typography
-  sx={{   width: "fit-content" }}
-  variant="h2"
->
-  <span
-    style={{
-      color: theme.palette.common.dimGray,
-    }}
-  >{`<title>`}</span>
-
-  {activeProject.content?.title
-    ? activeProject.content?.title.split(" ").join(".")
-    : "Test.Title"}
-  <span
-    style={{
-      color: theme.palette.common.dimGray,
-    }}
-  >{`</title>`}</span>
-</Typography> */
-}
-// </Grid>
-// <Grid item sx={{ zIndex: 2, flex: 1 }} xs={1}>
-// <HoverButton label={"Prev"} />
-// </Grid> */}

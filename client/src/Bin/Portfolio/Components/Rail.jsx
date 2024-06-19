@@ -32,7 +32,7 @@ function RailElem({
     : { ...style, ...flexStyle };
 
   return (
-    <svg
+    <animated.svg
       height={variantStyle.height ? variantStyle.height : "100%"}
       width={variantStyle.width ? variantStyle.width : "100%"}
       viewBox="0 0 100 100"
@@ -53,7 +53,7 @@ function RailElem({
         strokeWidth={`calc(${strokeWidth} * 2px)`}
         stroke={stroke}
       />
-    </svg>
+    </animated.svg>
   );
 }
 export default function Rail({
@@ -63,9 +63,12 @@ export default function Rail({
   y2 = 100,
   strokeWidth,
   stroke,
+  // stlye applied to static svg elem
   style = {},
   variant = null,
   flex = false,
+  // style applied to animated elem
+  sx = {},
 }) {
   const theme = useTheme();
   return (

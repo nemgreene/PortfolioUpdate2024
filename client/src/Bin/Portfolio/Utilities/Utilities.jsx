@@ -7,6 +7,7 @@ import { UniversalProject } from "./UniversalTopologyProject";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PaletteIcon from "@mui/icons-material/Palette";
+import { DevBlog } from "./DevBlog";
 
 export const letters = Array.from("abcdefghijklmnopqrstuvwx");
 
@@ -26,6 +27,10 @@ export const categories = [
   {
     title: "Modeling/Rigging",
     projects: [{ title: "Universal Topology", content: UniversalProject }],
+  },
+  {
+    title: "Web Dev",
+    projects: [{ title: "Development Blog", content: DevBlog }],
   },
   // { title: "WebDev" },
   // { title: "VisDev" },

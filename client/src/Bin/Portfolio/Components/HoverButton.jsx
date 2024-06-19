@@ -9,6 +9,7 @@ export default function HoverButton({
   label,
   sx = {},
   loadSprings = {},
+  startIcon = null,
   onHover = () => {},
   onClick = () => {},
   reset = true,
@@ -94,7 +95,17 @@ export default function HoverButton({
           className="utilCenter hoverButtonPrimaryContainer"
           style={{ height: "100%", backgroundColor: primary, width: "100%" }}
         >
-          <Typography variant="h6" sx={{ color: secondary }}>
+          <Typography
+            variant="h6"
+            sx={{
+              color: secondary,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: ".1rem",
+            }}
+          >
+            {startIcon}
             {label}
           </Typography>
         </div>
@@ -130,6 +141,7 @@ export default function HoverButton({
                 height: "100%",
               }}
             >
+              {startIcon}
               {label}
             </Typography>
           </animated.span>

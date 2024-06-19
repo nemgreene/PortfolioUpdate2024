@@ -25,6 +25,7 @@ import ProjectImageCarousel from "../../Carousel/ProjectCarousel";
 import Overlay from "../../Utilities/Overlay";
 import Twinkler from "../Components/Twinkler";
 import { useGesture } from "@use-gesture/react";
+import HoverButton from "../Components/HoverButton";
 
 export default function ProjectDescription() {
   const [projectData, setProjectData] = useState({});
@@ -106,7 +107,7 @@ export default function ProjectDescription() {
       .reduce((p, n) => {
         return n.projects ? [...p, ...n.projects] : p;
       }, [])
-      .filter((v) => v.title === projectTitle);
+      .filter((v) => v.title.split(" ").join("_") === projectTitle);
 
     if (data.length !== 1) {
       navigate(path404);
@@ -134,6 +135,14 @@ export default function ProjectDescription() {
       // ref={ref}
     >
       <Overlay
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          bgcolor: theme.palette.common.eerieBlack,
+          boxShadow: 24,
+        }}
         open={carouselImages.length > 0}
         handleClose={() => setCarouselImages([])}
       >
@@ -166,16 +175,28 @@ export default function ProjectDescription() {
           bgcolor: t.palette.common.eerieBlack,
         })}
       >
-        <Toolbar sx={{ height: theme.spacing(10) }}>
-          <Button
-            sx={{ color: "inherit" }}
-            onClick={() => {
-              navigate("/");
+        <Toolbar
+          className="test"
+          sx={{
+            height: theme.spacing(10),
+            paddingLeft: "0 !important",
+          }}
+        >
+          <Box
+            sx={{
+              minWidht: "100px",
+              width: { xs: "33vw", md: "15vw" },
+              height: "100%",
             }}
-            startIcon={<ArrowBackIosIcon />}
           >
-            Back to home
-          </Button>
+            <HoverButton
+              onClick={() => {
+                navigate("/");
+              }}
+              startIcon={<ArrowBackIosIcon />}
+              label={<span>Back to home</span>}
+            ></HoverButton>
+          </Box>
           {projectData?.content?.links ? (
             <Box sx={{ marginLeft: "auto" }} className="utilCenter">
               <Box sx={{ mr: "10px" }}>

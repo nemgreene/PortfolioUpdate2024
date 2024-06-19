@@ -324,14 +324,14 @@ export default function PageProjects({
           <Grid sx={{ height: xs ? "30px" : sm ? "40px" : "60px" }} item>
             <Typography
               variant="h6"
-              style={{ color: theme.palette.common.white }}
+              style={{ color: theme.palette.common.lightCoral }}
             >
               VG
             </Typography>
           </Grid>
         </Button>
       </Grid>
-      {!isNaN(activeProjectIndex) && activeField?.projects ? (
+      {activeProjectIndex !== null && activeField?.projects ? (
         <Box sx={{ zIndex: 10 }}>
           <animated.div style={{ ...previewSpring[0] }}>
             <Page2Content

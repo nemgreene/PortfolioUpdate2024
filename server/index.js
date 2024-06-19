@@ -2,29 +2,55 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-
+const path = require("path");
 const cors = require("cors");
 
 const app = express();
 app.use(cors());
 
 //import your models
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
-mongoose
-  .connect(process.env.MONGO_STRING, {})
-  .then(() => console.log("MongoDB has been connected on port " + PORT))
-  .catch((err) => console.log(err));
+mongoose.connect(process.env.MONGO_STRING);
+// // using bodyParser to parse JSON bodies into JS objects
+app.use(bodyParser.json({ limit: "5mb" }));
 
-//middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+// // enabling CORS for all requests
+app.use(cors());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
 app.use(bodyParser.json());
 
-//import routes
-require("./routes.js")(app);
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization, access-control-allow-origin, profilerefid(whatever header you need)"
+  );
+  next();
+});
 
-// Accessing the path module
-const path = require("path");
+app.use(express.static("./uploads"));
+
+const LoggerBuddyRouter = require("./routes/LoggerBuddy/routes");
+const LoggerBuddyProtectedRouter = require("./routes/LoggerBuddy/protectedRotues");
+const User = require("./models/LoggerBuddy/User");
+
+const authenitcate = async (req, res, next) => {
+  const user = await User.findOne({ _id: req.headers.userid });
+  if (user.sessionCookie === req.headers.accesstoken) {
+    return next();
+  } else res.status(404).send({ error: "Invalid Credentials" });
+};
+
+app.use("/loggerBuddy/", LoggerBuddyRouter);
+app.use("/loggerBuddy/admin", authenitcate, LoggerBuddyProtectedRouter);
 
 // Step 1:
 app.use(express.static(path.resolve(__dirname, "../client/build")));
