@@ -22,6 +22,7 @@ import Head from "./Bin/Portfolio/Pages/Head";
 import Concepting from "./Bin/Portfolio/Pages/Concepting";
 import { useTheme } from "@emotion/react";
 import { useMediaQuery } from "@mui/material";
+import LoggerBuddyMain from "./Bin/LoggerBuddy/LoggerBuddyMain";
 const {
   bgMain,
   eerieBlack,
@@ -110,7 +111,7 @@ function App() {
 
   portolioTheme = responsiveFontSizes(portolioTheme);
 
-  const [initialized, setInitialized] = useState(false);
+  const [initialized, setInitialized] = useState(true);
 
   const router = createBrowserRouter([
     {
@@ -130,10 +131,10 @@ function App() {
       ),
     },
     {
-      path: "/concepting",
+      path: "/loggerBuddy/*",
       element: (
         <ThemeProvider theme={portolioTheme}>
-          <Concepting />
+          <LoggerBuddyMain />
         </ThemeProvider>
       ),
     },

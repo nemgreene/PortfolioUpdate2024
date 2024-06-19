@@ -121,6 +121,7 @@ export default function PageLanding({
                   <Typography
                     variant="h2"
                     sx={{
+                      pt: { xs: 2 },
                       whiteSpace: "noWrap",
                       right: theme.spacing(5),
                       height: "fit-content",

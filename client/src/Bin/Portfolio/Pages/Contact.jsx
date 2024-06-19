@@ -99,7 +99,7 @@ export default function Contact() {
           <Grid sx={{ height: "inherit" }} item>
             <Typography
               variant="h6"
-              style={{ color: theme.palette.common.white }}
+              style={{ color: theme.palette.common.lightCoral }}
             >
               VG
             </Typography>

@@ -114,7 +114,9 @@ export default function Page2Drawer({
                         transform: drawerSpring.r.to((v) => `rotate(${v}deg)`),
                       }}
                     >
-                      <KeyboardArrowUpIcon />
+                      <KeyboardArrowUpIcon
+                        sx={{ color: theme.palette.common.lightCoral }}
+                      />
                     </animated.span>
                   </animated.span>
                 }

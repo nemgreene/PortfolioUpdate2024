@@ -290,7 +290,15 @@ Experience as project lead resposible for team management, development, technica
               width: "50%",
             }}
           >
-            <Rail variant={i % 2 === 0 ? "left" : "right"} />
+            <Rail
+              stroke={theme.palette.common.lightCoral}
+              style={{
+                transform: widthSprings[i].x2.to((v) => {
+                  return `translateX(${(v / 25) * (i % 2 === 0 ? 3 : -3)}px)`;
+                }),
+              }}
+              variant={i % 2 === 0 ? "left" : "right"}
+            />
             <Grid
               container
               sx={{
