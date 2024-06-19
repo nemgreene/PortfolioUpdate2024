@@ -10,6 +10,11 @@ import PageProjects from "./PageProjects";
 import Typewriter from "../Components/Typewriter";
 import { useTheme } from "@emotion/react";
 import PageBio from "./PageBio";
+import { useNavigate } from "react-router-dom";
+
+const bodyScrollLock = require("body-scroll-lock");
+const disableBodyScroll = bodyScrollLock.disableBodyScroll;
+const enableBodyScroll = bodyScrollLock.enableBodyScroll;
 
 const Homepage = ({ setInitialized, initialized }) => {
   const [loaded, setLoaded] = useState(false);
@@ -115,12 +120,25 @@ const Homepage = ({ setInitialized, initialized }) => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+  const navigate = useNavigate();
+  const portfolioContainerRef = useRef(null);
+
+  useEffect(() => {
+    navigate("/");
+    if (initialized) {
+      window.scrollTo(0, 0);
+      enableBodyScroll(portfolioContainerRef.current);
+    } else {
+      disableBodyScroll(portfolioContainerRef.current);
+    }
+  }, [initialized]);
 
   const containerRef = useRef(null);
 
   return (
     <Box
       className="App"
+      ref={portfolioContainerRef}
       sx={(theme) => ({
         bgcolor: theme.palette.background.eerieBlack,
         color: theme.palette.background.white,

@@ -263,7 +263,6 @@ export default function Page2Content({
           position: "relative",
         }}
       >
-        {console.log(activeProject.title.split(" ").join("_"))}
         <Link
           ref={linkRef}
           to={

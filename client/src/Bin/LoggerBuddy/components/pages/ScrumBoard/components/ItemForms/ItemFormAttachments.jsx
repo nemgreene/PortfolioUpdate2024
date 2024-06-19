@@ -22,7 +22,6 @@ export default function ItemFormAttachments({
       changeImages(update);
     }
     changeImages(undefined);
-    console.log(update);
   };
 
   const toggleCheck = (v) => {
@@ -31,7 +30,6 @@ export default function ItemFormAttachments({
   };
   const handleSubmit = (v) => {
     changeLinks(v);
-    console.log("changing");
   };
 
   return (

@@ -76,7 +76,6 @@ export default function ItemForm({
     // issueNumber: "", //assigned on submit
     const errors = {};
     ["description", "title"].forEach((v) => {
-      console.log(v);
       if (!form[v]) {
         errors[v] = false;
       }
@@ -120,11 +119,9 @@ export default function ItemForm({
       return client.modalHandler(400, "Title And Description Required");
     }
 
-    console.log(formError);
     if (JSON.stringify(Object.values(formError)).includes("false")) {
       return client.modalHandler(400, "Please resolve form to proceed");
     }
-    console.log("navving");
     changeActiveForm(v);
   };
 

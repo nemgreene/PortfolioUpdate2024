@@ -92,7 +92,6 @@ function LoggerBuddyMain() {
   };
 
   const loadTaggedData = async (page = 1, reset = false) => {
-    console.log("loadingTagged data");
     if (reset) {
       setPage(1);
       page = 1;
@@ -124,7 +123,6 @@ function LoggerBuddyMain() {
   const loadStreams = async (index = trackedStream) => {
     //setup overhad initialization
     const streamOverhead = await client.getStreamHeaders(index);
-    console.log(streamOverhead);
     changeStreamHeaders(streamOverhead.data);
     //if streams are being tracked, this should updated them as well
     if (trackedStream.length > 0) {

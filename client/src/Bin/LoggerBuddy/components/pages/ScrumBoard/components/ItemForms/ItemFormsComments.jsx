@@ -70,7 +70,6 @@ export default function ItemFormsComments({
         if (e.clipboardData.files.length) {
           const fileObject = e.clipboardData.files[0];
           const reader = new FileReader();
-          console.log("Pasting");
 
           reader.onabort = () => console.log("file reading was aborted");
           reader.onerror = () => console.log("file reading has failed");
