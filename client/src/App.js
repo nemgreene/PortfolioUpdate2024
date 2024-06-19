@@ -22,7 +22,7 @@ import utility from "../src/StyleSheets/Utility/Consts.scss";
 import Contact from "./Bin/Portfolio/Pages/Contact";
 import { useMediaQuery } from "@mui/material";
 import LoggerBuddyMain from "./Bin/LoggerBuddy/LoggerBuddyMain";
-import { useParams } from "react-router-dom";
+import SudokuMain from "./Bin/Sudoku/SudokuMain";
 
 const {
   bgMain,
@@ -139,6 +139,15 @@ function App() {
         </ThemeProvider>
       ),
     },
+    {
+      path: "/sudokuProject/*",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <SudokuMain />
+        </ThemeProvider>
+      ),
+    },
+
     {
       path: "projects/:projectTitle",
       element: (

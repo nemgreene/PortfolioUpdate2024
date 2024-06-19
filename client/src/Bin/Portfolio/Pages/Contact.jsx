@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Contact() {
   const theme = useTheme();
@@ -22,6 +22,17 @@ export default function Contact() {
         </a>
       </span>,
       <span>
+        <Link
+          style={{
+            color: "inherit",
+          }}
+          to="/loggerBuddy"
+          target="_blank"
+        >
+          BLOG
+        </Link>
+      </span>,
+      <span>
         <a
           style={{
             color: "inherit",
@@ -34,6 +45,7 @@ export default function Contact() {
       </span>,
       //   <span>BLOG</span>,
     ],
+
     [
       <span>
         <a

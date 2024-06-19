@@ -8,6 +8,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { DevBlog } from "./DevBlog";
+import { SudokuApp } from "./SudokuApp";
 
 export const letters = Array.from("abcdefghijklmnopqrstuvwx");
 
@@ -30,7 +31,10 @@ export const categories = [
   },
   {
     title: "Web Dev",
-    projects: [{ title: "Development Blog", content: DevBlog }],
+    projects: [
+      { title: "Development Blog", content: DevBlog },
+      { title: "Sudoku Generator", content: SudokuApp },
+    ],
   },
   // { title: "WebDev" },
   // { title: "VisDev" },
