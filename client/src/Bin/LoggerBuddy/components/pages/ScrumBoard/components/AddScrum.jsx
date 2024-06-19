@@ -19,9 +19,7 @@ export default function AddScrum({
   handleClose,
 }) {
   const createScrum = async () => {
-    console.log(trackedStream);
     const res = await client.addScrum(trackedStream);
-    console.log(res);
     if (res.status === 200) {
       setScrum(true);
       loadScrumBoard();

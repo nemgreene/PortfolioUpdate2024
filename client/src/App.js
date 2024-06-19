@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { ApiClient } from "./apiClient";
 import Homepage from "./Bin/Portfolio/Pages/Homepage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -9,20 +13,17 @@ import "@fontsource/roboto/700.css";
 import ScrollToTop from "./Bin/Utilities/ScrollToTop";
 import "./App.scss";
 import ProjectDescription from "./Bin/Portfolio/Pages/ProjectDescription";
-
 import {
   ThemeProvider,
   createTheme,
   responsiveFontSizes,
 } from "@mui/material/styles";
-
 import utility from "../src/StyleSheets/Utility/Consts.scss";
 import Contact from "./Bin/Portfolio/Pages/Contact";
-import Head from "./Bin/Portfolio/Pages/Head";
-import Concepting from "./Bin/Portfolio/Pages/Concepting";
-import { useTheme } from "@emotion/react";
 import { useMediaQuery } from "@mui/material";
 import LoggerBuddyMain from "./Bin/LoggerBuddy/LoggerBuddyMain";
+import { useParams } from "react-router-dom";
+
 const {
   bgMain,
   eerieBlack,
@@ -111,7 +112,7 @@ function App() {
 
   portolioTheme = responsiveFontSizes(portolioTheme);
 
-  const [initialized, setInitialized] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
   const router = createBrowserRouter([
     {

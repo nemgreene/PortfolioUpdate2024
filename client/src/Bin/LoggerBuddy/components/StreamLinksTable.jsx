@@ -227,7 +227,6 @@ export default function StreamLinksTable({
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
                   if (!isNaN(editIndex)) {
-                    console.log(editIndex);
                     // if (!isNaN(editIndex)) {
                     changeLinks((p) => [...p, {}]);
                     changeEditIndex(links.length);

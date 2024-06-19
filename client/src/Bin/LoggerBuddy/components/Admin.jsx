@@ -111,7 +111,6 @@ export default function AdminDashboard({
       return;
     }
 
-    console.log(err);
     if (JSON.stringify(err).includes("false")) {
       client.modalHandler(400, "Please fill out required fields");
       changeFormErrors(err);
@@ -133,7 +132,6 @@ export default function AdminDashboard({
         streamDescription: "",
       });
       changeLinks([]);
-      // console.log(data);
       changeStoredStream(data);
       // changeTrackedStream(data);
       client.loadStreams();

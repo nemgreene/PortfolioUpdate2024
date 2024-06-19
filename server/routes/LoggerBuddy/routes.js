@@ -35,7 +35,6 @@ router.get("/streams/headers", async (req, res, next) => {
 //get posts and stream headers by tag/filter
 router.post("/posts/tagged", async (req, res, next) => {
   try {
-    console.log("loading");
     let { tags, page, trackedStream } = req.body;
 
     page -= 1;

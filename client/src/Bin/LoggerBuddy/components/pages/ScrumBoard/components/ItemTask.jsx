@@ -77,7 +77,6 @@ export function ItemTask(props) {
           {accessToken && _id && !props.display && (
             <Button
               onClick={() => {
-                console.log(props.task);
                 handleDelete(props.task.id, props.item.id);
               }}
             >
