@@ -10,7 +10,6 @@ const baseStyle = {
   alignItems: "center",
   padding: "20px",
   borderWidth: 2,
-  borderRadius: 2,
   borderColor: "#eeeeee20",
   borderStyle: "dashed",
   color: "#bdbdbd",

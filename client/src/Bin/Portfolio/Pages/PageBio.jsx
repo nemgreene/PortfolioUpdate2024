@@ -31,7 +31,7 @@ export default function PageBio() {
       ],
       p: `Artist with a love for Rigging, Animation, Modeling and Scripting.
       
-Experienced with tools for development throughout the entire product pipeline from concepting, to execution, to delivery, with a focus on Feature Film Animation.`,
+      Experienced with tools for development throughout the entire product pipeline from concepting, to execution, to delivery, with a focus on Feature Film Animation.`,
     },
     {
       title: "Vis. Dev.",
@@ -43,6 +43,7 @@ Experienced with tools for development throughout the entire product pipeline fr
         "Oil Painting",
         "Matte painting",
         "Sculpting",
+        "Modeling",
         "Storyboarding",
         "Vis Dev",
         "UI/UX",
@@ -104,28 +105,41 @@ Experience as project lead resposible for team management, development, technica
     return (
       <Box
         sx={{
-          border: `${theme.shape.hudThickness}px solid ${theme.palette.common.white}`,
-          p: { xs: 0.5, md: 1 },
-          pl: { xs: 1.5, md: 2 },
-          pr: { xs: 1.5, md: 2 },
-          borderRadius: "500px",
-          bgcolor: !unique
-            ? theme.palette.common.eerieBlack
-            : theme.palette.common.white,
+          // chipped corner
+          background: `linear-gradient(${
+            unique ? "-135deg" : "135deg"
+          }, transparent 4px, ${theme.palette.common.white} 0) bottom left;`,
+          // border: `${theme.shape.hudThickness}px solid ${theme.palette.common.white}`,
+          // background: !unique
+          //   ? theme.palette.common.eerieBlack
+          //   : theme.palette.common.white,
           color: !unique
             ? theme.palette.common.white
             : theme.palette.common.eerieBlack,
         }}
       >
-        <Typography
-          variant="subtitle1"
+        <Box
           sx={{
-            textTransform: "uppercase",
-            whiteSpace: "nowrap",
+            bgcolor: "red",
+            m: "3px",
+            p: { xs: 0.5 },
+            pl: { xs: 1.5 },
+            pr: { xs: 1.5 },
+            background: !unique
+              ? `linear-gradient(135deg, transparent 3px, ${theme.palette.common.eerieBlack} 0) bottom left;`
+              : `linear-gradient(-135deg, transparent 3px, ${theme.palette.common.white} 0) bottom left;`,
           }}
         >
-          {children}
-        </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {children}
+          </Typography>
+        </Box>
       </Box>
     );
   };

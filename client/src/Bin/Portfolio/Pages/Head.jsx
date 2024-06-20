@@ -176,7 +176,6 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
                 sx={{
                   height: "100%",
                   width: "100%",
-                  borderRadius: "25%",
                   overflow: "hidden",
                 }}
               >

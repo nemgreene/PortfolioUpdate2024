@@ -253,7 +253,6 @@ export default function PageProjects({
             p: 0.5,
             pl: 1,
             pr: 1,
-            borderRadius: "10px",
           }}
         >
           <Box>

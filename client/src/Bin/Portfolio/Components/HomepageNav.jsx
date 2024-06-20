@@ -170,7 +170,10 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
       </Grid>
       <Grid
         sx={{
-          p: 1,
+          p: 0,
+          pt: { xs: 0, lg: 1 },
+          pb: { xs: 0, lg: 1 },
+          overflow: "hidden",
           ...navButtonStyles,
         }}
         justifyContent="center"
@@ -188,40 +191,31 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
             justifyContent: "center",
           }}
         >
-          <Grid
+          <Scroller
             sx={{
-              border: `${theme.shape.hudThickness}px solid ${theme.palette.common.white} `,
-              width: "90%",
-              borderRadius: "200px",
-            }}
-            item
-          >
-            <Scroller
-              sx={{
-                span: {
-                  li: {
-                    "::marker": { color: theme.palette.common.lightCoral },
-                  },
+              span: {
+                li: {
+                  "::marker": { color: theme.palette.common.lightCoral },
                 },
-              }}
-              labels={[
-                "Technical Artist",
-                "Web Developer",
-                "Games Developer",
-                "Visual Development",
-              ].map((v, i) => (
-                <li
-                  style={{
-                    marginLeft: "20px",
-                  }}
-                >
-                  <Typography variant="h4" sx={{ p: 1 }}>
-                    {v}
-                  </Typography>
-                </li>
-              ))}
-            />
-          </Grid>
+              },
+            }}
+            labels={[
+              "Technical Artist",
+              "Web Developer",
+              "Games Developer",
+              "Visual Development",
+            ].map((v, i) => (
+              <li
+                style={{
+                  marginLeft: "20px",
+                }}
+              >
+                <Typography variant="h4" sx={{ p: 1 }}>
+                  {v}
+                </Typography>
+              </li>
+            ))}
+          />
         </animated.div>
       </Grid>
     </Grid>
