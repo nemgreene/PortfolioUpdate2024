@@ -31,7 +31,7 @@ export default function PageBio() {
       ],
       p: `Artist with a love for Rigging, Animation, Modeling and Scripting.
       
-      Experienced with tools for development throughout the entire product pipeline from concepting, to execution, to delivery, with a focus on Feature Film Animation.`,
+Experienced with tools for development throughout the entire product pipeline from concepting, to execution, to delivery, with a focus on Feature Film Animation.`,
     },
     {
       title: "Vis. Dev.",
