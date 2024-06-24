@@ -1,7 +1,7 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useSprings, animated, useSpring, useScroll } from "@react-spring/web";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { useSprings, animated, useScroll } from "@react-spring/web";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Rail from "../Components/Rail";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 
@@ -167,7 +167,7 @@ Experience as project lead resposible for team management, development, technica
     widthApi.start((index) => ({
       to: { x2: index === hoveredIndex ? -25 : 25 },
     }));
-  }, [hoveredIndex]);
+  }, [hoveredIndex, widthApi]);
 
   useEffect(() => {
     if (started) {
@@ -185,7 +185,7 @@ Experience as project lead resposible for team management, development, technica
         },
       }));
     }
-  }, [railApi, started]);
+  }, [railApi, started, initialized]);
 
   useScroll({
     onChange: ({ value: { scrollYProgress } }) => {
