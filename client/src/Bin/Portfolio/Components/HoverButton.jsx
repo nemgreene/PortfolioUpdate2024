@@ -13,6 +13,7 @@ export default function HoverButton({
   onHover = () => {},
   onClick = () => {},
   reset = true,
+  disabled = false,
 }) {
   const theme = useTheme();
 
@@ -34,6 +35,7 @@ export default function HoverButton({
   useGesture(
     {
       onHover: ({ hovering }) => {
+        if (disabled) return;
         onHover();
         setHovered(hovering);
       },
@@ -42,6 +44,7 @@ export default function HoverButton({
   );
 
   const handleClick = (v, i) => {
+    if (disabled) return;
     if (hovered) {
       hoverApi.start({ to: { y: 0, yOffset: 100 }, onRest: onClick });
     } else {
@@ -79,6 +82,7 @@ export default function HoverButton({
     >
       <Button
         disableRipple
+        disabled={disabled}
         sx={{
           boxShadow: 0,
           bgcolor: primary,

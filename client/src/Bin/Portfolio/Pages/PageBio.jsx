@@ -88,7 +88,7 @@ Love of code, love of design, a perfect synnergy in the field. `,
       ],
       p: `Games Development Instructor.
       
-Experience as project lead resposible for team management, development, technical direction in an Agile environment.`,
+Experience as project lead resposible for team management, development, and technical direction in an Agile environment.`,
     },
   ];
 

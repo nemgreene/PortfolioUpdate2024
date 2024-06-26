@@ -7,7 +7,7 @@ import Rail from "./Rail";
 import { HashLink } from "react-router-hash-link";
 import { useNavigate } from "react-router-dom";
 
-export default function HomepageNav({ gridSprings, loadSprings }) {
+export default function HomepageNav({ initialized, gridSprings, loadSprings }) {
   const theme = useTheme();
   const navButtonStyles = {
     position: "relative",
@@ -86,6 +86,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
             flex={!flex}
           />
           <HoverButton
+            disabled={!initialized}
             sx={{ p: 1 }}
             secondary={theme.palette.common.white}
             loadSprings={loadSprings}
@@ -112,6 +113,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
             flex={!flex}
           />
           <HoverButton
+            disabled={!initialized}
             sx={{ p: 1 }}
             secondary={theme.palette.common.white}
             loadSprings={loadSprings}
@@ -160,6 +162,7 @@ export default function HomepageNav({ gridSprings, loadSprings }) {
           />
 
           <HoverButton
+            disabled={!initialized}
             sx={{ p: 1 }}
             secondary={theme.palette.common.white}
             loadSprings={loadSprings}

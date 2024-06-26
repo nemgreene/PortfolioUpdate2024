@@ -8,7 +8,7 @@ import head from "../../../Images/Portfolio/head.gif";
 import { letters } from "../Utilities/Utilities";
 
 export default function PageLanding({
-  scrollYProgress,
+  initialized,
   gridSprings,
   ticksSprings,
   typewriters,
@@ -39,7 +39,11 @@ export default function PageLanding({
         minHeight: "100vh",
       })}
     >
-      <HomepageNav gridSprings={gridSprings} loadSprings={loadSprings} />
+      <HomepageNav
+        initialized={initialized}
+        gridSprings={gridSprings}
+        loadSprings={loadSprings}
+      />
 
       <Grid
         container

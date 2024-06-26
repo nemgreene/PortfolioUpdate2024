@@ -21,6 +21,21 @@ export default function Contact() {
           ARTSTATION
         </a>
       </span>,
+
+      <span>
+        <a
+          style={{
+            color: "inherit",
+          }}
+          target="_blank"
+          href="https://github.com/nemgreene"
+        >
+          GITHUB
+        </a>
+      </span>,
+      //   <span>BLOG</span>,
+    ],
+    [
       <span>
         <Link
           style={{
@@ -38,9 +53,9 @@ export default function Contact() {
             color: "inherit",
           }}
           target="_blank"
-          href="https://github.com/nemgreene"
+          href="https://www.linkedin.com/in/vincent-greene/"
         >
-          GITHUB
+          LINKEDN
         </a>
       </span>,
       //   <span>BLOG</span>,

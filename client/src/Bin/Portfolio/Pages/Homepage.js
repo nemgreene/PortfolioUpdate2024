@@ -149,6 +149,7 @@ const Homepage = ({ setInitialized, initialized }) => {
       })}
     >
       <PageLanding
+        initialized={initialized}
         gridSprings={gridSprings}
         ticksSprings={ticksSprings}
         loadSprings={loadSprings[0]}
