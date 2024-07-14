@@ -1,6 +1,6 @@
 import axios from "axios";
-// const baseUrl = "http://localhost:3001/loggerBuddy/";
-const baseUrl = "/loggerBuddy/";
+const baseUrl = "http://localhost:3001/loggerBuddy/";
+// const baseUrl = "/loggerBuddy/";
 export class ApiClient {
   constructor(
     credentialsProvider,
