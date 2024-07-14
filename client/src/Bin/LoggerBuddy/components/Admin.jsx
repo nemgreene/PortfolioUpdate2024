@@ -16,6 +16,7 @@ import PostForm from "./PostForm";
 
 import StreamLinksTable from "./StreamLinksTable";
 import TagSelect from "./TagSelect";
+import FormattedTextDocs from "../../Utilities/FormattedTextDocs";
 
 export default function AdminDashboard({
   client,
@@ -211,7 +212,6 @@ export default function AdminDashboard({
       <Box style={{ height: "100vh" }}>
         <Grid container alignContent={"center"} height={"100%"}>
           <Grid
-            className="Parens"
             item
             xs={12}
             lg={6}
@@ -375,6 +375,7 @@ export default function AdminDashboard({
                   >
                     Back to Home
                   </Button>
+                  <FormattedTextDocs />
                 </PostForm>
               )}
             </Grid>
@@ -387,8 +388,9 @@ export default function AdminDashboard({
             justifyContent={"center"}
             sx={{ display: { xs: "none", lg: "flex" } }}
           >
-            <Container style={{ width: "90%" }}>
-              <Grid item xs={12}></Grid>
+            <Container
+              style={{ width: "90%", overflow: "scroll", maxHeight: "90vh" }}
+            >
               {/* New stream field */}
 
               <PostCard

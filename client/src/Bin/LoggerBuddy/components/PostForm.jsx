@@ -148,12 +148,13 @@ export default function PostForm({
                 id="outlined-basic"
                 label="Body"
                 fullWidth
-                rows={3}
                 variant="outlined"
                 multiline
                 onInput={(e) => {
                   handleChange(e, "body");
                 }}
+                minRows={3}
+                maxRows={10}
                 // onFocus={() => {
                 // handleFocus("body");
                 // }}

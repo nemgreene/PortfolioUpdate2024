@@ -23,6 +23,7 @@ import Contact from "./Bin/Portfolio/Pages/Contact";
 import { useMediaQuery } from "@mui/material";
 import LoggerBuddyMain from "./Bin/LoggerBuddy/LoggerBuddyMain";
 import SudokuMain from "./Bin/Sudoku/SudokuMain";
+import RTE from "./Bin/LoggerBuddy/RTE";
 
 const {
   bgMain,
@@ -144,6 +145,14 @@ function App() {
       element: (
         <ThemeProvider theme={portolioTheme}>
           <SudokuMain />
+        </ThemeProvider>
+      ),
+    },
+    {
+      path: "/rte/",
+      element: (
+        <ThemeProvider theme={portolioTheme}>
+          <RTE />
         </ThemeProvider>
       ),
     },
