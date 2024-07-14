@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PostForm from "./PostForm";
 import { Button } from "@mui/material";
 import { Buffer } from "buffer";
+import FormattedTextDocs from "../../Utilities/FormattedTextDocs";
 
 export default function EditPost({ streamHeaders, client, editPost }) {
   const [images, changeImages] = useState(editPost.images);
@@ -113,6 +114,7 @@ export default function EditPost({ streamHeaders, client, editPost }) {
         >
           Delete
         </Button>
+        <FormattedTextDocs />
       </PostForm>
     </div>
   );

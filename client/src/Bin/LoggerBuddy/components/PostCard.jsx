@@ -20,6 +20,7 @@ import LogoDevIcon from "@mui/icons-material/LogoDev";
 import { Link } from "react-router-dom";
 import { linkIcons } from "./Utility";
 import { Tooltip } from "@mui/material";
+import FormattedText from "../../Utilities/FormattedText";
 
 const style = {
   position: "absolute",
@@ -150,13 +151,7 @@ function ContentCard({
         >
           {postObj.h2}
         </Typography>
-        <Typography
-          style={{ whiteSpace: " pre-line" }}
-          variant="body2"
-          color="text.secondary"
-        >
-          {postObj.body}
-        </Typography>
+        <FormattedText>{postObj.body}</FormattedText>
       </CardContent>
       <CardActions disableSpacing>
         {postObj.hasScrum && (
@@ -195,13 +190,7 @@ function ContentCard({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography
-            style={{ whiteSpace: " pre-line" }}
-            variant="body2"
-            color="text.secondary"
-          >
-            {postObj.cut}
-          </Typography>
+          <FormattedText>{postObj.cut}</FormattedText>
         </CardContent>
       </Collapse>
     </Card>
