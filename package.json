@@ -22,18 +22,8 @@
   },
   "homepage": "https://github.com/nemgreene/renderDeployTemplate#readme",
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "^5.15.15",
-    "@mui/material": "^5.15.15",
-    "@react-spring/web": "^9.7.3",
-    "animated-scroll-to": "^2.3.0",
     "concurrently": "^7.6.0",
     "mongoose": "^8.4.1",
-    "nodemon": "^2.0.20",
-    "react-markdown": "^9.0.1",
-    "react-syntax-highlighter": "^15.5.0",
-    "react-use-measure": "^2.1.1",
-    "remark-gfm": "^4.0.0"
+    "nodemon": "^2.0.20"
   }
 }
