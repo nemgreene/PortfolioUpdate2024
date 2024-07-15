@@ -1,6 +1,9 @@
 import axios from "axios";
-// const baseUrl = "http://localhost:3001/loggerBuddy/";
-const baseUrl = "/loggerBuddy/";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "/loggerBuddy/"
+    : "http://localhost:3001/loggerBuddy/";
+
 export class ApiClient {
   constructor(
     credentialsProvider,
