@@ -21,7 +21,7 @@ import { Box, styled } from "@mui/system";
 import ScrumContainer from "./ScrumContainer";
 import SortableItem from "./SortableItem";
 import ScrumNav from "./ScrumNav";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, useTheme } from "@mui/material";
 
 export default function MultipleContainers({
   openModal,
@@ -39,6 +39,7 @@ export default function MultipleContainers({
 
   const columnSort = useMemo(() => columns.map((col) => col.id), [columns]);
 
+  const theme = useTheme();
   const { accessToken, _id } = useMemo(
     () => client.credentialsProvider(),
     [client]
@@ -52,12 +53,12 @@ export default function MultipleContainers({
   );
 
   const colBoxStyle = {
-    width: "22.22vw",
-    minWidth: "300px",
+    width: "23vw",
+    // minWidth: "100px",
   };
 
   return (
-    <Box>
+    <Box sx={{ height: "100%", maxHeight: "100%" }}>
       <DndContext
         collisionDetection={closestCenter}
         sensors={sensors}
@@ -70,8 +71,12 @@ export default function MultipleContainers({
             display: "flex",
             flexWrap: "nowrap",
             overflowX: "scroll",
-            width: "fit-content",
-            m: "5px 0px",
+            width: "100vw",
+            // width: "fit-content",
+            p: `${theme.spacing(1)} 0`,
+            height: "100%",
+
+            // height: `calc(100% - ${theme.spacing(3)})`,
           }}
         >
           <SortableContext

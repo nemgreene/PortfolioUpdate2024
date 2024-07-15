@@ -162,21 +162,32 @@ export default function ScrumBoard({ client, credentials }) {
         <Box sx={style}>{open.name ? modalObj[open.name] : null}</Box>
       </Modal>
       {scrum && (
-        <>
-          <ScrumNav streamData={streamData} client={client} />
-          <DndProvider backend={HTML5Backend}>
-            <MultipleContainers
-              credentials={credentials}
-              openModal={handleOpen}
-              columns={columns}
-              tasks={tasks}
-              setColumns={setColumns}
-              setTasks={setTasks}
-              client={client}
-              trackedStream={params.trackedStream}
-            />
-          </DndProvider>
-        </>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            maxHeight: "100vh",
+          }}
+        >
+          <Box>
+            <ScrumNav streamData={streamData} client={client} />
+          </Box>
+          <Box sx={{ flex: 1, overflow: "hidden" }}>
+            <DndProvider backend={HTML5Backend}>
+              <MultipleContainers
+                credentials={credentials}
+                openModal={handleOpen}
+                columns={columns}
+                tasks={tasks}
+                setColumns={setColumns}
+                setTasks={setTasks}
+                client={client}
+                trackedStream={params.trackedStream}
+              />
+            </DndProvider>
+          </Box>
+        </Box>
       )}
     </div>
   );

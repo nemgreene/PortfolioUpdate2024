@@ -78,6 +78,8 @@ export default function ScrumContainer(props) {
     height: "100%",
     userSelect: "none",
     position: "relative",
+    width: "23vw",
+    padding: theme.spacing(0.5),
   };
 
   const containerStyle = {
@@ -91,7 +93,9 @@ export default function ScrumContainer(props) {
   };
 
   if (props.addCol) {
-    return <ColumnAdd containerStyle={containerStyle} props={props} />;
+    return (
+      <ColumnAdd style={style} containerStyle={containerStyle} props={props} />
+    );
   }
 
   if (isDragging && props.overlay) {
@@ -206,7 +210,7 @@ export default function ScrumContainer(props) {
         <Box
           sx={{
             height: "fit-content",
-            maxHeight: "70vh",
+            maxHeight: "80vh",
             borderRadius: "inherit",
             overflowY: "scroll",
           }}

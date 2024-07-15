@@ -1,18 +1,21 @@
-import { Card, Box, Tooltip } from "@mui/material";
+import { Card, Box, Tooltip, useTheme } from "@mui/material";
 import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export default function ColumnAdd({ containerStyle, props }) {
+export default function ColumnAdd({ style, containerStyle, props }) {
+  const theme = useTheme();
   return (
-    <Card style={{ ...containerStyle, margin: "0px 5px" }}>
+    <Card sx={{ ...containerStyle, ml: 2, mt: 0.5, mr: 2 }}>
       <Box
         sx={{
-          height: "85vh",
-          width: "100%",
+          height: `100%`,
           justifyContent: "center",
           display: "flex",
           alignItems: "center",
           cursor: "pointer",
+          width: `calc(23vw - ${theme.spacing(2)})`,
+          // p: theme.spacing(2),
+          // m: 1,
         }}
         onClick={() => {
           props.openModal({ name: "AddColumn" });
