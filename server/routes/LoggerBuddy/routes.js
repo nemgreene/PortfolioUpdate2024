@@ -169,7 +169,7 @@ router.post("/login", async (req, res) => {
 });
 
 //SCRUM BOARD
-router.get("/scrum/:trackedStream", async (req, res) => {
+router.get("/scrumData/:trackedStream", async (req, res) => {
   const { trackedStream } = req.params;
   //verify stream exists
   const stream = await Stream.findOne({

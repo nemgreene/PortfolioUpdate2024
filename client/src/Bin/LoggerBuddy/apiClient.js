@@ -182,7 +182,7 @@ export class ApiClient {
 
   //Scrumboard public
   async getScrumBoard(trackedStream) {
-    return await this.apiCall("get", `scrum/${trackedStream}`);
+    return await this.apiCall("get", `scrumData/${trackedStream}`);
   }
   //private routes
 
