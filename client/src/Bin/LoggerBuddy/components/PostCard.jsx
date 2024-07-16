@@ -1,8 +1,5 @@
-import React, { useState, useRef } from "react";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
+import React, { useState, useRef, Children } from "react";
+import { styled, useTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -17,10 +14,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pictures from "./Pictures";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { linkIcons } from "./Utility";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import FormattedText from "../../Utilities/FormattedText";
+import PageviewIcon from "@mui/icons-material/Pageview";
+import PostSkeleton from "./PostSkeleton";
 
 const style = {
   position: "absolute",
@@ -59,6 +58,9 @@ function ContentCard({
   credentials,
   openEditModal,
   changeEditPost,
+  page = false,
+  streamTracking = true,
+  children,
 }) {
   const [expanded, setExpanded] = useState(false);
   const myRef = useRef(null);
@@ -66,6 +68,8 @@ function ContentCard({
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -102,17 +106,21 @@ function ContentCard({
             {postObj.displayCard ? (
               false
             ) : !trackedStream?.length > 0 ? (
-              <Tooltip title="Track This Stream">
-                <IconButton
-                  aria-label="follow_stream"
-                  onClick={() => {
-                    changeTrackedStream([postObj.stream]);
-                    changeScrollRef(postObj._id);
-                  }}
-                >
-                  <AccountTreeIcon />
-                </IconButton>
-              </Tooltip>
+              streamTracking ? (
+                <Tooltip title="Track This Stream">
+                  <IconButton
+                    aria-label="follow_stream"
+                    onClick={() => {
+                      changeTrackedStream([postObj.stream]);
+                      changeScrollRef(postObj._id);
+                    }}
+                  >
+                    <AccountTreeIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                false
+              )
             ) : (
               <Tooltip title="Untrack Stream">
                 <IconButton
@@ -127,6 +135,19 @@ function ContentCard({
                 </IconButton>
               </Tooltip>
             )}
+            {!page ? (
+              <Tooltip title="Page View">
+                <IconButton
+                  aria-label="page_viwew"
+                  onClick={() => {
+                    console.log(postObj._id);
+                    navigate(`/loggerBuddy/post/${postObj._id}`);
+                  }}
+                >
+                  <PageviewIcon />
+                </IconButton>
+              </Tooltip>
+            ) : null}
           </>
         }
         title={postObj["streamName"] ? postObj.streamName : ""}
@@ -152,6 +173,7 @@ function ContentCard({
           {postObj.h2}
         </Typography>
         <FormattedText>{postObj.body}</FormattedText>
+        {children}
       </CardContent>
       <CardActions disableSpacing>
         {postObj.hasScrum && (
@@ -205,7 +227,48 @@ export default function PostCard({
   credentials,
   openEditModal,
   changeEditPost,
+  page = false,
+  streamTracking,
+  compact = false,
+  children,
 }) {
+  const theme = useTheme();
+  if (compact) {
+    return (
+      <Card
+        sx={{
+          ...cardStyles,
+          overflow: "hidden",
+          height: "100%",
+        }}
+      >
+        <CardContent sx={{ overflow: "hidden" }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              pb: 1,
+            }}
+          >
+            <Typography sx={{ flex: 1 }} variant="h5" color="text.secondary">
+              {postObj.h1}
+            </Typography>
+            <Typography variant="h6" color="text.secondary">
+              {postObj.h2}
+            </Typography>
+          </Box>
+          <Box sx={{ pb: 2 }}>
+            {postObj["images"] && postObj["images"][0] ? (
+              <Pictures images={postObj.images} compact={true} />
+            ) : (
+              false
+            )}
+          </Box>
+          <FormattedText>{postObj.body}</FormattedText>
+        </CardContent>
+      </Card>
+    );
+  }
   return postObj ? (
     <ContentCard
       postObj={postObj}
@@ -215,29 +278,12 @@ export default function PostCard({
       credentials={credentials}
       openEditModal={openEditModal}
       changeEditPost={changeEditPost}
+      page={page}
+      streamTracking={streamTracking}
+      children={children}
     />
   ) : (
     // skeleton post
-    <Card sx={{ ...cardStyles }}>
-      <CardContent>
-        <Stack spacing={1}>
-          <Grid container>
-            <Grid item container xs={8} justifyContent={"center"}>
-              <Skeleton variant="rectangular" width={"100%"} height={"30vh"} />
-            </Grid>
-            <Grid item container xs={3} justifyContent={"center"}>
-              <Grid item container justifyContent={"center"} xs={12}>
-                <Skeleton variant="circular" width={"50%"} height={"90%"} />
-              </Grid>
-              <Grid item container justifyContent={"center"} xs={12}>
-                <Skeleton variant="circular" width={"50%"} height={"90%"} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Skeleton variant="rounded" width={"50%"} height={60} />
-          <Skeleton variant="rounded" width={"100%"} height={200} />
-        </Stack>
-      </CardContent>
-    </Card>
+    <PostSkeleton>{children}</PostSkeleton>
   );
 }

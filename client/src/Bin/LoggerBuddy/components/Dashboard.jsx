@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import HomeDrawer from "./HomeDrawer";
 import StreamTable from "./StreamTable";
@@ -27,6 +27,10 @@ export default function Dashboard({
   trackedStream,
   changeScrollRef,
   changeTrackedStream,
+  loadStreams,
+  setPage,
+  loadTaggedData,
+  storedPage,
 }) {
   const [open, setOpen] = useState(true);
 
@@ -37,6 +41,27 @@ export default function Dashboard({
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const [accessToken, _id] = [
+      localStorage.getItem("accessToken"),
+      localStorage.getItem("user_id"),
+    ];
+    if (accessToken && _id) {
+      client.credentialsManager(accessToken, _id);
+    }
+    loadStreams();
+  }, []);
+
+  useEffect(() => {
+    if (trackedStream.length > 0) {
+      setPage(1);
+      loadTaggedData(1);
+    } else {
+      setPage(storedPage);
+      loadTaggedData(storedPage);
+    }
+  }, [trackedStream, activeTags]);
 
   return (
     <div className="LoggerBuddy">

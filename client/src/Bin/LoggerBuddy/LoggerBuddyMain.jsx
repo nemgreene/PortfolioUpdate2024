@@ -21,6 +21,7 @@ import {
   darkTheme,
   syncTrackedPosts,
 } from "./components/Utility";
+import PostPage from "./components/pages/ScrumBoard/PostPage";
 
 // import LoginComponent from "./components/public/LoginComponent";
 // import RegisterCard from "./components/public/RegisterCard";
@@ -65,7 +66,7 @@ function LoggerBuddyMain() {
     });
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user_id");
-    modalHandler(200, "Logged out successful");
+    // modalHandler(200, "Logged out successful");
   };
 
   const redirectHandler = (url) => {
@@ -144,27 +145,6 @@ function LoggerBuddyMain() {
     setPages(totalPages);
   };
 
-  useEffect(() => {
-    const [accessToken, _id] = [
-      localStorage.getItem("accessToken"),
-      localStorage.getItem("user_id"),
-    ];
-    if (accessToken && _id) {
-      client.credentialsManager(accessToken, _id);
-    }
-    loadStreams();
-  }, []);
-
-  useEffect(() => {
-    if (trackedStream.length > 0) {
-      setPage(1);
-      loadTaggedData(1);
-    } else {
-      setPage(storedPage);
-      loadTaggedData(storedPage);
-    }
-  }, [trackedStream, activeTags]);
-
   const client = new ApiClient(
     () => ({
       accessToken: credentials.accessToken,
@@ -204,6 +184,9 @@ function LoggerBuddyMain() {
             element={
               <ProtectedRoute>
                 <Dashboard
+                  setPage={setPage}
+                  loadTaggedData={loadTaggedData}
+                  storedPage={storedPage}
                   activeTags={activeTags}
                   changeActiveTags={changeActiveTags}
                   tags={tags}
@@ -212,6 +195,7 @@ function LoggerBuddyMain() {
                   client={client}
                   scrollRef={scrollRef}
                   credentials={credentials}
+                  loadStreams={loadStreams}
                   displayPosts={displayPosts}
                   trackedStream={trackedStream}
                   streamHeaders={streamHeaders}
@@ -232,6 +216,10 @@ function LoggerBuddyMain() {
           <Route
             path="/scrum/:trackedStream"
             element={<ScrumBoard client={client} credentials={credentials} />}
+          />
+          <Route
+            path="/post/:postId"
+            element={<PostPage client={client} credentials={credentials} />}
           />
           <Route
             path="/admin"

@@ -68,6 +68,8 @@ export let toastrConfig = {
   draggable: true,
   progress: undefined,
   theme: "dark",
+  maxOpened: 1,
+  autoDismiss: true,
 };
 export const pageSize = 5;
 

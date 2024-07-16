@@ -36,7 +36,7 @@ router.get("/streams/headers", async (req, res, next) => {
 router.post("/posts/tagged", async (req, res, next) => {
   try {
     let { tags, page, trackedStream } = req.body;
-
+    console.log(trackedStream);
     page -= 1;
 
     const streamFilter =
@@ -135,20 +135,12 @@ router.post("/posts/tagged", async (req, res, next) => {
   }
 });
 
-// router.get("/posts", async (req, res) => {
-//   let page = req.headers.page - 1;
-//   // dt =
-//   //   dt == 0
-//   //     ? new Date()
-//   //     : new Date(dt).setSeconds(new Date(dt).getSeconds() - 10);
-//   // //
-//   const posts = await Post.find({
-//     // datePosted: {
-//     //   $lte: dt,
-//     // },
-//   }).sort({ datePosted: -1 });
-//   res.send(posts.slice(page * 5, page * 5 + 5));
-// });
+router.get("/post/:_id", async (req, res) => {
+  const post = await Post.findOne({ _id: req.params._id });
+  const stream = await Stream.findOne({ _id: post.streamId });
+  const posts = await Post.find({ streamId: post.streamId });
+  res.send({ target: post, siblings: posts, stream });
+});
 
 // router.get("/posts/:streamId", async (req, res) => {
 //   let page = req.headers.page - 1;
