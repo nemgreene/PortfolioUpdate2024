@@ -186,3 +186,13 @@ export const FormSkeleton = () => (
     <Skeleton></Skeleton>
   </Box>
 );
+
+export const paramsExtraction = (params) => {
+  let tags = params.tags?.match(/\=(.+)/)[1].split("+") || undefined;
+  let streams = params.stream?.match(/\=(.+)/)[1].split("+") || undefined;
+
+  return {
+    tags: tags !== "_" ? tags : undefined,
+    streams: streams !== "_" ? streams : undefined,
+  };
+};

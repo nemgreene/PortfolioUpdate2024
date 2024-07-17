@@ -133,8 +133,8 @@ export default function PostPage({ client, credentials }) {
         </Typography>
         {streamData.tags.map((v, i) => (
           <Typography variant={"subtitle2"} sx={{ pr: 0.5 }} key={i}>
-            {/* <Link>{v}</Link> */}
-            {v} {i !== streamData.tags.length - 1 ? "," : ""}
+            <Link to={`/loggerBuddy/tags=${v}`}>{v}</Link>
+            {/* {v} {i !== streamData.tags.length - 1 ? "," : ""} */}
           </Typography>
         ))}
       </Box>

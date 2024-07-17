@@ -10,7 +10,8 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import Paper from "@mui/material/Paper";
-import { drawerWidth } from "./Utility";
+import { drawerWidth, paramsExtraction } from "./Utility";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard({
   tags,
@@ -24,6 +25,7 @@ export default function Dashboard({
   displayPosts,
   handleChange,
   streamHeaders,
+  changeDisplayPosts,
   trackedStream,
   changeScrollRef,
   changeTrackedStream,
@@ -33,6 +35,8 @@ export default function Dashboard({
   storedPage,
 }) {
   const [open, setOpen] = useState(true);
+  const [initialized, setInitialized] = useState(false);
+  const params = useParams();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -50,18 +54,34 @@ export default function Dashboard({
     if (accessToken && _id) {
       client.credentialsManager(accessToken, _id);
     }
+
+    // check for params
+    if (params.tags || params.stream) {
+      let { tags, streams } = paramsExtraction(params);
+
+      if (tags) {
+        changeActiveTags(tags);
+      }
+      if (streams) {
+        changeTrackedStream(streams);
+      }
+    }
     loadStreams();
+    setInitialized(true);
   }, []);
 
   useEffect(() => {
-    if (trackedStream.length > 0) {
-      setPage(1);
-      loadTaggedData(1);
-    } else {
-      setPage(storedPage);
-      loadTaggedData(storedPage);
+    changeDisplayPosts([]);
+    if (initialized) {
+      if (trackedStream.length > 0) {
+        setPage(1);
+        loadTaggedData(1);
+      } else {
+        setPage(storedPage);
+        loadTaggedData(storedPage);
+      }
     }
-  }, [trackedStream, activeTags]);
+  }, [trackedStream, activeTags, initialized]);
 
   return (
     <div className="LoggerBuddy">

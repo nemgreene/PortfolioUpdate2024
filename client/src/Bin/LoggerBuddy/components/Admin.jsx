@@ -394,6 +394,7 @@ export default function AdminDashboard({
               {/* New stream field */}
 
               <PostCard
+                page={false}
                 postObj={{
                   ...formData,
                   displayCard: true,

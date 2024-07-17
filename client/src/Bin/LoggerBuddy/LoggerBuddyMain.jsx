@@ -181,38 +181,50 @@ function LoggerBuddyMain() {
             /> */}
           <Route
             path="/"
-            element={
-              <ProtectedRoute>
-                <Dashboard
-                  setPage={setPage}
-                  loadTaggedData={loadTaggedData}
-                  storedPage={storedPage}
-                  activeTags={activeTags}
-                  changeActiveTags={changeActiveTags}
-                  tags={tags}
-                  page={page}
-                  pages={pages}
-                  client={client}
-                  scrollRef={scrollRef}
-                  credentials={credentials}
-                  loadStreams={loadStreams}
-                  displayPosts={displayPosts}
-                  trackedStream={trackedStream}
-                  streamHeaders={streamHeaders}
-                  handleChange={handleChange}
-                  logoutHandler={logoutHandler}
-                  changeScrollRef={changeScrollRef}
-                  changeTrackedStream={(e) => {
-                    changeDisplayPosts();
-                    if (!trackedStream) {
-                      changeStoredPage(page);
-                    }
-                    changeTrackedStream(e);
-                  }}
-                />
-              </ProtectedRoute>
-            }
-          />
+            // path={["/", "/:tags", "/:stream", "/:tags/:stream"]}
+            // path={["/project/:context", "/project/:context/:var1"]}
+          >
+            {["", ":tags?", ":tags?/:stream?"].map((v, i) => (
+              <Route
+                key={i}
+                index={i === 0}
+                path={v}
+                element={
+                  <ProtectedRoute>
+                    <Dashboard
+                      setPage={setPage}
+                      loadTaggedData={loadTaggedData}
+                      storedPage={storedPage}
+                      activeTags={activeTags}
+                      changeActiveTags={changeActiveTags}
+                      tags={tags}
+                      page={page}
+                      pages={pages}
+                      client={client}
+                      scrollRef={scrollRef}
+                      credentials={credentials}
+                      loadStreams={loadStreams}
+                      displayPosts={displayPosts}
+                      trackedStream={trackedStream}
+                      streamHeaders={streamHeaders}
+                      handleChange={handleChange}
+                      logoutHandler={logoutHandler}
+                      changeScrollRef={changeScrollRef}
+                      changeDisplayPosts={changeDisplayPosts}
+                      changeTrackedStream={(e) => {
+                        changeDisplayPosts();
+                        if (!trackedStream) {
+                          changeStoredPage(page);
+                        }
+                        changeTrackedStream(e);
+                      }}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            ))}
+          </Route>
+
           <Route
             path="/scrum/:trackedStream"
             element={<ScrumBoard client={client} credentials={credentials} />}

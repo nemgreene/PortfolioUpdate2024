@@ -39,6 +39,8 @@ router.post("/posts/tagged", async (req, res, next) => {
     console.log(trackedStream);
     page -= 1;
 
+    console.log(tags);
+
     const streamFilter =
       trackedStream.length > 0
         ? {

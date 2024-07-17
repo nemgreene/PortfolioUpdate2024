@@ -83,6 +83,15 @@ export default function HomeDrawer({
 
   const navigate = useNavigate();
 
+  const handleTagChange = (e) => {
+    // console.log(activeTags, e);
+
+    navigate(
+      e.length > 0 ? `/loggerBuddy/tags=${e.join("+")}` : "/loggerBuddy"
+    );
+    changeActiveTags(e);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -195,7 +204,8 @@ export default function HomeDrawer({
                 <TagSelect
                   options={tags}
                   value={activeTags}
-                  setValue={changeActiveTags}
+                  // setValue={changeActiveTags}
+                  setValue={handleTagChange}
                   label={"Filter posts by tag..."}
                 />
               </Grid>

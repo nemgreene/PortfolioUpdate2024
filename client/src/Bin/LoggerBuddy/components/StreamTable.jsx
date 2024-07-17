@@ -83,6 +83,7 @@ export default function StreamTable({
               return (
                 <Grid item xs={trackedStream.length === 1 ? 12 : 6} key={i}>
                   <PostCard
+                    page={true}
                     trackedStream={trackedStream}
                     credentials={credentials}
                     changeEditPost={changeEditPost}
