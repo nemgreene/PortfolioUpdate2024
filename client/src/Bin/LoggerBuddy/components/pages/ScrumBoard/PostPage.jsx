@@ -3,17 +3,24 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import PostSkeleton from "../../PostSkeleton";
 import PostCard from "../../PostCard";
 import {
+  AppBar,
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Grid,
+  IconButton,
+  Toolbar,
+  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
 import { taggedParams } from "../../Utility";
-const Moment = require("moment");
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
+const Moment = require("moment");
 export default function PostPage({ client, credentials }) {
   const [postObj, setPostObj] = useState({});
   const [streamData, setStreamData] = useState();
@@ -23,7 +30,7 @@ export default function PostPage({ client, credentials }) {
 
   const { postId } = useParams();
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const loadPost = async () => {
     const res = await client.getPost(postId);
     if (!res.data) {
@@ -51,6 +58,8 @@ export default function PostPage({ client, credentials }) {
   };
 
   useEffect(() => {
+    setPostObj({});
+    window.scrollTo(0, 0);
     loadPost();
   }, [postId]);
 
@@ -159,8 +168,22 @@ export default function PostPage({ client, credentials }) {
         width: "100vw",
       }}
     >
-      {/*
-       */}
+      <AppBar position="fixed">
+        <Toolbar>
+          <Tooltip title="Back To Dash">
+            <IconButton
+              onClick={() => navigate("/loggerBuddy")}
+              aria-label="Back To Dash"
+            >
+              <ArrowBackIosNewIcon />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
+
+      <AppBar position="static">
+        <Toolbar></Toolbar>
+      </AppBar>
       <Box sx={{ width: "80vw", p: 1 }}>
         {postObj._id ? (
           <PostCard
@@ -177,9 +200,14 @@ export default function PostPage({ client, credentials }) {
       </Box>
 
       {/* More about bar */}
-      <Typography className="utilCenter" variant={"h6"}>
-        More about {postObj.streamName}
-      </Typography>
+
+      <Divider
+        flexItem
+        variant="middle"
+        sx={{
+          bgcolor: "secondary.light",
+        }}
+      />
       {streamData ? (
         <Grid container sx={{ width: "80vw", p: 1 }}>
           <PostCard
@@ -203,6 +231,16 @@ export default function PostPage({ client, credentials }) {
             }}
           >
             <Box>{streamTags()}</Box>
+            <Box sx={{ mt: 2 }}>
+              <Button
+                onClick={() => navigate(`/loggerBuddy/*/${postObj.streamId}`)}
+                sx={{ p: 2 }}
+                variant={"outlined"}
+                fullWidth
+              >
+                Track Stream
+              </Button>
+            </Box>
           </PostCard>
         </Grid>
       ) : null}

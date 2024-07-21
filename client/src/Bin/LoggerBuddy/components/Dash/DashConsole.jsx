@@ -1,5 +1,5 @@
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, Divider, Grid, Pagination } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import DashSidebar from "./DashSidebar";
 import { ApiClient } from "../../apiClient";
@@ -59,7 +59,6 @@ export default function DashConsole({ client, credentials }) {
         )
       );
     } else {
-      console.log("No ret data");
       changeDisplayPosts({ posts: [] });
       setPages(1);
     }
@@ -70,12 +69,12 @@ export default function DashConsole({ client, credentials }) {
     const streamOverhead = await client.getStreamHeaders(index);
     changeStreamHeaders(streamOverhead ? streamOverhead?.data : []);
     // if streams are being tracked, this should updated them as well
-    if (index.length > 0) {
-      syncTrackedPosts(
-        changeTrackedStream,
-        streamOverhead ? streamOverhead?.data : []
-      );
-    }
+    // if (index.length > 0) {
+    //   syncTrackedPosts(
+    //     changeTrackedStream,
+    //     streamOverhead ? streamOverhead?.data : []
+    //   );
+    // }
     const uniqueTags = [
       ...new Set(
         streamOverhead
@@ -110,7 +109,6 @@ export default function DashConsole({ client, credentials }) {
     changeDisplayPosts([]);
     changeActiveTags(tags || []);
     changeTrackedStream(streams || []);
-    // // }
     loadStreams(streams || []);
     changeInitialized(true);
   }, [params.streams, params.tags]);
@@ -129,6 +127,13 @@ export default function DashConsole({ client, credentials }) {
   return (
     <Box sx={{ width: "100%" }}>
       <DashFilters tags={tags} streamHeaders={streamHeaders} />
+      <Divider
+        flexItem
+        variant="middle"
+        sx={{
+          bgcolor: "secondary.light",
+        }}
+      />
       <StreamTable
         activeTags={activeTags}
         client={client}

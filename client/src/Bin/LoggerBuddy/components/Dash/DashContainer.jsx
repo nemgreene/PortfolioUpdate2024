@@ -21,7 +21,7 @@ export default function DashContainer({ context }) {
         handleDrawerOpen={() => setOpen(true)}
         handleDrawerClose={() => setOpen(false)}
       />
-      <Box sx={{ mt: 10 }}>
+      <Box sx={{ mt: 10, width: "100%" }}>
         <Outlet context={context} />
       </Box>
     </Box>

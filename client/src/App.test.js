@@ -51,3 +51,5 @@ test("Dash with stream to tags", () => {
   });
   expect(val).toEqual("/loggerBuddy/tag1");
 });
+
+// https://qa-nora.medium.com/unit-testing-with-jest-and-integration-with-github-actions-bc241b31d257

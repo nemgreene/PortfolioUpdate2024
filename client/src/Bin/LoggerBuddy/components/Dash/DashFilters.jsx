@@ -5,7 +5,7 @@ import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Button, Grid } from "@mui/material";
+import { AppBar, Button, Divider, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
@@ -41,21 +41,24 @@ export default function DashFilters({ activeTags, tags, streamHeaders }) {
   };
 
   return (
-    <Grid container sx={{ width: "100%" }}>
-      <Grid item xs={1}></Grid>
+    <Grid container sx={{ width: "100%", pr: 2, pl: 2, pb: 1.5 }}>
       <Grid
         item
         container
         sx={{
           hieght: "100%",
-          alignItems: "center",
+          alignItems: "flex-start",
           padding: "0px 10px",
         }}
-        xs={5}
+        xs={6}
       >
         <TagSelect
           options={tags || []}
-          value={paramsExtraction(params)?.tags?.filter((v) => v !== "*") || []}
+          value={
+            paramsExtraction(params)
+              ?.tags?.filter((v) => v !== "*")
+              .map((v) => v.replace(/_/, " ")) || []
+          }
           // setValue={changeActiveTags}
           setValue={handleTagChange}
           label={"Filter posts by tag..."}
@@ -69,7 +72,7 @@ export default function DashFilters({ activeTags, tags, streamHeaders }) {
           alignItems: "center",
           padding: "0px 10px",
         }}
-        xs={5}
+        xs={6}
       >
         <StreamSelect
           options={streamHeaders}
