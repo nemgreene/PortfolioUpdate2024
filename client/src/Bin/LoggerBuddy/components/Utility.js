@@ -89,7 +89,8 @@ export const syncTrackedPosts = (changeTrackedStream, streamOverhead) => {
         JSON.stringify(trackedStream).includes(so.streamId)
       )[0];
     });
-    return prev;
+    // return p;
+    return prev.map((v) => v.streamId);
   });
 };
 
@@ -188,11 +189,44 @@ export const FormSkeleton = () => (
 );
 
 export const paramsExtraction = (params) => {
-  let tags = params.tags?.match(/\=(.+)/)[1].split("+") || undefined;
-  let streams = params.stream?.match(/\=(.+)/)[1].split("+") || undefined;
+  let tags = params.tags?.split("+") || undefined;
+  let streams = params.streams?.split("+") || undefined;
 
   return {
     tags: tags !== "_" ? tags : undefined,
     streams: streams !== "_" ? streams : undefined,
   };
+};
+
+export const taggedParams = ({ url, tags = [], streams = [] }) => {
+  // santize streams and tags
+
+  if (tags) {
+    tags = tags.map((v) => v.replace(/\s/, "_").toLowerCase());
+  }
+  if (streams) {
+    streams = streams.map((v) => v.replace(/\s/, "_").toLowerCase());
+  }
+  //hacky
+  // if base url, append string to be replaced
+  if (url.pathname === "/loggerBuddy") {
+    url.pathname = url.pathname + "/";
+  }
+  if ((tags.length === 0 || tags.includes("*")) && streams.length === 0) {
+    return "/loggerBuddy";
+  }
+
+  let string = /loggerBuddy\/?(.+)\/?[subject]?/;
+
+  if (streams.length > 0 && tags.length === 0) {
+    return url.pathname.replace(string, `loggerBuddy/*/${streams.join("+")}`);
+  }
+  if (tags.length > 0) {
+    return url.pathname.replace(
+      string,
+      `loggerBuddy/${tags.join("+")}${
+        streams.length > 0 ? "/" + streams.join("+") : ""
+      }`
+    );
+  }
 };

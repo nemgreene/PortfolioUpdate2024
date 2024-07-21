@@ -36,10 +36,7 @@ router.get("/streams/headers", async (req, res, next) => {
 router.post("/posts/tagged", async (req, res, next) => {
   try {
     let { tags, page, trackedStream } = req.body;
-    console.log(trackedStream);
     page -= 1;
-
-    console.log(tags);
 
     const streamFilter =
       trackedStream.length > 0
@@ -49,11 +46,16 @@ router.post("/posts/tagged", async (req, res, next) => {
             })),
           }
         : {};
-
     const taggedFilter =
-      tags.length > 0
+      tags.length > 0 && !tags.includes("*")
         ? {
-            $or: tags.map((tags) => ({ tags })),
+            $or: tags.map((tags) => {
+              return {
+                tags: {
+                  $regex: new RegExp(tags, "i"),
+                },
+              };
+            }),
           }
         : {};
 
@@ -66,19 +68,19 @@ router.post("/posts/tagged", async (req, res, next) => {
     ])
       .sort({ datePosted: -1 })
       .exec();
-
-    const scrums = await Scrum.aggregate([
-      {
-        $match: {
-          $or: taggedStreams.map((v) => ({
-            streamId: new mongoose.Types.ObjectId(v._id),
-          })),
-        },
-      },
-    ]).exec();
-
+    const scrums =
+      taggedStreams.length > 0
+        ? await Scrum.aggregate([
+            {
+              $match: {
+                $or: taggedStreams.map((v) => ({
+                  streamId: new mongoose.Types.ObjectId(v._id),
+                })),
+              },
+            },
+          ]).exec()
+        : [];
     // find scrums for tagged streams
-    // console.log(taggedStreams.map((v) => [v._id, v.streamName]));
     let streams = taggedStreams.map((o) => {
       const { posts, _id, links, ...rest } = o;
       let stringLinks = links.map((link) => JSON.parse(link));
@@ -118,7 +120,6 @@ router.post("/posts/tagged", async (req, res, next) => {
     ])
       .sort({ datePosted: -1 })
       .exec();
-
     const postsv3 = postsv2.map((v) => {
       const hasScrum =
         scrums.findIndex((t) => t.streamId.equals(v.streamId)) !== -1
@@ -127,7 +128,6 @@ router.post("/posts/tagged", async (req, res, next) => {
 
       return { ...hasScrum, ...v };
     });
-
     res
       .status(200)
       .send({ streams, posts: postsv3.slice(page * 5, page * 5 + 5) });

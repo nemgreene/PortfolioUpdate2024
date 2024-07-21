@@ -14,12 +14,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Pictures from "./Pictures";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
-import { Link, useNavigate } from "react-router-dom";
-import { linkIcons } from "./Utility";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { linkIcons, paramsExtraction, taggedParams } from "./Utility";
 import { Box, Tooltip } from "@mui/material";
 import FormattedText from "../../Utilities/FormattedText";
 import PageviewIcon from "@mui/icons-material/Pageview";
 import PostSkeleton from "./PostSkeleton";
+import { useParams } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -61,18 +62,21 @@ function ContentCard({
   page = false,
   streamTracking = true,
   children,
+  activeTags = [],
 }) {
   const [expanded, setExpanded] = useState(false);
   const myRef = useRef(null);
-
+  const location = useLocation();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <Card
+      className="PostCardContainer"
       sx={{
         ...cardStyles,
         backgroundColor: postObj.displayCard ? postObj.color + "20" : "none",
@@ -111,8 +115,13 @@ function ContentCard({
                   <IconButton
                     aria-label="follow_stream"
                     onClick={() => {
-                      changeTrackedStream([postObj.stream]);
-                      changeScrollRef(postObj._id);
+                      navigate(
+                        taggedParams({
+                          url: { pathname: "/loggerBuddy" },
+                          tags: [],
+                          streams: [postObj.streamId],
+                        })
+                      );
                     }}
                   >
                     <AccountTreeIcon />
@@ -126,9 +135,18 @@ function ContentCard({
                 <IconButton
                   aria-label="all_streams"
                   onClick={() => {
-                    changeTrackedStream((p) =>
-                      [...p].filter((s) => s.streamId !== postObj.streamId)
+                    navigate(
+                      taggedParams({
+                        url: location,
+                        tags: activeTags,
+                        streams: paramsExtraction(params).streams?.filter(
+                          (s) => s !== postObj.streamId
+                        ),
+                      })
                     );
+                    // changeTrackedStream((p) =>
+                    //   [...p].filter((s) => s.streamId !== postObj.streamId)
+                    // );
                   }}
                 >
                   <AssignmentReturnIcon />
@@ -186,7 +204,7 @@ function ContentCard({
           </Link>
         )}
 
-        {postObj?.stream?.links.map((v, k) => {
+        {postObj?.stream?.links?.map((v, k) => {
           return (
             <Tooltip key={k} title={v.tooltip}>
               <a target="_blank" href={v.url}>
@@ -231,6 +249,7 @@ export default function PostCard({
   streamTracking,
   compact = false,
   children,
+  activeTags = [],
 }) {
   const theme = useTheme();
   if (compact) {
@@ -281,6 +300,7 @@ export default function PostCard({
       page={page}
       streamTracking={streamTracking}
       children={children}
+      activeTags={activeTags}
     />
   ) : (
     // skeleton post

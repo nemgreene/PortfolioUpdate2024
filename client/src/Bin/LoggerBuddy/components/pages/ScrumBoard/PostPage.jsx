@@ -11,6 +11,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { taggedParams } from "../../Utility";
 const Moment = require("moment");
 
 export default function PostPage({ client, credentials }) {
@@ -113,6 +114,7 @@ export default function PostPage({ client, credentials }) {
         ) : null}
         {/* UNderlay */}
         <PostCard
+          trackedStream={streamData}
           compact={true}
           postObj={postObj || {}}
           page={true}
@@ -133,7 +135,15 @@ export default function PostPage({ client, credentials }) {
         </Typography>
         {streamData.tags.map((v, i) => (
           <Typography variant={"subtitle2"} sx={{ pr: 0.5 }} key={i}>
-            <Link to={`/loggerBuddy/tags=${v}`}>{v}</Link>
+            <Link
+              to={taggedParams({
+                url: { pathname: "/loggerBuddy" },
+                tags: [v],
+                streams: [],
+              })}
+            >
+              {v}
+            </Link>
             {/* {v} {i !== streamData.tags.length - 1 ? "," : ""} */}
           </Typography>
         ))}
@@ -149,13 +159,29 @@ export default function PostPage({ client, credentials }) {
         width: "100vw",
       }}
     >
+      {/*
+       */}
+      <Box sx={{ width: "80vw", p: 1 }}>
+        {postObj._id ? (
+          <PostCard
+            // activeTags={activeTags}
+            page={true}
+            // trackedStream={}
+            credentials={credentials}
+            postObj={postObj}
+            streamTracking={false}
+          />
+        ) : (
+          <PostSkeleton />
+        )}
+      </Box>
+
       {/* More about bar */}
       <Typography className="utilCenter" variant={"h6"}>
         More about {postObj.streamName}
       </Typography>
       {streamData ? (
         <Grid container sx={{ width: "80vw", p: 1 }}>
-          {console.log(streamData)}
           <PostCard
             page={true}
             trackedStream={streamData}
@@ -180,7 +206,7 @@ export default function PostPage({ client, credentials }) {
           </PostCard>
         </Grid>
       ) : null}
-      <Grid container sx={{ width: "80vw" }}>
+      <Grid container sx={{ width: "80vw", pb: 10 }}>
         <Grid item xs={6} sx={{ p: 1, height: "100%" }}>
           <PreviewPost postObj={olderSiblings ? olderSiblings[0] : null} />
         </Grid>
@@ -192,19 +218,6 @@ export default function PostPage({ client, credentials }) {
         </Grid>
       </Grid>
       {/* Post */}
-      <Box sx={{ width: "80vw", p: 1 }}>
-        {postObj._id ? (
-          <PostCard
-            postObj={{
-              ...postObj,
-            }}
-            page={true}
-            streamTracking={false}
-          />
-        ) : (
-          <PostSkeleton />
-        )}
-      </Box>
     </Box>
   );
 }

@@ -23,7 +23,8 @@ import Contact from "./Bin/Portfolio/Pages/Contact";
 import { useMediaQuery } from "@mui/material";
 import LoggerBuddyMain from "./Bin/LoggerBuddy/LoggerBuddyMain";
 import SudokuMain from "./Bin/Sudoku/SudokuMain";
-import RTE from "./Bin/LoggerBuddy/RTE";
+import Dev from "./Bin/LoggerBuddy/Dev";
+import LoggerBuddyMain2 from "./Bin/LoggerBuddy/LoggerBuddyMain2";
 
 const {
   bgMain,
@@ -136,7 +137,7 @@ function App() {
       path: "/loggerBuddy/*",
       element: (
         <ThemeProvider theme={portolioTheme}>
-          <LoggerBuddyMain />
+          <LoggerBuddyMain2 />
         </ThemeProvider>
       ),
     },
@@ -149,10 +150,10 @@ function App() {
       ),
     },
     {
-      path: "/rte/",
+      path: "/dev/*",
       element: (
         <ThemeProvider theme={portolioTheme}>
-          <RTE />
+          <Dev />
         </ThemeProvider>
       ),
     },

@@ -31,6 +31,7 @@ export default function StreamTable({
   credentials,
   client,
   tags,
+  activeTags,
 }) {
   const [sortFunc, setSortFunc] = useState(sortObj.dateDesc);
   const [open, setOpen] = React.useState(false);
@@ -80,24 +81,29 @@ export default function StreamTable({
         <Grid container spacing={1}>
           {trackedStream && streamHeaders && streamData?.length > 0 ? (
             trackedStream.map((v, i) => {
+              let localData =
+                streamHeaders.filter((x) => x.streamId === v)[0] || {};
               return (
                 <Grid item xs={trackedStream.length === 1 ? 12 : 6} key={i}>
                   <PostCard
+                    activeTags={activeTags}
                     page={true}
-                    trackedStream={trackedStream}
+                    trackedStream={localData}
                     credentials={credentials}
                     changeEditPost={changeEditPost}
                     openEditModal={handleOpen}
                     changeTrackedStream={changeTrackedStream}
                     postObj={{
-                      streamId: v.streamId,
-                      h1: `${v.posts} Post${v.posts > 1 ? "s" : ""}`,
-                      body: v.streamDescription,
+                      streamId: localData.streamId,
+                      h1: `${localData.posts} Post${
+                        localData.posts > 1 ? "s" : ""
+                      }`,
+                      body: localData.streamDescription,
                       h2: "Stream Description: ",
-                      datePosted: v.dateCreated,
+                      datePosted: localData.dateCreated,
                       displayCard: true,
-                      color: v.color,
-                      streamName: v.streamName,
+                      color: localData.color,
+                      streamName: localData.streamName,
                       images: [],
                       stream: v,
                       hasScrum: credentials._id && credentials.accessToken,
@@ -126,6 +132,7 @@ export default function StreamTable({
               ? streamData.sort(sortFunc.exec).map((postObj, i) => {
                   return (
                     <PostCard
+                      activeTags={activeTags}
                       openEditModal={handleOpen}
                       editPost={editPost}
                       changeEditPost={changeEditPost}

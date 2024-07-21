@@ -33,10 +33,10 @@ export default function Dashboard({
   setPage,
   loadTaggedData,
   storedPage,
+  params,
 }) {
   const [open, setOpen] = useState(true);
   const [initialized, setInitialized] = useState(false);
-  const params = useParams();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -46,43 +46,42 @@ export default function Dashboard({
     setOpen(false);
   };
 
-  useEffect(() => {
-    const [accessToken, _id] = [
-      localStorage.getItem("accessToken"),
-      localStorage.getItem("user_id"),
-    ];
-    if (accessToken && _id) {
-      client.credentialsManager(accessToken, _id);
-    }
+  console.log(useParams());
+  // useEffect(() => {
+  //   const [accessToken, _id] = [
+  //     localStorage.getItem("accessToken"),
+  //     localStorage.getItem("user_id"),
+  //   ];
+  //   if (accessToken && _id) {
+  //     client.credentialsManager(accessToken, _id);
+  //   }
+  //   // console.log(params);
+  //   // check for params
+  //   if (params.tags || params.stream) {
+  //     let { tags, streams } = paramsExtraction(params);
+  //     if (tags) {
+  //       changeActiveTags(tags);
+  //     }
+  //     if (streams) {
+  //       changeTrackedStream(streams);
+  //     }
+  //   }
+  //   // loadStreams();
+  //   // setInitialized(true);
+  // }, []);
 
-    // check for params
-    if (params.tags || params.stream) {
-      let { tags, streams } = paramsExtraction(params);
-
-      if (tags) {
-        changeActiveTags(tags);
-      }
-      if (streams) {
-        changeTrackedStream(streams);
-      }
-    }
-    loadStreams();
-    setInitialized(true);
-  }, []);
-
-  useEffect(() => {
-    changeDisplayPosts([]);
-    if (initialized) {
-      if (trackedStream.length > 0) {
-        setPage(1);
-        loadTaggedData(1);
-      } else {
-        setPage(storedPage);
-        loadTaggedData(storedPage);
-      }
-    }
-  }, [trackedStream, activeTags, initialized]);
-
+  // useEffect(() => {
+  //   if (initialized) {
+  //     changeDisplayPosts([]);
+  //     if (trackedStream.length > 0) {
+  //       setPage(1);
+  //       loadTaggedData(1);
+  //     } else {
+  //       setPage(storedPage);
+  //       loadTaggedData(storedPage);
+  //     }
+  //   }
+  // }, [trackedStream, activeTags, initialized]);
   return (
     <div className="LoggerBuddy">
       <HomeDrawer
@@ -99,6 +98,7 @@ export default function Dashboard({
         trackedStream={trackedStream}
       >
         <StreamTable
+          activeTags={activeTags}
           drawerOpen={open}
           client={client}
           trackedStream={trackedStream}
@@ -111,6 +111,7 @@ export default function Dashboard({
           scrollRef={scrollRef}
           credentials={credentials}
           tags={tags}
+          params={useParams()}
         />
 
         <Grid container>

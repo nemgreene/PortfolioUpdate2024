@@ -11,8 +11,8 @@ export class ApiClient {
     modalHandler,
     redirectHandler,
     credentialsManager,
-    loadTaggedData,
-    loadStreams
+    loadTaggedData = () => {},
+    loadStreams = () => {}
   ) {
     this.credentialsProvider = credentialsProvider;
     this.logoutHandler = logoutHandler;
