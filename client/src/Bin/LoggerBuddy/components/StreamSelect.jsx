@@ -26,6 +26,7 @@ export default function TagSelect({
           return (
             <Chip
               variant="outlined"
+              sx={{ bgcolor: option.color + "50", borderColor: option.color }}
               label={option.streamName}
               {...getTagProps({ index })}
             />
