@@ -7,12 +7,11 @@ export default function TagSelect({
   value,
   setValue,
   options = [],
-  label,
-  trackedStream,
+  label = "Select Stream",
 }) {
   return (
     <Autocomplete
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", "& .MuiInputBase-root": value[0] ? { p: 1 } : {} }}
       id="controlled-demo"
       value={value}
       options={options || []}
@@ -37,7 +36,7 @@ export default function TagSelect({
         <TextField
           {...params}
           variant="filled"
-          label={label || "Select Tags"}
+          label={value[0] ? "" : label}
           placeholder="Search tags..."
         />
       )}

@@ -17,10 +17,7 @@ import {
 } from "@mui/material";
 import remarkGfm from "remark-gfm";
 import { default as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  tomorrow as lightHighlightStyle,
-  tomorrowNight as darkHighlightStyle,
-} from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { stackoverflowDark as darkHighlightStyle } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 import GlobalStyles from "@mui/material/GlobalStyles";
 
@@ -32,7 +29,9 @@ export default function FormattedText({ children }) {
       sx={{
         "& pre": {
           overflowY: "visible !important",
-          overflowX: "scroll !important",
+          overflowX: "visible !important",
+          padding: theme.spacing(1),
+          backgroundColor: `${theme.palette.background.paper} !important`,
         },
       }}
     >
@@ -175,6 +174,8 @@ export default function FormattedText({ children }) {
             const match = /language-(\w+)/.exec(className || "");
             return (
               <SyntaxHighlighter
+                wrapLongLines={true}
+                lineProps={{ style: { flexWrap: "wrap" } }}
                 language={match ? match[1] : undefined}
                 // PreTag="div"
                 style={{

@@ -11,31 +11,25 @@ import IconButton from "@mui/material/IconButton";
 import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import BioDrawer from "./BioBar";
-import TagSelect from "./TagSelect";
-import { drawerWidth, taggedParams } from "./Utility";
-import StreamSelect from "./StreamSelect";
-import { useLocation, useNavigate } from "react-router-dom";
+import BioDrawer from "../BioBar";
+import TagSelect from "../TagSelect";
+import { drawerWidth, paramsExtraction, taggedParams } from "../Utility";
+import StreamSelect from "../StreamSelect";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function HomeDrawer({
+export default function DashSidebar({
   client,
-  children,
-  credentials,
-  open,
-  activeTags,
-  changeActiveTags,
+  open = false,
+  credentials = {},
   handleDrawerOpen,
   handleDrawerClose,
-  tags,
-  streamHeaders,
-  changeTrackedStream,
-  trackedStream,
 }) {
   const theme = useTheme();
 
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
-      flexGrow: 1,
+      flexGrow: 10,
+      width: "100%",
       padding: theme.spacing(3),
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
@@ -81,21 +75,8 @@ export default function HomeDrawer({
     justifyContent: "flex-end",
   }));
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleTagChange = (e) => {
-    // console.log(location.replace(/tags=(.+)\?/));
-    navigate(taggedParams({ url: location, tags: e, streams: trackedStream }));
-    changeActiveTags(e);
-  };
-  const handleStreamChange = (e) => {
-    navigate(taggedParams({ url: location, tags: activeTags, streams: e }));
-    changeTrackedStream(e);
-  };
-
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ width: open ? drawerWidth : "0" }}>
       <CssBaseline />
       {/*  Header*/}
       <AppBar position="fixed" open={open}>
@@ -112,6 +93,7 @@ export default function HomeDrawer({
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Development Logger
           </Typography>
+
           {credentials.accessToken ? (
             <Button
               variant="contained"
@@ -150,93 +132,6 @@ export default function HomeDrawer({
         </DrawerHeader>
         <BioDrawer client={client} credentials={credentials} />
       </Drawer>
-
-      <Main open={open}>
-        {/* <AppBar
-          position="fixed"
-          open={open}
-          subheader="true"
-          sx={{
-            mt: "64px",
-            bgcolor: theme.palette.primary,
-            whiteSpace: "nowrap",
-          }}
-        >
-          <Toolbar sx={{ postion: "absolute", bottom: 0 }}>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, padding: "0px 5%" }}
-            >
-              Tags:
-            </Typography>
-
-            <TagSelect
-              options={tags}
-              value={activeTags}
-              setValue={changeActiveTags}
-            />
-          </Toolbar>
-        </AppBar> */}
-        <AppBar
-          position="fixed"
-          open={open}
-          subheader="true"
-          sx={{
-            bgcolor: theme.palette.primary,
-            whiteSpace: "nowrap",
-            // maxHeight: "64px",
-            top: "auto",
-            bottom: 0,
-          }}
-        >
-          <Toolbar>
-            <Grid container sx={{ width: "100%" }}>
-              <Grid item xs={1}></Grid>
-              <Grid
-                item
-                container
-                sx={{
-                  hieght: "100%",
-                  alignItems: "center",
-                  padding: "0px 10px",
-                }}
-                xs={5}
-              >
-                <TagSelect
-                  options={tags}
-                  value={activeTags}
-                  // setValue={changeActiveTags}
-                  setValue={handleTagChange}
-                  label={"Filter posts by tag..."}
-                />
-              </Grid>
-              <Grid
-                item
-                container
-                sx={{
-                  hieght: "100%",
-                  alignItems: "center",
-                  padding: "0px 10px",
-                }}
-                xs={5}
-              >
-                <StreamSelect
-                  options={streamHeaders}
-                  // options={streamHeaders.map((stream) => stream.streamName)}
-
-                  value={trackedStream}
-                  setValue={(e) => {
-                    handleStreamChange(e);
-                    // changeTrackedStream(e);
-                  }}
-                  label={"Filter posts by Stream..."}
-                ></StreamSelect>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </Main>
     </Box>
   );
 }

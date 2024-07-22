@@ -57,7 +57,6 @@ export default function FrameButtonArr({
           width: "100%",
           transform: "translate(50%, 50%)",
           overflow: "visible",
-          color: "red",
         }}
       >
         <Box sx={{ height: "100%", width: "100%", position: "relative" }}>

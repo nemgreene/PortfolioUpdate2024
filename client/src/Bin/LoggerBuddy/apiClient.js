@@ -11,8 +11,8 @@ export class ApiClient {
     modalHandler,
     redirectHandler,
     credentialsManager,
-    loadTaggedData,
-    loadStreams
+    loadTaggedData = () => {},
+    loadStreams = () => {}
   ) {
     this.credentialsProvider = credentialsProvider;
     this.logoutHandler = logoutHandler;
@@ -152,6 +152,9 @@ export class ApiClient {
       });
     }
   }
+  async getPost(_id) {
+    return await this.apiCall("get", `post/${_id}`);
+  }
 
   async login({ email, password }) {
     return await this.apiCall(
@@ -169,12 +172,10 @@ export class ApiClient {
   }
 
   async getTaggedPosts(tags = [], page = 1, trackedStream = undefined) {
-    console.log("getting tagged posts");
     return await this.apiCall(
       `post`,
       `posts/tagged`,
       { data: { tags, page, trackedStream } },
-      // "Error fetching tagged posts!"
       "Posts loaded"
       // () => this.loadTaggedData()
     );

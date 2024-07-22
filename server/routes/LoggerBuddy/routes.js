@@ -36,7 +36,6 @@ router.get("/streams/headers", async (req, res, next) => {
 router.post("/posts/tagged", async (req, res, next) => {
   try {
     let { tags, page, trackedStream } = req.body;
-
     page -= 1;
 
     const streamFilter =
@@ -47,11 +46,16 @@ router.post("/posts/tagged", async (req, res, next) => {
             })),
           }
         : {};
-
     const taggedFilter =
-      tags.length > 0
+      tags.length > 0 && !tags.includes("*")
         ? {
-            $or: tags.map((tags) => ({ tags })),
+            $or: tags.map((tags) => {
+              return {
+                tags: {
+                  $regex: new RegExp(tags, "i"),
+                },
+              };
+            }),
           }
         : {};
 
@@ -64,19 +68,19 @@ router.post("/posts/tagged", async (req, res, next) => {
     ])
       .sort({ datePosted: -1 })
       .exec();
-
-    const scrums = await Scrum.aggregate([
-      {
-        $match: {
-          $or: taggedStreams.map((v) => ({
-            streamId: new mongoose.Types.ObjectId(v._id),
-          })),
-        },
-      },
-    ]).exec();
-
+    const scrums =
+      taggedStreams.length > 0
+        ? await Scrum.aggregate([
+            {
+              $match: {
+                $or: taggedStreams.map((v) => ({
+                  streamId: new mongoose.Types.ObjectId(v._id),
+                })),
+              },
+            },
+          ]).exec()
+        : [];
     // find scrums for tagged streams
-    // console.log(taggedStreams.map((v) => [v._id, v.streamName]));
     let streams = taggedStreams.map((o) => {
       const { posts, _id, links, ...rest } = o;
       let stringLinks = links.map((link) => JSON.parse(link));
@@ -116,7 +120,6 @@ router.post("/posts/tagged", async (req, res, next) => {
     ])
       .sort({ datePosted: -1 })
       .exec();
-
     const postsv3 = postsv2.map((v) => {
       const hasScrum =
         scrums.findIndex((t) => t.streamId.equals(v.streamId)) !== -1
@@ -125,7 +128,6 @@ router.post("/posts/tagged", async (req, res, next) => {
 
       return { ...hasScrum, ...v };
     });
-
     res
       .status(200)
       .send({ streams, posts: postsv3.slice(page * 5, page * 5 + 5) });
@@ -135,20 +137,12 @@ router.post("/posts/tagged", async (req, res, next) => {
   }
 });
 
-// router.get("/posts", async (req, res) => {
-//   let page = req.headers.page - 1;
-//   // dt =
-//   //   dt == 0
-//   //     ? new Date()
-//   //     : new Date(dt).setSeconds(new Date(dt).getSeconds() - 10);
-//   // //
-//   const posts = await Post.find({
-//     // datePosted: {
-//     //   $lte: dt,
-//     // },
-//   }).sort({ datePosted: -1 });
-//   res.send(posts.slice(page * 5, page * 5 + 5));
-// });
+router.get("/post/:_id", async (req, res) => {
+  const post = await Post.findOne({ _id: req.params._id });
+  const stream = await Stream.findOne({ _id: post.streamId });
+  const posts = await Post.find({ streamId: post.streamId });
+  res.send({ target: post, siblings: posts, stream });
+});
 
 // router.get("/posts/:streamId", async (req, res) => {
 //   let page = req.headers.page - 1;
