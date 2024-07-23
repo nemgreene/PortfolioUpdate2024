@@ -9,6 +9,7 @@ import NativeSelect from "@mui/material/NativeSelect";
 import DragAndDrop from "./DragAndDrop";
 import Pictures from "./Pictures";
 import TagSelect from "./TagSelect";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
 export default function PostForm({
   client,
@@ -117,10 +118,11 @@ export default function PostForm({
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
                     Stream
-                  </InputLabel>
+                  </InputLabel> */}
                   <NativeSelect
+                    label={"test"}
                     onChange={handleStreamChange}
                     value={formData.streamId}
                     error={formErrors.streamId === false}
@@ -142,7 +144,9 @@ export default function PostForm({
             </Grid>
             <Grid>
               <TextField
+                inputProps={{ resize: "both" }}
                 margin="normal"
+                spellCheck={true}
                 value={formData.body}
                 error={formErrors.body === false}
                 id="outlined-basic"

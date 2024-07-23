@@ -195,7 +195,7 @@ function ContentCard({
       </CardContent>
       <CardActions disableSpacing>
         {postObj.hasScrum && (
-          <Link to={`scrum/${postObj.streamId}`}>
+          <Link to={`/loggerBuddy/scrum/${postObj.streamId}`}>
             <Tooltip title={"Scrum Board"}>
               <IconButton aria-label={"Scrum Board"}>
                 <LogoDevIcon />

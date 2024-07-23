@@ -9,7 +9,6 @@ export default function TagSelect({
   options,
   label = "Select Tags",
 }) {
-  console.log(value);
   return (
     <Autocomplete
       sx={{

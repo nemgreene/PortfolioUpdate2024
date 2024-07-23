@@ -20,8 +20,6 @@ import FormattedTextDocs from "../../Utilities/FormattedTextDocs";
 
 export default function AdminDashboard({
   client,
-  streamHeaders,
-  tags,
   changeStoredStream,
   storedStream,
 }) {
@@ -34,9 +32,10 @@ export default function AdminDashboard({
     streamName: storedStream ? storedStream.streamName : "",
     streamId: storedStream ? storedStream.streamId : "-1",
     cut: "",
-    color: storedStream
-      ? storedStream.color
-      : `#${Math.random().toString(16).substr(-6)}`,
+    color: "",
+    // color: storedStream
+    //   ? storedStream.color
+    //   : `#${Math.random().toString(16).substr(-6)}`,
   });
   const [formErrors, changeFormErrors] = useState({});
   const [streamForm, changeStreamForm] = useState({
@@ -49,6 +48,8 @@ export default function AdminDashboard({
   const [links, changeLinks] = useState([]);
   const [editIndex, changeEditIndex] = useState();
   const [inputTags, changeInputTags] = useState([]);
+  const [streamHeaders, setStreamHeaders] = useState([]);
+  const [tags, setTags] = useState([]);
 
   const generateColor = () => {
     changeStreamForm((p) => ({
@@ -66,8 +67,19 @@ export default function AdminDashboard({
     }
   };
 
+  const getOverhead = async () => {
+    const ret = await client.getStreamHeaders();
+    if (ret.data) {
+      setStreamHeaders(ret.data);
+      let tags = [
+        ...new Set(ret.data.reduce((acc, v) => [...acc, ...v.tags], [])),
+      ];
+      setTags(tags || []);
+    }
+  };
   useEffect(() => {
-    generateColor();
+    getOverhead();
+    // generateColor();
   }, []);
 
   const handleStreamChange = (e) => {
@@ -77,7 +89,7 @@ export default function AdminDashboard({
     // changeStoredStream({});
     if (e.target.value === "add") {
       changeFormData((p) => ({
-        ...p,
+        // ...p,
         streamId: e.target.value,
       }));
     } else {
@@ -343,7 +355,7 @@ export default function AdminDashboard({
               ) : (
                 <PostForm
                   client={client}
-                  images={images}
+                  images={images || []}
                   changeImages={changeImages}
                   formData={formData}
                   formErrors={formErrors}
@@ -366,10 +378,10 @@ export default function AdminDashboard({
                         streamId: "-1",
                         cut: "",
                       });
-                      changeImages();
-                      changeStoredStream({});
-                      client.loadTaggedData();
-                      client.loadStreams();
+                      // changeImages();
+                      // changeStoredStream({});
+                      // client.loadTaggedData();
+                      // client.loadStreams();
                       client.redirect("/loggerBuddy/");
                     }}
                   >

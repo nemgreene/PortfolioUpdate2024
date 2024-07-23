@@ -41,6 +41,13 @@ const modalHandler = (status, message, config = undefined) => {
     toast.error(message, { ...toastrConfig });
   }
 };
+function ProtectedRoute({ redirect = "/loggerBuddy", children }) {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    return <Navigate to={redirect} replace />;
+  }
+  return children;
+}
 
 export default function LoggerBuddyMain2() {
   // #region
@@ -104,10 +111,31 @@ export default function LoggerBuddyMain2() {
       <CssBaseline />
       <Routes>
         <Route
+          path="/scrum/:trackedStream"
+          element={<ScrumBoard client={client} credentials={credentials} />}
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginComponent client={client} setCredentials={setCredentials} />
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard client={client} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/post/:postId"
           element={<PostPage client={client} credentials={credentials} />}
         />
-        <Route path="/" element={<DashContainer />}>
+        <Route
+          path="/"
+          element={<DashContainer credentials={credentials} client={client} />}
+        >
           {["", ":tags?/:streams?/:page?"].map((v, i) => (
             <Route
               key={i}

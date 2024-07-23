@@ -10,12 +10,18 @@ import moment from "moment";
 
 import StreamLinksTable from "./StreamLinksTable";
 import TagSelect from "./TagSelect";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function EditStream({ client, editPost, tags }) {
+export default function EditStream({
+  client,
+  editPost,
+  tags = [],
+  streamHeaders,
+}) {
   const [formData, changeFormData] = useState(editPost);
   const [formErrors, changeFormErrors] = useState({});
   const [inputTags, changeTags] = useState(editPost.stream.tags);
-  const [links, changeLinks] = useState(editPost.stream.links);
+  const [links, changeLinks] = useState(editPost.stream.links || []);
   const [editIndex, changeEditIndex] = useState();
   const [dateCreated, changeDate] = useState(
     moment(editPost.stream.dateCreated)
@@ -24,6 +30,9 @@ export default function EditStream({ client, editPost, tags }) {
   const handleChange = (e, key, toggle = false) => {
     changeFormData((p) => ({ ...p, [key]: e.target.value }));
   };
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const submitPost = async () => {
     const err = {};
@@ -56,6 +65,9 @@ export default function EditStream({ client, editPost, tags }) {
       links,
     };
     const res = await client.updateStream(submit);
+    if (res.status === 200) {
+      navigate(0);
+    }
   };
 
   return (
@@ -98,7 +110,7 @@ export default function EditStream({ client, editPost, tags }) {
                     label={"Add/Edit Tags"}
                     value={inputTags}
                     setValue={changeTags}
-                    options={tags}
+                    options={tags || []}
                   />
                 </Grid>
               </Grid>
