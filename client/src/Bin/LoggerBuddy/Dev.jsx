@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  createBrowserRouter,
-  Link,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-  useLoaderData,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, Outlet, Route, Routes, useParams } from "react-router-dom";
 
 const DevRoot = () => (
   <div>
@@ -20,18 +10,16 @@ const DevRoot = () => (
 );
 
 const DevContacts = () => {
+  const data = useParams();
+
   useEffect(() => {
     console.log("rendering", Math.random());
-  }, []);
-  const data = useParams();
+  }, [data]);
 
   return <div>Dev cotnact {data.tag}</div>;
 };
 
 export default function Dev() {
-  useEffect(() => {
-    console.log("parent rerendering");
-  }, []);
   return (
     <div>
       <Routes>

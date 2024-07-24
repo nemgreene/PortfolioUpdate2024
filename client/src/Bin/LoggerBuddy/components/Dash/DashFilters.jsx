@@ -50,7 +50,8 @@ export default function DashFilters({ activeTags, tags, streamHeaders }) {
           alignItems: "flex-start",
           padding: "0px 10px",
         }}
-        xs={6}
+        xs={12}
+        md={6}
       >
         <TagSelect
           options={tags || []}
@@ -72,7 +73,8 @@ export default function DashFilters({ activeTags, tags, streamHeaders }) {
           alignItems: "center",
           padding: "0px 10px",
         }}
-        xs={6}
+        xs={12}
+        md={6}
       >
         <StreamSelect
           options={streamHeaders}

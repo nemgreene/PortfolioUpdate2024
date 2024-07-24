@@ -67,7 +67,7 @@ export default function StreamTable({
               editPost={editPost}
               streamHeaders={streamHeaders}
               client={client}
-            />
+            ></EditStream>
           ) : (
             <EditPost
               editPost={editPost}
@@ -105,7 +105,7 @@ export default function StreamTable({
                       color: localData.color,
                       streamName: localData.streamName,
                       images: [],
-                      stream: v,
+                      stream: localData,
                       hasScrum: credentials._id && credentials.accessToken,
                     }}
                   ></PostCard>

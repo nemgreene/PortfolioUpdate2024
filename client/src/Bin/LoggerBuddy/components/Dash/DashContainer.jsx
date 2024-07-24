@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DashSidebar from "./DashSidebar";
 import { Outlet } from "react-router-dom";
 
-export default function DashContainer({ context }) {
+export default function DashContainer({ context, credentials, client }) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -16,6 +16,8 @@ export default function DashContainer({ context }) {
       }}
     >
       <DashSidebar
+        credentials={credentials}
+        client={client}
         open={open}
         context={context}
         handleDrawerOpen={() => setOpen(true)}
