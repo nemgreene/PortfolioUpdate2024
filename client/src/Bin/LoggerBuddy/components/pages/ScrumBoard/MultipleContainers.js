@@ -72,11 +72,8 @@ export default function MultipleContainers({
             flexWrap: "nowrap",
             overflowX: "scroll",
             width: "100vw",
-            // width: "fit-content",
             p: `${theme.spacing(1)} 0`,
             height: "100%",
-
-            // height: `calc(100% - ${theme.spacing(3)})`,
           }}
         >
           <SortableContext

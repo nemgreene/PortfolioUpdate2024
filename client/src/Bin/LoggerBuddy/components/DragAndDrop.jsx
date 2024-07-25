@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import Skeleton from "@mui/material/Skeleton";
 import { Grid, Typography, Container } from "@mui/material";
+import { Buffer } from "buffer";
 
 const baseStyle = {
   flex: 1,
@@ -32,7 +33,6 @@ const rejectStyle = {
 export default function DragAndDrop({ images, changeImages }) {
   const onDrop = useCallback(async (acceptedFiles) => {
     const list = [];
-
     acceptedFiles.forEach((file, i) => {
       const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");

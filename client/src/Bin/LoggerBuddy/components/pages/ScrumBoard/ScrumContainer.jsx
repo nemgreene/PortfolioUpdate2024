@@ -86,7 +86,11 @@ export default function ScrumContainer(props) {
     minHeight: "10vh",
     overflowY: "scroll",
     borderRadius: "20px",
-    height: "100%",
+    height: "fit-content",
+    maxHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+    maxHeight: "90vh",
     // backgroundColor: props.col.color + "60",
     backgroundColor: props.col.color,
     padding: (t) => t.spacing(1),
@@ -130,9 +134,11 @@ export default function ScrumContainer(props) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
-      <Box sx={{ ...containerStyle, height: "fit-content" }}>
+      <Box sx={{ ...containerStyle }}>
+        {/* Header */}
         <Box
           sx={{
+            order: 0,
             display: "flex",
             width: "100%",
           }}
@@ -147,6 +153,7 @@ export default function ScrumContainer(props) {
               flexWrap: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              order: 3,
             }}
           >
             <Typography
@@ -207,10 +214,31 @@ export default function ScrumContainer(props) {
             </Box>
           )}
         </Box>
+        {/* Add card */}
+        {accessToken && _id && (
+          <Button
+            fullWidth
+            onClick={() => {
+              props.openModal({
+                name: "AddItem",
+                col: { ...props.col },
+              });
+            }}
+            sx={{
+              order: 2,
+              color: "white",
+              borderRadius: "20px",
+              mt: (theme) => `${theme.spacing(1)} `,
+            }}
+          >
+            <AddCircleIcon sx={{ m: (t) => t.spacing(1) }} />
+            <Typography variant="body2">Add card</Typography>
+          </Button>
+        )}
+        {/* contents */}
         <Box
           sx={{
             height: "fit-content",
-            maxHeight: "80vh",
             borderRadius: "inherit",
             overflowY: "scroll",
           }}
@@ -248,25 +276,6 @@ export default function ScrumContainer(props) {
             </Card>
           )}
         </Box>
-        {accessToken && _id && (
-          <Button
-            fullWidth
-            onClick={() => {
-              props.openModal({
-                name: "AddItem",
-                col: { ...props.col },
-              });
-            }}
-            sx={{
-              color: "white",
-              borderRadius: "20px",
-              mt: (theme) => `${theme.spacing(1)} `,
-            }}
-          >
-            <AddCircleIcon sx={{ m: (t) => t.spacing(1) }} />
-            <Typography variant="body2">Add card</Typography>
-          </Button>
-        )}
       </Box>
     </div>
   );
