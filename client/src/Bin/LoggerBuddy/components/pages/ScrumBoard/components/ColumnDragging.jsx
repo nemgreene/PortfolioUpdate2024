@@ -26,6 +26,7 @@ export default function ColumnDragging({
       >
         <Box
           sx={{
+            order: 0,
             display: "flex",
             width: "100%",
           }}
@@ -55,10 +56,29 @@ export default function ColumnDragging({
             </Typography>
           </Box>
         </Box>
+        <Box sx={{ order: 3 }}>
+          <Button
+            fullWidth
+            onClick={() => {
+              props.openModal({
+                name: "AddItem",
+                col: { ...props.col },
+              });
+            }}
+            sx={{
+              color: "white",
+              borderRadius: "10px",
+              opacity: 0,
+              mt: (theme) => `${theme.spacing(1)} `,
+            }}
+          >
+            <AddCircleIcon sx={{ m: (t) => t.spacing(1) }} />
+            <Typography variant="body2">Add card</Typography>
+          </Button>
+        </Box>
         <Box
           sx={{
             height: "fit-content",
-            maxHeight: "70vh",
             borderRadius: "inherit",
             overflowY: "scroll",
           }}
@@ -91,24 +111,6 @@ export default function ColumnDragging({
               </CardContent>
             </Card>
           )}
-          <Button
-            fullWidth
-            onClick={() => {
-              props.openModal({
-                name: "AddItem",
-                col: { ...props.col },
-              });
-            }}
-            sx={{
-              color: "white",
-              borderRadius: "10px",
-              opacity: 0,
-              mt: (theme) => `${theme.spacing(1)} `,
-            }}
-          >
-            <AddCircleIcon sx={{ m: (t) => t.spacing(1) }} />
-            <Typography variant="body2">Add card</Typography>
-          </Button>
         </Box>
       </Box>
     </div>

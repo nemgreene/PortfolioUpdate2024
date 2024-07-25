@@ -27,27 +27,29 @@ export default function PostForm({
   return (
     <Box sx={{ width: "100%" }}>
       {images && images[0] ? (
-        <Container>
-          <Card>
-            <Pictures images={images} edit={edit} />
-            <br />
-            {images.length > 0 ? (
-              <Grid container spacing={2}>
-                <Grid item xs={12} sx={{ marginTop: 2 }}>
-                  <Button
-                    sx={{ padding: 2 }}
-                    variant="contained"
-                    onClick={() => {
-                      changeImages([]);
-                    }}
-                    color="error"
-                    fullWidth
-                  >
-                    Delete Images
-                  </Button>
+        <Container sx={{ pb: 0 }}>
+          <Card sx={{ pb: 0 }}>
+            <CardContent sx={{ pb: "0px !important" }}>
+              <Pictures images={images} edit={edit} />
+              <br />
+              {images.length > 0 ? (
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sx={{ marginTop: 2 }}>
+                    <Button
+                      sx={{ padding: 2 }}
+                      variant="contained"
+                      onClick={() => {
+                        changeImages([]);
+                      }}
+                      color="error"
+                      fullWidth
+                    >
+                      Delete Images
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            ) : null}
+              ) : null}
+            </CardContent>
           </Card>
         </Container>
       ) : (
