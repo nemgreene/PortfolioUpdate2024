@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PostForm from "./PostForm";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Buffer } from "buffer";
 import FormattedTextDocs from "../../Utilities/FormattedTextDocs";
+import PostCard from "./PostCard";
 
 export default function EditPost({ streamHeaders, client, editPost }) {
   const [images, changeImages] = useState(editPost.images);
@@ -92,30 +93,45 @@ export default function EditPost({ streamHeaders, client, editPost }) {
     }
   };
   return (
-    <div onPaste={handlePaste}>
-      <PostForm
-        client={client}
-        images={images}
-        changeImages={changeImages}
-        formData={formData}
-        formErrors={formErrors}
-        handleChange={handleChange}
-        handleStreamChange={handleStreamChange}
-        streamHeaders={streamHeaders}
-        submitPost={submitPost}
-        editPost={editPost}
-        edit={deleteImage}
-      >
-        <Button
-          fullWidth
-          variant="contained"
-          color="error"
-          onClick={() => deletePost()}
-        >
-          Delete
-        </Button>
-        <FormattedTextDocs />
-      </PostForm>
-    </div>
+    <Grid container>
+      <Grid sx={{ maxHeight: "90vh", overflowY: "scroll" }} xs={6} item>
+        <div onPaste={handlePaste}>
+          <PostForm
+            client={client}
+            images={images}
+            changeImages={changeImages}
+            formData={formData}
+            formErrors={formErrors}
+            handleChange={handleChange}
+            handleStreamChange={handleStreamChange}
+            streamHeaders={streamHeaders}
+            submitPost={submitPost}
+            editPost={editPost}
+            edit={deleteImage}
+          >
+            <Button
+              fullWidth
+              variant="contained"
+              color="error"
+              onClick={() => deletePost()}
+            >
+              Delete
+            </Button>
+            <FormattedTextDocs />
+          </PostForm>
+        </div>
+      </Grid>
+      <Grid sx={{ maxHeight: "90vh", overflowY: "scroll" }} item xs={6}>
+        <PostCard
+          postObj={{
+            ...formData,
+            hasScrum: false,
+            stream: { ...formData.stream, links: [] },
+          }}
+          page={true}
+          streamTracking={false}
+        />
+      </Grid>
+    </Grid>
   );
 }

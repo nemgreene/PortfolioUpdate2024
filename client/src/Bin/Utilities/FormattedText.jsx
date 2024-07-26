@@ -27,37 +27,6 @@ export default function FormattedText({ children }) {
 
   const formattedTextTheme = {
     ...theme,
-    typography: {
-      // ...theme.typography,
-      // h1: {
-      //   ...theme.typography.h1,
-      //   fontSize: `calc(${theme.typography.h1.fontSize} * .3)`,
-      // },
-      // h2: {
-      //   ...theme.typography.h2,
-      //   fontSize: `calc(${theme.typography.h2.fontSize} * .4)`,
-      // },
-      // h3: {
-      //   ...theme.typography.h3,
-      //   fontSize: `calc(${theme.typography.h3.fontSize} * .5)`,
-      // },
-      // h4: {
-      //   ...theme.typography.h4,
-      //   fontSize: `calc(${theme.typography.h4.fontSize} * .6)`,
-      // },
-      // h5: {
-      //   ...theme.typography.h5,
-      //   fontSize: `calc(${theme.typography.h5.fontSize} * .7)`,
-      // },
-      // h6: {
-      //   ...theme.typography.h6,
-      //   fontSize: `calc(${theme.typography.h6.fontSize} * .8)`,
-      // },
-      // h6: {
-      //   ...theme.typography.h6,
-      //   fontSize: `calc(${theme.typography.h6.fontSize} * .8)`,
-      // },
-    },
   };
 
   const zips = [
@@ -76,21 +45,7 @@ export default function FormattedText({ children }) {
       "caption",
       "overline",
     ],
-    [
-      ".4",
-      ".5",
-      ".6",
-      ".7",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-      ".8",
-    ],
+    [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
   zips[0].forEach((name, i) => {
