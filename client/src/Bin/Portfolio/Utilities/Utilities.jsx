@@ -10,6 +10,7 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import { DevBlog } from "./DevBlog";
 import { SudokuApp } from "./SudokuApp";
 import { PlantApp } from "./PlantAppProject";
+import WebIcon from "@mui/icons-material/Web";
 
 export const letters = Array.from("abcdefghijklmnopqrstuvwx");
 
@@ -20,7 +21,7 @@ export const categories = [
     title: "Web Dev",
     projects: [
       { title: "Development Blog", content: DevBlog },
-      // { title: "Plant App", content: PlantApp },
+      { title: "Plant App", content: PlantApp },
       { title: "Sudoku Generator", content: SudokuApp },
     ],
   },
@@ -47,4 +48,5 @@ export const iconDictionary = {
   Github: (sx = {}) => <GitHubIcon sx={sx} />,
   Youtube: (sx = {}) => <YouTubeIcon sx={sx} />,
   Artstation: (sx = {}) => <PaletteIcon sx={sx} />,
+  Deployment: (sx = {}) => <WebIcon sx={sx} />,
 };

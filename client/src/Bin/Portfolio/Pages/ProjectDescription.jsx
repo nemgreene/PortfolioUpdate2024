@@ -208,6 +208,8 @@ export default function ProjectDescription() {
                 {projectData.content.links.map((link, index) =>
                   link.icon && iconDictionary[link.icon] ? (
                     <Button
+                      target="_blank"
+                      href={link.src}
                       sx={{ color: "inherit" }}
                       key={index}
                       endIcon={iconDictionary[link.icon]()}

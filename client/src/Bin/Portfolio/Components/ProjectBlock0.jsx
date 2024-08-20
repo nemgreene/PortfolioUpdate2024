@@ -8,7 +8,7 @@ export default function ProjectBlock0({ blockData }) {
     <Box
       className="projectBlock0"
       sx={{
-        width: "100%",
+        width: "100vw",
         height: "100%",
         display: "flex",
         flexDirection: "column",

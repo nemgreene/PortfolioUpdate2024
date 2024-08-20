@@ -28,7 +28,7 @@ export default function ProjectBlock2({ blockData, index, setCarouselImages }) {
         })}
       >
         <ProjectBlockContainer>
-          <Grid container>
+          <Grid container sx={{ flexDirection: "inherit" }}>
             <Grid item xs={12} lg={6}>
               {blockData?.videos?.map((v, i) => (
                 <ProjectVideo

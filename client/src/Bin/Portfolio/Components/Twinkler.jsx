@@ -166,6 +166,7 @@ export default function Twinkler({
           overflow: "scroll",
           color: "white",
           height: "100%",
+          width: "100%",
           ...sx,
         }}
       >
