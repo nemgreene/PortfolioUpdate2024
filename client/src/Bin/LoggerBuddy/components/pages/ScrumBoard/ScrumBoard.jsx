@@ -36,6 +36,14 @@ export default function ScrumBoard({ client, credentials }) {
   const [streamData, changeStreamData] = useState({});
   const [possibleLabels, setPossibleLabels] = useState([]);
 
+  const [editMode, setEditMode] = useState(false);
+  const [selectedTasks, setSelectedTasks] = useState([]);
+
+  const toggleTaskSelection = () => {};
+
+  const bulkMoveTasks = (tasks = [], targetId = "") => {
+    console.log(tasks, targetId);
+  };
   const loadScrumBoard = async () => {
     setColumns([]);
     setTasks([]);
@@ -171,11 +179,18 @@ export default function ScrumBoard({ client, credentials }) {
           }}
         >
           <Box>
-            <ScrumNav streamData={streamData} client={client} />
+            <ScrumNav
+              editMode={editMode}
+              setEditMode={setEditMode}
+              streamData={streamData}
+              client={client}
+            />
           </Box>
           <Box sx={{ flex: 1, overflow: "hidden" }}>
             <DndProvider backend={HTML5Backend}>
               <MultipleContainers
+                editMode={editMode}
+                bulkMoveTasks={bulkMoveTasks}
                 credentials={credentials}
                 openModal={handleOpen}
                 columns={columns}

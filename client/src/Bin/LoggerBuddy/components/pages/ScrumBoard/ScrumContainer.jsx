@@ -1,5 +1,5 @@
 import SortableItem from "./SortableItem";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -23,6 +23,7 @@ import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/system";
 import ColumnAdd from "./components/ColumnAdd";
 import ColumnDragging from "./components/ColumnDragging";
+import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 
 const CGrid = (props) => (
   <Grid
@@ -47,6 +48,7 @@ export default function ScrumContainer(props) {
     () => props.client.credentialsProvider(),
     [props.client]
   );
+  const [editMode, setEditMode] = useState(false);
 
   const theme = useTheme();
   const {
@@ -153,7 +155,6 @@ export default function ScrumContainer(props) {
               flexWrap: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              order: 3,
             }}
           >
             <Typography
@@ -181,9 +182,19 @@ export default function ScrumContainer(props) {
               {props?.tasks?.length} tasks
             </Typography>
           </Box>
-          {props.credentials._id && props.credentials.accessToken && (
-            <Box sx={{ width: "20%", maxWidth: "50px" }}>
-              <Grid item xs={12} container columns={2} sx={{ height: "100%" }}>
+          {/* {props.credentials._id && props.credentials.accessToken && ( */}
+          {true && (
+            <Box sx={{ width: "25%" }}>
+              <Grid item xs={12} container columns={3} sx={{ height: "100%" }}>
+                <CGrid item xs={1}>
+                  <Tooltip
+                    title="Edit Column"
+                    // onClick={() => setEditMode((p) => !p)}
+                  >
+                    <ViewTimelineIcon fontSize="small" />
+                    {/* <EditIcon fontSize="small" /> */}
+                  </Tooltip>
+                </CGrid>
                 <CGrid item xs={1}>
                   <Tooltip
                     title="Edit Column"
@@ -260,6 +271,7 @@ export default function ScrumContainer(props) {
                 >
                   {props.tasks.map((item) => (
                     <SortableItem
+                      editMode={props.editMode}
                       client={props.client}
                       hoveredComponent={props.hoveredComponent}
                       setHoveredComponent={props.setHoveredComponent}
