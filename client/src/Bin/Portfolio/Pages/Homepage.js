@@ -127,15 +127,15 @@ const Homepage = ({ setInitialized, initialized }) => {
   const navigate = useNavigate();
   const portfolioContainerRef = useRef(null);
 
-  useEffect(() => {
-    navigate("/");
-    // window.scrollTo(0, 0);
-    // if (initialized) {
-    //   enableBodyScroll(portfolioContainerRef.current);
-    // } else {
-    //   disableBodyScroll(portfolioContainerRef.current);
-    // }
-  }, [initialized]);
+  // useEffect(() => {
+  //   navigate("/");
+  //   // window.scrollTo(0, 0);
+  //   // if (initialized) {
+  //   //   enableBodyScroll(portfolioContainerRef.current);
+  //   // } else {
+  //   //   disableBodyScroll(portfolioContainerRef.current);
+  //   // }
+  // }, [initialized]);
 
   const containerRef = useRef(null);
 
