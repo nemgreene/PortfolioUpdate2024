@@ -9,12 +9,21 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { DevBlog } from "./DevBlog";
 import { SudokuApp } from "./SudokuApp";
+import { PlantApp } from "./PlantAppProject";
 
 export const letters = Array.from("abcdefghijklmnopqrstuvwx");
 
 export const path404 = "/badUrl";
 
 export const categories = [
+  {
+    title: "Web Dev",
+    projects: [
+      { title: "Development Blog", content: DevBlog },
+      // { title: "Plant App", content: PlantApp },
+      { title: "Sudoku Generator", content: SudokuApp },
+    ],
+  },
   {
     title: "Tehcnical Art",
     projects: [
@@ -28,13 +37,6 @@ export const categories = [
   {
     title: "Modeling/Rigging",
     projects: [{ title: "Universal Topology", content: UniversalProject }],
-  },
-  {
-    title: "Web Dev",
-    projects: [
-      { title: "Development Blog", content: DevBlog },
-      { title: "Sudoku Generator", content: SudokuApp },
-    ],
   },
   // { title: "WebDev" },
   // { title: "VisDev" },

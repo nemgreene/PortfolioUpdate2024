@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardContent,
+  Checkbox,
   Chip,
   Grid,
   Typography,
@@ -18,7 +19,7 @@ import ItemDates from "./components/ItemDates";
 
 export default function SortableItem({
   task,
-  overlay,
+  editMode,
   openModal,
   active,
   hoveredComponent,
@@ -112,40 +113,60 @@ export default function SortableItem({
                   "&:last-child": {
                     paddingBottom: (t) => t.spacing(2),
                   },
+                  pl: (t) => (!editMode ? `${t.spacing(1)}` : 0),
                 }
               : {
                   ...cardContent,
                   opacity: 0.5,
                   border: (t) => `1px solid ${t.palette.primary.main}`,
                   borderRadius: "7px",
+                  pl: (t) => (!editMode ? `${t.spacing(1)}` : 0),
                 }
           }
         >
-          <Grid container sx={{ cursor: "move" }} {...listeners}>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                cursor: accessToken && _id ? "move" : "auto",
-              }}
-            >
-              <TaskTitle>
-                {task.title}
-                <span style={{ opacity: 0.5 }}> #{task.issueNumber}</span>
-              </TaskTitle>
-            </Grid>
-          </Grid>
-          <ItemIcons
-            client={client}
-            col={col}
-            hoveredComponent={hoveredComponent}
-            task={task}
-            isDragging={isDragging}
-            active={active}
-            openModal={openModal}
-          />
-          {task.labels.length > 0 && <Labels />}
-          {task.dates.length > 0 && <ItemDates dates={task.dates} />}
+          <Box
+            sx={{
+              flexDirection: "row",
+              display: "flex",
+              height: "fit-content",
+              alignItems: "center",
+            }}
+          >
+            {editMode ? (
+              <Box>
+                <Checkbox />
+              </Box>
+            ) : (
+              false
+            )}
+            <Box>
+              <Grid container sx={{ cursor: "move" }} {...listeners}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    cursor: accessToken && _id ? "move" : "auto",
+                  }}
+                >
+                  <TaskTitle>
+                    {task.title}
+                    <span style={{ opacity: 0.5 }}> #{task.issueNumber}</span>
+                  </TaskTitle>
+                </Grid>
+              </Grid>
+              <ItemIcons
+                client={client}
+                col={col}
+                hoveredComponent={hoveredComponent}
+                task={task}
+                isDragging={isDragging}
+                active={active}
+                openModal={openModal}
+              />
+              {task.labels.length > 0 && <Labels />}
+              {task.dates.length > 0 && <ItemDates dates={task.dates} />}
+            </Box>
+          </Box>
         </CardContent>
       </Card>
     </div>

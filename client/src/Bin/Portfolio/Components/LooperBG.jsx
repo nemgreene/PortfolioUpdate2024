@@ -52,7 +52,7 @@ export default memo(function LooperBG({ index }) {
         >
           <Scroller
             duration={10}
-            loopers={4}
+            loopers={10}
             sx={{ zIndex: 100, opacity: 0.75 }}
             labels={[
               <pre

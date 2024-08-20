@@ -20,7 +20,6 @@ import { Box, styled } from "@mui/system";
 // import { SortableItem } from "./SortableItem";
 import ScrumContainer from "./ScrumContainer";
 import SortableItem from "./SortableItem";
-import ScrumNav from "./ScrumNav";
 import { Card, CardContent, Typography, useTheme } from "@mui/material";
 
 export default function MultipleContainers({

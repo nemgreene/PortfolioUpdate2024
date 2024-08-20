@@ -118,6 +118,10 @@ const Homepage = ({ setInitialized, initialized }) => {
   );
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
+
+  useEffect(() => {
     setLoaded(true);
   }, []);
   const navigate = useNavigate();
@@ -125,12 +129,12 @@ const Homepage = ({ setInitialized, initialized }) => {
 
   useEffect(() => {
     navigate("/");
-    window.scrollTo(0, 0);
-    if (initialized) {
-      enableBodyScroll(portfolioContainerRef.current);
-    } else {
-      disableBodyScroll(portfolioContainerRef.current);
-    }
+    // window.scrollTo(0, 0);
+    // if (initialized) {
+    //   enableBodyScroll(portfolioContainerRef.current);
+    // } else {
+    //   disableBodyScroll(portfolioContainerRef.current);
+    // }
   }, [initialized]);
 
   const containerRef = useRef(null);

@@ -14,6 +14,7 @@ export default function ProjectBlock0({ blockData }) {
         flexDirection: "column",
         position: "relative",
         overflowX: "hidden",
+        pb: 5,
       }}
     >
       <Box className="utilCenter">
@@ -31,7 +32,7 @@ export default function ProjectBlock0({ blockData }) {
             sx={{ width: "100%", maxHeight: "20vh", overflow: "hidden" }}
           >
             <img
-              style={{ width: "100%" }}
+              style={{ width: "100%", opacity: 0.5 }}
               src={blockData.images[0].src}
               alt={blockData.images[0].alt}
             ></img>
