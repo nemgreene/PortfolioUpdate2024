@@ -29,7 +29,7 @@ export default function ProjectBlock3({ blockData, index, setCarouselImages }) {
         })}
       >
         <ProjectBlockContainer>
-          <Grid container>
+          <Grid container sx={{ flexDirection: "inherit" }}>
             <Grid
               container
               justifyContent="center"

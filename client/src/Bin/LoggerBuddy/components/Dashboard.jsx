@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import HomeDrawer from "./HomeDrawer";
 import StreamTable from "./StreamTable";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
@@ -12,6 +11,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import Paper from "@mui/material/Paper";
 import { drawerWidth, paramsExtraction } from "./Utility";
 import { useParams } from "react-router-dom";
+import DashSidebar from "./Dash/DashSidebar";
 
 export default function Dashboard({
   tags,
@@ -47,44 +47,10 @@ export default function Dashboard({
   };
 
   console.log(useParams());
-  // useEffect(() => {
-  //   const [accessToken, _id] = [
-  //     localStorage.getItem("accessToken"),
-  //     localStorage.getItem("user_id"),
-  //   ];
-  //   if (accessToken && _id) {
-  //     client.credentialsManager(accessToken, _id);
-  //   }
-  //   // console.log(params);
-  //   // check for params
-  //   if (params.tags || params.stream) {
-  //     let { tags, streams } = paramsExtraction(params);
-  //     if (tags) {
-  //       changeActiveTags(tags);
-  //     }
-  //     if (streams) {
-  //       changeTrackedStream(streams);
-  //     }
-  //   }
-  //   // loadStreams();
-  //   // setInitialized(true);
-  // }, []);
 
-  // useEffect(() => {
-  //   if (initialized) {
-  //     changeDisplayPosts([]);
-  //     if (trackedStream.length > 0) {
-  //       setPage(1);
-  //       loadTaggedData(1);
-  //     } else {
-  //       setPage(storedPage);
-  //       loadTaggedData(storedPage);
-  //     }
-  //   }
-  // }, [trackedStream, activeTags, initialized]);
   return (
     <div className="LoggerBuddy">
-      <HomeDrawer
+      <DashSidebar
         tags={tags}
         client={client}
         credentials={credentials}
@@ -131,7 +97,7 @@ export default function Dashboard({
             </Grid>
           </Grid>
         </Grid>
-      </HomeDrawer>
+      </DashSidebar>
     </div>
   );
 }

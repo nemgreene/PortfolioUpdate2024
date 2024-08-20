@@ -12,10 +12,7 @@ import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import BioDrawer from "../BioBar";
-import TagSelect from "../TagSelect";
-import { drawerWidth, paramsExtraction, taggedParams } from "../Utility";
-import StreamSelect from "../StreamSelect";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { drawerWidth } from "../Utility";
 
 export default function DashSidebar({
   client,
@@ -25,26 +22,6 @@ export default function DashSidebar({
   handleDrawerClose,
 }) {
   const theme = useTheme();
-
-  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
-      flexGrow: 10,
-      width: "100%",
-      padding: theme.spacing(3),
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create("margin", {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    })
-  );
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",

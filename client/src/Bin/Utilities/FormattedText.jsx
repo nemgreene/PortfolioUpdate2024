@@ -20,8 +20,6 @@ import remarkGfm from "remark-gfm";
 import { default as SyntaxHighlighter } from "react-syntax-highlighter";
 import { stackoverflowDark as darkHighlightStyle } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-import GlobalStyles from "@mui/material/GlobalStyles";
-
 export default function FormattedText({ children }) {
   const theme = useTheme();
 
