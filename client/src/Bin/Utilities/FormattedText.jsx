@@ -2,6 +2,7 @@ import React from "react";
 import { default as ReactMarkdown } from "react-markdown";
 import {
   Box,
+  createTheme,
   Link,
   List,
   ListItem,
@@ -21,36 +22,20 @@ import { default as SyntaxHighlighter } from "react-syntax-highlighter";
 import { stackoverflowDark as darkHighlightStyle } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export default function FormattedText({ children }) {
+  const zips = [
+    ["h1", "h2", "h3", "h4", "h5"],
+    [0.5, 0.6, 0.7, 0.8, 0.9],
+  ];
   const theme = useTheme();
 
-  const formattedTextTheme = {
-    ...theme,
-  };
-
-  const zips = [
-    [
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "h5",
-      "h6",
-      "subtitle1",
-      "subtitle2",
-      "body1",
-      "body2",
-      "button",
-      "caption",
-      "overline",
-    ],
-    [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1, 1, 1, 1, 1, 1, 1],
-  ];
-
-  zips[0].forEach((name, i) => {
-    formattedTextTheme.typography[name] = {
-      ...theme.typography[name],
-      fontSize: `calc(${theme.typography[name].fontSize} * ${zips[1][i]} )`,
-    };
+  const formattedTextTheme = createTheme({
+    typography: {
+      h1: { fontSize: theme.typography.h1.fontSize * 0.5 },
+      h2: { fontSize: theme.typography.h2.fontSize * 0.6 },
+      h3: { fontSize: theme.typography.h3.fontSize * 0.7 },
+      h4: { fontSize: theme.typography.h4.fontSize * 0.8 },
+      h5: { fontSize: theme.typography.h5.fontSize * 0.9 },
+    },
   });
 
   return (
@@ -60,8 +45,8 @@ export default function FormattedText({ children }) {
           "& pre": {
             overflowY: "visible !important",
             overflowX: "visible !important",
-            padding: theme.spacing(1),
-            backgroundColor: `${theme.palette.background.paper} !important`,
+            padding: (t) => t.spacing(1),
+            backgroundColor: `palette.background.paper !important`,
           },
         }}
       >
