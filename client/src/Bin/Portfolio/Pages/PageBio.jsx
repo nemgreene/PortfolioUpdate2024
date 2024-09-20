@@ -12,6 +12,30 @@ export default function PageBio() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const lists = [
     {
+      title: "Web Dev.",
+      list: [
+        "FullStack",
+        "Mongo",
+        "Redux",
+        "React",
+        "React-Native",
+        "Next.js",
+        "Vue.js",
+        "Jest.js",
+        "Express",
+        "Node.js",
+        "TDD",
+        "Illustration",
+        "UI/UX",
+        "Perforce",
+        "Git",
+        "Agile",
+      ],
+      p: `FullStack MERN Web Developer. 
+      
+Love of code, love of design, a perfect synnergy in the field. `,
+    },
+    {
       title: "Tech. Art",
       list: [
         "Maya",
@@ -52,25 +76,7 @@ Experienced with tools for development throughout the entire product pipeline fr
 
 Passion for storytelling in all its forms and mediums, with a focus on Feature Film Animation.`,
     },
-    {
-      title: "Web Dev.",
-      list: [
-        "FullStack",
-        "Mongo",
-        "React",
-        "Express",
-        "Node.js",
-        "TDD",
-        "Illustration",
-        "UI/UX",
-        "Perforce",
-        "Git",
-        "Agile",
-      ],
-      p: `FullStack MERN Web Developer. 
-      
-Love of code, love of design, a perfect synnergy in the field. `,
-    },
+
     {
       title: "Games Dev.",
       list: [

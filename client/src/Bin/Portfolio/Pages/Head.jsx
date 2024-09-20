@@ -87,7 +87,8 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
     // if index == 0, reversed = false
     // if index == max, reversed = true
     // else reversed = !reversed
-    reversed = index === 0 ? false : index === number - 1 ? true : !reversed;
+    reversed.current =
+      index === 0 ? false : index === number - 1 ? true : !reversed.current;
 
     //calculate remaining time to other end
     // if index == 0 or index === max, frameDuration * GalleryArr.length
@@ -98,15 +99,15 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
     const remaingDuration =
       index === 0 || index === number - 1
         ? frameDuration * GalleryArr.length
-        : reversed
+        : reversed.current
         ? index * frameDuration
         : (number - 1 - index) * frameDuration;
 
     y.set(rangeA[index]);
-    y.start(reversed ? 0 : 1, {
+    y.start(reversed.current ? 0 : 1, {
       config: { duration: remaingDuration },
       onRest: () => {
-        startPlaying(reversed ? 0 : number - 1);
+        startPlaying(reversed.current ? 0 : number - 1);
       },
     });
   };
@@ -121,7 +122,6 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
   };
 
   //   -----------------------------------------------------------------
-
   return (
     <Box
       className="headContainer"
@@ -134,10 +134,13 @@ export default function Head({ sx, ticksSprings, loadSprings }) {
       }}
     >
       <FrameButtonArr
+        index={y}
         number={number}
         setIndex={setIndex}
         startPlaying={startPlaying}
         ticksSprings={ticksSprings}
+        rangeA={rangeA}
+        rangeB={rangeB}
       />
       {/* Head container */}
       <animated.div

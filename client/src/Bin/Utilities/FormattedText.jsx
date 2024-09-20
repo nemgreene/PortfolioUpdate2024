@@ -29,6 +29,7 @@ export default function FormattedText({ children }) {
   const theme = useTheme();
 
   const formattedTextTheme = createTheme({
+    palette: { mode: "dark" },
     typography: {
       h1: { fontSize: theme.typography.h1.fontSize * 0.5 },
       h2: { fontSize: theme.typography.h2.fontSize * 0.6 },
@@ -46,7 +47,8 @@ export default function FormattedText({ children }) {
             overflowY: "visible !important",
             overflowX: "visible !important",
             padding: (t) => t.spacing(1),
-            backgroundColor: `palette.background.paper !important`,
+            backgroundColor: (theme) =>
+              `${theme.palette.background.paper} !important`,
           },
         }}
       >
