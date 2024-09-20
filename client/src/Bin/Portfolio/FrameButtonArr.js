@@ -42,6 +42,9 @@ export default function FrameButtonArr({
   setIndex,
   startPlaying,
   ticksSprings,
+  index,
+  rangeA,
+  rangeB,
 }) {
   const theme = useTheme();
   const longer = [0, 11, 23];
@@ -110,15 +113,17 @@ export default function FrameButtonArr({
                       height={theme.shape.hudThickness * 4}
                       width={theme.shape.hudThickness * 4}
                     >
-                      <circle
+                      <animated.circle
                         cx={theme.shape.hudThickness * 2}
                         cy={theme.shape.hudThickness * 2}
                         r={theme.shape.hudThickness}
                         className="frameLineOpacity"
-                        fill="none"
+                        fill={index.to(rangeA, rangeB(i)).to((v) => {
+                          return v > 50 ? "white" : "none";
+                        })}
                         strokeWidth={theme.shape.hudThickness / 2}
                         stroke={theme.palette.common.white}
-                      />
+                      ></animated.circle>
                     </animated.svg>
                     <Grid
                       item
